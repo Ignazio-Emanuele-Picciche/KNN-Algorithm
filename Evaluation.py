@@ -22,7 +22,7 @@ class Evaluation:
 
     '''   
     Il processo di valutazione holdout consiste in:
-    1. Dividire i dati: i dati vengono divisi casualmente (viene specificata la percentuale in input dall'utente) in dati di training e dati di test
+    1. Dividire i dati: i dati vengono divisi casualmente (viene specificata la percentuale in input) in dati di training e dati di test
     2. Addestramento del modello: il modello quindi si addestra dandogli "in pasto" i dati x_train e y_train
     3. Valutazione delle performance: il modello appena addestrato viene quindi valutato utilizzando i dati di test (x_test). Le prestazione del modello vengono calcolate tramite diverse metriche
     4. Analisi dei risultati: si analizzano le metriche trovate per capire quanto il mio modello generalizza sui dati sconosciuti
@@ -43,9 +43,11 @@ class Evaluation:
     Il processo di valutazione random subsampling consiste in:
     1. Specificare in input il numero di esperimenti (K) da effettuare
     2. Specificare in input la percentuale per i dati di train e test
-    3. 
+    3. Addestramento del modello: il modello viene addestrato quindi utilizzando x_train e x_test
+    4. Valutazione delle performance: il modello appena addestrato viene quindi valutato utilizzando i dati di test (x_test). Le prestazione del modello vengono calcolate tramite diverse metriche
+    5. Iterazioni multiple: il processo viene ripetuto piu volte (K volte), con nuove suddivisioni casuali del dataset, per ottenere una stima più robusta della performance del modello. Infine le valutazioni multiple vengono aggregate per ottenere una misura comune delle prestazioni del modello.
+    6. Analisi dei risultati: si analizzano le metriche trovate per capire quanto il mio modello generalizza sui dati sconosciuti
     '''
-    
     def valutazione_random_subsampling(self, K):
         # this.K = K # Indica il numero di esperimenti da fare nel caso di valutazione di tipo "Random Subsampling"
         pass
