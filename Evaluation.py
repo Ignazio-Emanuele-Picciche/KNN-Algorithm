@@ -52,5 +52,13 @@ class Evaluation:
         # this.K = K # Indica il numero di esperimenti da fare nel caso di valutazione di tipo "Random Subsampling"
         pass
 
+    '''
+    In questo metodo andremo a calcolare, grazie anche all'ausilio della confution matrix, le seguenti metriche:
+    - Accuracy Rate
+    - Error Rate
+    - Sensitivity
+    - SpeciCicity
+    - Geometric Mean
+    '''
     def calcolo_metrice(self):
         pass
