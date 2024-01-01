@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import pandas as pd
+
 '''
 
 @author: Piccichè-Ignazio-Emanuele
@@ -27,14 +29,15 @@ class Evaluation:
     3. Valutazione delle performance: il modello appena addestrato viene quindi valutato utilizzando i dati di test (x_test). Le prestazione del modello vengono calcolate tramite diverse metriche
     4. Analisi dei risultati: si analizzano le metriche trovate per capire quanto il mio modello generalizza sui dati sconosciuti
     '''
-    def valutazione_holdout(self, x_train, y_train, x_test, y_test):
+    def valutazione_holdout(self, dati, perc_train, perc_test):
         
-        '''
-        this.x_train = x_train
-        this.y_train = y_train
-        this.x_test = x_test
-        this.y_test = y_test
-        '''
+        dati_di_training = dati.sample(frac =  perc_train) # Prendo una percentuali dei dati per il training
+        dati_di_testing = df.drop(dati_di_training.index) # I dati rimanenti li utilizzo per il testing
+
+        X_train = dati_di_training.drop(columns=['Class']) # Dai dati utilizzati per il training, elimino la colonna indicante l'etichetta di appartenenze. Mi creo X_train
+        y_train = dati_di_trainig['Class'] # Dai dati per il train mi salvo solo la colonna indicante l'etichetta di appartenenza. Mi creo y_train
+        X_test = dati_di_testing.drop(columns=['Class']) # Dai dati utilizzati per il testing, elimino la colonna indicante l'etichetta di appartenenza. Mi creo X_test
+        y_yest = dati_di_testing['Class'] # Dai dati di test mi salvo solo la colonna indicante l'etichetta di appartentenza. Mi creo y_test
 
         pass
 
