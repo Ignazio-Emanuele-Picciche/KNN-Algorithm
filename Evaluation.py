@@ -65,5 +65,5 @@ class Evaluation:
     - SpeciCicity
     - Geometric Mean
     '''
-    def calcolo_metrice(self):
+    def calcolo_metrice(self, X_test, y_test, prediction):
         pass
