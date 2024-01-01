@@ -20,8 +20,9 @@ Dic 28/12/2023
 
 class Evaluation:
 
-    def __init__(self):
-        pass
+    def __init__(self, dati, perc_train):
+        self.dati = dati
+        self.perc_train = perc_train
 
     '''   
     Il processo di valutazione holdout consiste in:
@@ -30,9 +31,9 @@ class Evaluation:
     3. Valutazione delle performance: il modello appena addestrato viene quindi valutato utilizzando i dati di test (x_test). Le prestazione del modello vengono calcolate tramite diverse metriche
     4. Analisi dei risultati: si analizzano le metriche trovate per capire quanto il mio modello generalizza sui dati sconosciuti
     '''
-    def valutazione_holdout(self, dati, perc_train):
+    def valutazione_holdout(self):
         
-        dati_di_training = dati.sample(frac =  perc_train) # Prendo una percentuali dei dati per il training
+        dati_di_training = self.dati.sample(frac =  self.perc_train) # Prendo una percentuali dei dati per il training
         dati_di_testing = df.drop(dati_di_training.index) # I dati rimanenti li utilizzo per il testing
 
         X_train = dati_di_training.drop(columns=['Class']) # Dai dati utilizzati per il training, elimino la colonna indicante l'etichetta di appartenenze. Mi creo X_train
@@ -53,7 +54,7 @@ class Evaluation:
     5. Iterazioni multiple: il processo viene ripetuto piu volte (K volte), con nuove suddivisioni casuali del dataset, per ottenere una stima più robusta della performance del modello. Infine le valutazioni multiple vengono aggregate per ottenere una misura comune delle prestazioni del modello.
     6. Analisi dei risultati: si analizzano le metriche trovate per capire quanto il mio modello generalizza sui dati sconosciuti
     '''
-    def valutazione_random_subsampling(self, K, dati, perc_train):
+    def valutazione_random_subsampling(self, K):
         # this.K = K # Indica il numero di esperimenti da fare nel caso di valutazione di tipo "Random Subsampling"
         pass
 
