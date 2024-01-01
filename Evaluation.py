@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import pandas as pd
+import KNNAlgorithm as KNNAlgorithm
 
 '''
 
@@ -25,11 +26,11 @@ class Evaluation:
     '''   
     Il processo di valutazione holdout consiste in:
     1. Dividire i dati: i dati vengono divisi casualmente (viene specificata la percentuale in input) in dati di training e dati di test
-    2. Addestramento del modello: il modello quindi si addestra dandogli "in pasto" i dati x_train e y_train
+    2. Addestramento del modello: il modello quindi si addestra dandogli "in pasto" i dati X_train e y_train
     3. Valutazione delle performance: il modello appena addestrato viene quindi valutato utilizzando i dati di test (x_test). Le prestazione del modello vengono calcolate tramite diverse metriche
     4. Analisi dei risultati: si analizzano le metriche trovate per capire quanto il mio modello generalizza sui dati sconosciuti
     '''
-    def valutazione_holdout(self, dati, perc_train, perc_test):
+    def valutazione_holdout(self, dati, perc_train):
         
         dati_di_training = dati.sample(frac =  perc_train) # Prendo una percentuali dei dati per il training
         dati_di_testing = df.drop(dati_di_training.index) # I dati rimanenti li utilizzo per il testing
@@ -39,15 +40,16 @@ class Evaluation:
         X_test = dati_di_testing.drop(columns=['Class']) # Dai dati utilizzati per il testing, elimino la colonna indicante l'etichetta di appartenenza. Mi creo X_test
         y_yest = dati_di_testing['Class'] # Dai dati di test mi salvo solo la colonna indicante l'etichetta di appartentenza. Mi creo y_test
 
-        pass
+        KNNAlgorithm.allenamento_dati(X_train, y_train) # Alleno il modello fornendogli i dati di training
+        predizione = KNNAlgorithm.predizione_modello(X_test) # Svolgo la predizione con il modello allenato precedentemente
 
     
     ''' 
     Il processo di valutazione random subsampling consiste in:
     1. Specificare in input il numero di esperimenti (K) da effettuare
     2. Specificare in input la percentuale per i dati di train e test
-    3. Addestramento del modello: il modello viene addestrato quindi utilizzando x_train e x_test
-    4. Valutazione delle performance: il modello appena addestrato viene quindi valutato utilizzando i dati di test (x_test). Le prestazione del modello vengono calcolate tramite diverse metriche
+    3. Addestramento del modello: il modello viene addestrato quindi utilizzando X_train e y_train
+    4. Valutazione delle performance: il modello appena addestrato viene quindi valutato utilizzando i dati di test (X_test). Le prestazione del modello vengono calcolate tramite diverse metriche
     5. Iterazioni multiple: il processo viene ripetuto piu volte (K volte), con nuove suddivisioni casuali del dataset, per ottenere una stima più robusta della performance del modello. Infine le valutazioni multiple vengono aggregate per ottenere una misura comune delle prestazioni del modello.
     6. Analisi dei risultati: si analizzano le metriche trovate per capire quanto il mio modello generalizza sui dati sconosciuti
     '''
