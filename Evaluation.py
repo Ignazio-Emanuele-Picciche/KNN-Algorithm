@@ -78,7 +78,7 @@ class Evaluation:
         Specificity_scores = []
         Geometric_mean_scores = []
 
-        for _ in K:
+        for _ in range(K):
             X_train, y_train, X_test, Y_test = self.split_dati(self.features, self.target, self.perc_train)
 
             knnModel = KNNAlgorithm.__init__(k, X_train, y_train) # Alleno il modello fornendogli i dati di training
@@ -90,7 +90,7 @@ class Evaluation:
             Error_rate_scores.append(Error_rate)
             Sensitivity_scores.append(Sensitivity)
             Specificity_scores.append(Specificity)
-            Geometric_mean_scores.append(Specificity)
+            Geometric_mean_scores.append(Geometric_mean)
 
         # Calcolo i valori medi per ogni metrica calcolata
         Accuracy_rate_mean = np.mean(Accuracy_rate_scores)
@@ -111,10 +111,10 @@ class Evaluation:
     '''
     def calcolo_metrice(self, y_test, prediction):
         # Calcolo della confusion matrix
-        True_Negative = sum(1 for y, pred in (y_test, prediction) if (y == pred and pred == 2))  
-        True_Positive = sum(1 for y, pred in (y_test, prediction) if (y == pred and pred == 4))
-        False_Positive = sum(1 for y, pred in (y_test, prediction) if (y != pred and pred == 2))
-        False_Negative = sum(1 for y, pred in (y_test, prediction) if (y != pred and pred == 4))
+        True_Negative = sum(1 for y, pred in zip(y_test, prediction) if (y == pred and pred == 2))  
+        True_Positive = sum(1 for y, pred in zip(y_test, prediction) if (y == pred and pred == 4))
+        False_Positive = sum(1 for y, pred in zip(y_test, prediction) if (y != pred and pred == 2))
+        False_Negative = sum(1 for y, pred in zip(y_test, prediction) if (y != pred and pred == 4))
         
         Accuracy_rate = (True_Negative + True_Positive) / y_test.size
         Error_rate = (False_Positive + False_Negative) / y_test.size
