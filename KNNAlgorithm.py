@@ -1,16 +1,15 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import numpy as np
+import pandas as pb
 
 class KNNAlgorithm:
-    import numpy as n
-    def __init__(self,k):
+    def __init__(self,k,x_train,y_train):
         self.k = k
-
-
-    def allenamento_dati(self,x_train,y_train): # aquisizione dei dati postprocessati
-        # x_train rappresenta la matice delle features (B a J)
-        # y_train represent le y (K)
-        self.x_train = x_train
-        self.y_train = y_train
+        # parametri di allenamento modello
+        self.x_train = x_train# x_train rappresenta la matice delle features (B a J)
+        self.y_train = y_train  # y_train represent le y (K)
 
 
     def predizione_modello(self,x_test):
