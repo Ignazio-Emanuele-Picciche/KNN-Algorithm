@@ -28,6 +28,16 @@ class Evaluation:
         
 
 
+    def split_dati(features, target, perc_train):
+        X_train = features.sample(frac = perc_train)    # Dai dati utilizzati per il training
+        X_test = features.drop(X_train.index)   # Dai dati utilizzati per il testing
+
+        y_train = y_train[X_train.index == y_train.index]   # Mi salvo le y di train corrispondenti alle x di train
+        y_test = y_test[X_test.index == y_test.index]   # Mi salvo le y di test corrispondenti alle x di test
+
+        return X_train, y_train, X_test, y_test
+
+
     '''   
     Il processo di valutazione holdout consiste in:
     1. Dividire i dati: i dati vengono divisi casualmente (viene specificata la percentuale in input) in dati di training e dati di test
@@ -36,21 +46,10 @@ class Evaluation:
     4. Analisi dei risultati: si analizzano le metriche trovate per capire quanto il mio modello generalizza sui dati sconosciuti
     '''
     def valutazione_holdout(self):
-
-
-        dati_di_training = self.dati_x.sample(frac =  self.perc_train) # Prendo una percentuali dei dati per il training
-        
-        dati_di_testing = df.drop(dati_di_training.index) # I dati rimanenti li utilizzo per il testing
-
-        X_train = dati_di_training.drop(columns=['Class']) # Dai dati utilizzati per il training, elimino la colonna indicante l'etichetta di appartenenze. Mi creo X_train
-        y_train = dati_di_trainig['Class'] # Dai dati per il train mi salvo solo la colonna indicante l'etichetta di appartenenza. Mi creo y_train
-        X_test = dati_di_testing.drop(columns=['Class']) # Dai dati utilizzati per il testing, elimino la colonna indicante l'etichetta di appartenenza. Mi creo X_test
-        y_yest = dati_di_testing['Class'] # Dai dati di test mi salvo solo la colonna indicante l'etichetta di appartentenza. Mi creo y_test
+        X_train, y_train, X_test, Y_test = self.split_dati(self.features, self.target, self.perc_train)
 
         # la classe KNN ha ora solo il costruttore dove viene passato K, X_train, y_train
         KNNAlgorithm.allenamento_dati(X_train, y_train) # Alleno il modello fornendogli i dati di training
-        
-        # Vettore di etichette (class)
         predizione = KNNAlgorithm.predizione_modello(X_test) # Svolgo la predizione con il modello allenato precedentemente
 
     
