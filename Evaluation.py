@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import pandas as pd
+import numpy as np
 import KNNAlgorithm as KNNAlgorithm
 
 '''
@@ -15,6 +16,11 @@ Dic 28/12/2023
     - valutazione_random_subsampling -> Verrà richiamato questo metodo quando l'utente vorra fare la valutazione della predizione mediante la metodologia "Random Subsampling"
     - calcolo_metrice -> Questo metodo viene richiamato, indipendentemente dal tipo di valutazione scelto, per calcolare le metriche come (Accuracy Rate, Error Rate, Sensitivity, ...)
 
+Gen 02/01/2023
+- Continuo sviluppo metodi della classe:
+    - split_dati: implementato questo metodo dove, in base ai parametri features e target, vado a splittare i dati di train (X e y) e i dati di test (X e y) secondo la percentuale specificata in input
+    - valutazione_holdout: sviluppato il cuore del metodo, dove vado a richiamare prima il metodo di splitting e poi i metodi della classe KNNAlgorithm per allennare il modello e fare la predizione
+    - valutazione_random_subsampling: sviluppato il cuore del metodo, dove vado a richiamare prima il metodo di splitting e poi i metodi della classe KNNAlgorithm per allennare il modello e fare la predizione
 
 '''
 
@@ -26,8 +32,7 @@ class Evaluation:
         self.perc_train = perc_train
         self.k = k
         
-
-
+    
     def split_dati(features, target, perc_train):
         X_train = features.sample(frac = perc_train)    # Dai dati utilizzati per il training
         X_test = features.drop(X_train.index)   # Dai dati utilizzati per il testing
@@ -66,7 +71,35 @@ class Evaluation:
     '''
     def valutazione_random_subsampling(self, K):
         # this.K = K # Indica il numero di esperimenti da fare nel caso di valutazione di tipo "Random Subsampling"
-        pass
+
+        Accuracy_rate_scores = []
+        Error_rate_scores = []
+        Sensitivity_scores = []
+        Specificity_scores = []
+        Geometric_mean_scores = []
+
+        for _ in K:
+            X_train, y_train, X_test, Y_test = self.split_dati(self.features, self.target, self.perc_train)
+
+            KNNAlgorithm.__init__(k, X_train, y_train) # Alleno il modello fornendogli i dati di training
+            prediction = KNNAlgorithm.predizione_modello(X_test) # Svolgo la predizione con il modello allenato precedentemente
+
+            Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean = self.calcolo_metrice(y_test, prediction)
+
+            Accuracy_rate_scores.append(Accuracy_rate)
+            Error_rate_scores.append(Error_rate)
+            Sensitivity_scores.append(Sensitivity)
+            Specificity_scores.append(Specificity)
+            Geometric_mean_scores.append(Specificity)
+
+        # Calcolo i valori medi per ogni metrica calcolata
+        Accuracy_rate_mean = np.mean(Accuracy_rate_scores)
+        Error_rate_mean = np.mean(Error_rate_scores)
+        Sensitivity_mean = np.mean(Sensitivity_scores)
+        Specificity_mean = np.mean(Specificity_scores)
+        Geometric_mean_mean = np.mean(Geometric_mean_scores)
+
+        return Accuracy_rate_mean, Error_rate_mean, Sensitivity_mean, Specificity_mean, Geometric_mean  # per ora le ritorno, in futuro verrà implementato che questi indici vengono salvati in un file
 
     '''
     In questo metodo andremo a calcolare, grazie anche all'ausilio della confution matrix, le seguenti metriche:
