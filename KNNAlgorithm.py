@@ -53,3 +53,4 @@ class KNNAlgorithm:
         x3 = x1 - x2
         distanza = np.sqrt(np.sum(pow(x3, 2)))
         return distanza
+
