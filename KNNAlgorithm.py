@@ -21,7 +21,7 @@ class KNNAlgorithm:
          per ciascun x_test mi conservo anche la y_train associata , oltre che la distanza
         '''
         distanze = []
-        predictions=[]
+        predictions = []
         for punto_test in x_test:
             for y, punto_train in enumerate(self.x_train):
                 dist = self.calcolo_distanza_euclidea(punto_train, punto_test)  # istanza calcolo distanza euclidea
@@ -45,9 +45,9 @@ class KNNAlgorithm:
             else:
                 predictions.append(np.random.choice(piu_comuni))
 
-
         # sarebbe il y_test trovata
         return predictions
+
     def calcolo_distanza_euclidea(self, x1, x2):
         # return: distanza euclidea tra vettore x_test e x_train
         x3 = x1 - x2
