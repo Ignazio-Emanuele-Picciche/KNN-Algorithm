@@ -49,7 +49,7 @@ class Evaluation:
         X_train, y_train, X_test, Y_test = self.split_dati(self.features, self.target, self.perc_train)
 
         # la classe KNN ha ora solo il costruttore dove viene passato K, X_train, y_train
-        KNNAlgorithm.allenamento_dati(X_train, y_train) # Alleno il modello fornendogli i dati di training
+        KNNAlgorithm.__init__(k, X_train, y_train) # Alleno il modello fornendogli i dati di training
         prediction = KNNAlgorithm.predizione_modello(X_test) # Svolgo la predizione con il modello allenato precedentemente
 
         return self.calcolo_metrice(y_test, prediction) # per ora le ritorno, in futuro verrà implementato che questi indici vengono salvati in un file
