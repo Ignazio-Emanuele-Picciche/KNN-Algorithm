@@ -50,7 +50,9 @@ class Evaluation:
 
         # la classe KNN ha ora solo il costruttore dove viene passato K, X_train, y_train
         KNNAlgorithm.allenamento_dati(X_train, y_train) # Alleno il modello fornendogli i dati di training
-        predizione = KNNAlgorithm.predizione_modello(X_test) # Svolgo la predizione con il modello allenato precedentemente
+        prediction = KNNAlgorithm.predizione_modello(X_test) # Svolgo la predizione con il modello allenato precedentemente
+
+        return self.calcolo_metrice(y_test, prediction) # per ora le ritorno, in futuro verrà implementato che questi indici vengono salvati in un file
 
     
     ''' 
@@ -74,5 +76,5 @@ class Evaluation:
     - SpeciCicity
     - Geometric Mean
     '''
-    def calcolo_metrice(self, X_test, y_test, prediction):
+    def calcolo_metrice(self, y_test, prediction):
         pass
