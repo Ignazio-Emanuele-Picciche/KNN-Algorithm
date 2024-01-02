@@ -21,8 +21,11 @@ Dic 28/12/2023
 class Evaluation:
 
     def __init__(self, features, target, perc_train, k):
-        self.dati = dati
+        self.features = features
+        self.target = target
         self.perc_train = perc_train
+        self.k = k
+        
 
 
     '''   
@@ -33,6 +36,7 @@ class Evaluation:
     4. Analisi dei risultati: si analizzano le metriche trovate per capire quanto il mio modello generalizza sui dati sconosciuti
     '''
     def valutazione_holdout(self):
+
 
         dati_di_training = self.dati_x.sample(frac =  self.perc_train) # Prendo una percentuali dei dati per il training
         
