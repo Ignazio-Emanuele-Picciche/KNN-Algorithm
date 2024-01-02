@@ -37,8 +37,8 @@ class Evaluation:
         X_train = features.sample(frac = perc_train)    # Dai dati utilizzati per il training
         X_test = features.drop(X_train.index)   # Dai dati utilizzati per il testing
 
-        y_train = y_train[X_train.index == y_train.index]   # Mi salvo le y di train corrispondenti alle x di train
-        y_test = y_test[X_test.index == y_test.index]   # Mi salvo le y di test corrispondenti alle x di test
+        y_train = features[X_train.index == features.index]   # Mi salvo le y di train corrispondenti alle x di train
+        y_test = features[X_test.index == features.index]   # Mi salvo le y di test corrispondenti alle x di test
 
         return X_train, y_train, X_test, y_test
 
@@ -54,8 +54,8 @@ class Evaluation:
         X_train, y_train, X_test, Y_test = self.split_dati(self.features, self.target, self.perc_train)
 
         # la classe KNN ha ora solo il costruttore dove viene passato K, X_train, y_train
-        KNNAlgorithm.__init__(k, X_train, y_train) # Alleno il modello fornendogli i dati di training
-        prediction = KNNAlgorithm.predizione_modello(X_test) # Svolgo la predizione con il modello allenato precedentemente
+        knnModel = KNNAlgorithm.__init__(k, X_train, y_train) # Alleno il modello fornendogli i dati di training
+        prediction = knnModel.predizione_modello(X_test) # Svolgo la predizione con il modello allenato precedentemente
 
         return self.calcolo_metrice(y_test, prediction) # per ora le ritorno, in futuro verrà implementato che questi indici vengono salvati in un file
 
@@ -81,8 +81,8 @@ class Evaluation:
         for _ in K:
             X_train, y_train, X_test, Y_test = self.split_dati(self.features, self.target, self.perc_train)
 
-            KNNAlgorithm.__init__(k, X_train, y_train) # Alleno il modello fornendogli i dati di training
-            prediction = KNNAlgorithm.predizione_modello(X_test) # Svolgo la predizione con il modello allenato precedentemente
+            knnModel = KNNAlgorithm.__init__(k, X_train, y_train) # Alleno il modello fornendogli i dati di training
+            prediction = knnModel.predizione_modello(X_test) # Svolgo la predizione con il modello allenato precedentemente
 
             Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean = self.calcolo_metrice(y_test, prediction)
 
