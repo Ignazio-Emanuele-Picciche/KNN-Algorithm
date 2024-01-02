@@ -110,4 +110,16 @@ class Evaluation:
     - Geometric Mean
     '''
     def calcolo_metrice(self, y_test, prediction):
-        pass
+        # Calcolo della confusion matrix
+        True_Negative = sum(1 for y, pred in (y_test, prediction) if (y == pred and pred == 2))  
+        True_Positive = sum(1 for y, pred in (y_test, prediction) if (y == pred and pred == 4))
+        False_Positive = sum(1 for y, pred in (y_test, prediction) if (y != pred and pred == 2))
+        False_Negative = sum(1 for y, pred in (y_test, prediction) if (y != pred and pred == 4))
+        
+        Accuracy_rate = (True_Negative + True_Positive) / y_test.size
+        Error_rate = (False_Positive + False_Negative) / y_test.size
+        Sensitivity = (True_Positive) / (True_Positive + False_Negative) 
+        Specificity = (True_Negative) / (True_Negative + False_Positive)
+        Geometric_mean = np.sqrt((Sensitivity*Specificity))
+
+        return Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean
