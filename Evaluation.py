@@ -20,9 +20,10 @@ Dic 28/12/2023
 
 class Evaluation:
 
-    def __init__(self, dati, perc_train):
+    def __init__(self, features, target, perc_train, k):
         self.dati = dati
         self.perc_train = perc_train
+
 
     '''   
     Il processo di valutazione holdout consiste in:
@@ -32,8 +33,9 @@ class Evaluation:
     4. Analisi dei risultati: si analizzano le metriche trovate per capire quanto il mio modello generalizza sui dati sconosciuti
     '''
     def valutazione_holdout(self):
+
+        dati_di_training = self.dati_x.sample(frac =  self.perc_train) # Prendo una percentuali dei dati per il training
         
-        dati_di_training = self.dati.sample(frac =  self.perc_train) # Prendo una percentuali dei dati per il training
         dati_di_testing = df.drop(dati_di_training.index) # I dati rimanenti li utilizzo per il testing
 
         X_train = dati_di_training.drop(columns=['Class']) # Dai dati utilizzati per il training, elimino la colonna indicante l'etichetta di appartenenze. Mi creo X_train
@@ -41,7 +43,10 @@ class Evaluation:
         X_test = dati_di_testing.drop(columns=['Class']) # Dai dati utilizzati per il testing, elimino la colonna indicante l'etichetta di appartenenza. Mi creo X_test
         y_yest = dati_di_testing['Class'] # Dai dati di test mi salvo solo la colonna indicante l'etichetta di appartentenza. Mi creo y_test
 
+        # la classe KNN ha ora solo il costruttore dove viene passato K, X_train, y_train
         KNNAlgorithm.allenamento_dati(X_train, y_train) # Alleno il modello fornendogli i dati di training
+        
+        # Vettore di etichette (class)
         predizione = KNNAlgorithm.predizione_modello(X_test) # Svolgo la predizione con il modello allenato precedentemente
 
     
