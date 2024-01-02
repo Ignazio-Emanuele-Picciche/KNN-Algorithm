@@ -27,7 +27,10 @@ class KNNAlgorithm:
                 dist= self.calcolo_distanza_euclidea(punto_train,punto_test) #istanza calcolo distanza euclidea
                 distanze.append(dist, self.y_train[self.y_train.index == punto_train.index]['Class']) # mascheramento per la selezione delle y_train associate
 
-
+            sorted(distanze, key=itemgetter(0), reverse=True)
+            k_vicini = distanze[:self.k]
+            vicini, numerosita = np.unique(k_vicini, return_counts=True)
+            max_numerosita = max(numerosita)
 
         # ordino in modo crescente le distanze (con associate y_test)
         # prendo le prime k distanze
