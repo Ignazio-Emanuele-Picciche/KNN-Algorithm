@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
+from operator import itemgetter
 import numpy as np
 import pandas as pb
 
@@ -18,12 +18,17 @@ class KNNAlgorithm:
         ''' confrontare ogni x_test con ogni x_train --> due cicli for
         in questo mi clacolo la distanza euclidea quindi richiamo il metodo della
          distanza euclidea
-         per ciascun x_test mi conservo anche la y_test associata , oltre che la distanza
+         per ciascun x_test mi conservo anche la y_train associata , oltre che la distanza
         '''
+        distanze=[]
+        categoria=[]
+        for punto_test in x_test:
+            for punto_train in self.x_train:
+                dist= self.calcolo_distanza_euclidea(punto_train,punto_test) #istanza calcolo distanza euclidea
+                distanze.append(dist, self.y_train[self.y_train.index == punto_train.index]['Class']) # mascheramento per la selezione delle y_train associate
 
-        # for i in x_test:
-        #     for j in self.x_train:
-        #self.calcolo_distanza_euclidea(i,j)
+
+
         # ordino in modo crescente le distanze (con associate y_test)
         # prendo le prime k distanze
         # analizzo (conto) le y_test e prendo la y_test più numerosa
