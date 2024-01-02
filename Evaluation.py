@@ -37,8 +37,8 @@ class Evaluation:
         X_train = features.sample(frac = perc_train)    # Dai dati utilizzati per il training
         X_test = features.drop(X_train.index)   # Dai dati utilizzati per il testing
 
-        y_train = y_train[X_train.index == y_train.index]   # Mi salvo le y di train corrispondenti alle x di train
-        y_test = y_test[X_test.index == y_test.index]   # Mi salvo le y di test corrispondenti alle x di test
+        y_train = target[X_train.index == target.index]   # Mi salvo le y di train corrispondenti alle x di train
+        y_test = target[X_test.index == target.index]   # Mi salvo le y di test corrispondenti alle x di test
 
         return X_train, y_train, X_test, y_test
 
@@ -54,8 +54,8 @@ class Evaluation:
         X_train, y_train, X_test, Y_test = self.split_dati(self.features, self.target, self.perc_train)
 
         # la classe KNN ha ora solo il costruttore dove viene passato K, X_train, y_train
-        KNNAlgorithm.__init__(k, X_train, y_train) # Alleno il modello fornendogli i dati di training
-        prediction = KNNAlgorithm.predizione_modello(X_test) # Svolgo la predizione con il modello allenato precedentemente
+        knnModel = KNNAlgorithm.__init__(self.k, X_train, y_train) # Alleno il modello fornendogli i dati di training
+        prediction = knnModel.predizione_modello(X_test) # Svolgo la predizione con il modello allenato precedentemente
 
         return self.calcolo_metrice(y_test, prediction) # per ora le ritorno, in futuro verrà implementato che questi indici vengono salvati in un file
 
@@ -78,11 +78,11 @@ class Evaluation:
         Specificity_scores = []
         Geometric_mean_scores = []
 
-        for _ in K:
+        for _ in range(K):
             X_train, y_train, X_test, Y_test = self.split_dati(self.features, self.target, self.perc_train)
 
-            KNNAlgorithm.__init__(k, X_train, y_train) # Alleno il modello fornendogli i dati di training
-            prediction = KNNAlgorithm.predizione_modello(X_test) # Svolgo la predizione con il modello allenato precedentemente
+            knnModel = KNNAlgorithm.__init__(self.k, X_train, y_train) # Alleno il modello fornendogli i dati di training
+            prediction = knnModel.predizione_modello(X_test) # Svolgo la predizione con il modello allenato precedentemente
 
             Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean = self.calcolo_metrice(y_test, prediction)
 
@@ -90,7 +90,7 @@ class Evaluation:
             Error_rate_scores.append(Error_rate)
             Sensitivity_scores.append(Sensitivity)
             Specificity_scores.append(Specificity)
-            Geometric_mean_scores.append(Specificity)
+            Geometric_mean_scores.append(Geometric_mean)
 
         # Calcolo i valori medi per ogni metrica calcolata
         Accuracy_rate_mean = np.mean(Accuracy_rate_scores)
@@ -111,10 +111,10 @@ class Evaluation:
     '''
     def calcolo_metrice(self, y_test, prediction):
         # Calcolo della confusion matrix
-        True_Negative = sum(1 for y, pred in (y_test, prediction) if (y == pred and pred == 2))  
-        True_Positive = sum(1 for y, pred in (y_test, prediction) if (y == pred and pred == 4))
-        False_Positive = sum(1 for y, pred in (y_test, prediction) if (y != pred and pred == 2))
-        False_Negative = sum(1 for y, pred in (y_test, prediction) if (y != pred and pred == 4))
+        True_Negative = sum(1 for y, pred in zip(y_test, prediction) if (y == pred and pred == 2))  
+        True_Positive = sum(1 for y, pred in zip(y_test, prediction) if (y == pred and pred == 4))
+        False_Positive = sum(1 for y, pred in zip(y_test, prediction) if (y != pred and pred == 2))
+        False_Negative = sum(1 for y, pred in zip(y_test, prediction) if (y != pred and pred == 4))
         
         Accuracy_rate = (True_Negative + True_Positive) / y_test.size
         Error_rate = (False_Positive + False_Negative) / y_test.size
