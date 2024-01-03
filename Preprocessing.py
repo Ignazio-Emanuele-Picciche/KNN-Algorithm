@@ -12,24 +12,23 @@
 import pandas as pd
 
 
-class preprocessing():
+class Preprocessing(): #creo classe Preprocessing
     dati = pd.DataFrame()
 
     def __init__(self):
         pass
 
     def caricamento_dataset(self):  # creazione metodo caricamento dataset
-        self.dati = pd.read_csv('breast_cancer.csv',
+        self.dati = pd.read_csv('breast_cancer.csv', #importo il file csv
                                 index_col="Sample code number")  # viene importato il dataset, e la prima colonna viene utilizzata per gli indici
         return self.dati
 
     def suddivisione_dati(self):  # i dati vengono suddivisi in features (le x) e target label (le y). Entrambi dovranno avere il corrispondente indice
-        x = self.dati.iloc[:, :-1]  # features
-        y = self.dati["Class"] #target label
-
+        x = self.dati.iloc[:, :-1]  # features (x)
+        y = self.dati["Class"] #target label (y)
         return x, y
 
 
-#dati1 = preprocessing()
-#dati1.caricamento_dataset()
-#print(dati1.suddivisione_dati())
+#prova = Preprocessing()
+#prova.caricamento_dataset()
+#print(prova.suddivisione_dati())
