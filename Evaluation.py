@@ -3,6 +3,7 @@
 
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 import KNNAlgorithm as KNNAlgorithm
 
 '''
@@ -26,6 +27,7 @@ Gen 02/01/2023
 Gen 05/01/2023
 - Continuo sviluppo metodi della classe:
     - salva_metriche: sviluppato il metodo che va a salvare le metriche calcolate nel file Metriche.txt
+    - plot_delle_metriche: sviluppato il metodo che va a plottare le metriche calcolate. La rappresentazione avviene tramite un grafico a barre
 '''
 
 class Evaluation:
@@ -147,3 +149,18 @@ class Evaluation:
             file.write('Specificity: ' + str(Specificity) + '\n')
             file.write('Geometric Mean: ' + str(Geometric_mean) + '\n')
         file.close()
+
+    '''
+    In questo metodo verrà plottato un grafico a barre che rappresenterà le metriche calcolate.
+    '''
+    def plot_delle_metriche(Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean):
+        etichette = ['Accuracy Rate', 'Error Rate', 'Sensitivity', 'Specificity', 'Geometric Mean']
+        valori = [Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean]
+        colori = ['blue', 'green', 'red', 'yellow', 'orange']
+
+        plt.figure(figsize=(10, 5))
+        plt.bar(etichette, valori, color=colori)
+        plt.xlabel("Metriche")
+        plt.ylabel("Valori")
+        plt.title("Grafico delle metriche")
+        plt.show()
