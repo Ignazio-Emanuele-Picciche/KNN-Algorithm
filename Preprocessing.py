@@ -22,7 +22,9 @@ class Preprocessing(): #creo classe Preprocessing
         self.dati = pd.read_csv('breast_cancer.csv', #importo il file csv
                                 index_col="Sample code number")  # viene importato il dataset, e la prima colonna viene utilizzata per gli indici
         return self.dati
-
+    def pulizia_dati(self):
+        self.dati = self.dati.dropna()
+        return self.dati
     def suddivisione_dati(self):  # i dati vengono suddivisi in features (le x) e target label (le y). Entrambi dovranno avere il corrispondente indice
         x = self.dati.iloc[:, :-1]  # features (x)
         y = self.dati["Class"] #target label (y)
@@ -31,4 +33,5 @@ class Preprocessing(): #creo classe Preprocessing
 
 #prova = Preprocessing()
 #prova.caricamento_dataset()
+#prova.suddivisione_dati()
 #print(prova.suddivisione_dati())
