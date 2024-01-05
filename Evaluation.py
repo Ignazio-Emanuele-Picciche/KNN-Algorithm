@@ -61,8 +61,8 @@ class Evaluation:
         knnModel = KNNAlgorithm.__init__(self.k, X_train, y_train) # Alleno il modello fornendogli i dati di training
         prediction = knnModel.predizione_modello(X_test) # Svolgo la predizione con il modello allenato precedentemente
 
-        self.calcolo_metrice(y_test, prediction) # per ora le ritorno, in futuro verrà implementato che questi indici vengono salvati in un file
-
+        Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean = self.calcolo_metrice(y_test, prediction) # richiamo il metodo che va a calcolare le metriche
+        self.salva_metriche(Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean) # richiamo il metodo che va a salvare le metriche calcolate, nel file Metriche.txt
     
     ''' 
     Il processo di valutazione random subsampling consiste in:
@@ -74,8 +74,6 @@ class Evaluation:
     6. Analisi dei risultati: si analizzano le metriche trovate per capire quanto il mio modello generalizza sui dati sconosciuti
     '''
     def valutazione_random_subsampling(self, K):
-        # this.K = K # Indica il numero di esperimenti da fare nel caso di valutazione di tipo "Random Subsampling"
-
         Accuracy_rate_scores = []
         Error_rate_scores = []
         Sensitivity_scores = []
@@ -103,7 +101,7 @@ class Evaluation:
         Specificity_mean = np.mean(Specificity_scores)
         Geometric_mean_mean = np.mean(Geometric_mean_scores)
 
-        return Accuracy_rate_mean, Error_rate_mean, Sensitivity_mean, Specificity_mean, Geometric_mean  # per ora le ritorno, in futuro verrà implementato che questi indici vengono salvati in un file
+        self.salva_metriche(Accuracy_rate_mean, Error_rate_mean, Sensitivity_mean, Specificity_mean, Geometric_mean_mean) # richiamo il metodo che va a salvare le metriche calcolate, nel file Metriche.txt
 
     '''
     In questo metodo andremo a calcolare, grazie anche all'ausilio della confution matrix, le seguenti metriche:
