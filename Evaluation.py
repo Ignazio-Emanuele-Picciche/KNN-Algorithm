@@ -21,7 +21,11 @@ Gen 02/01/2023
     - split_dati: implementato questo metodo dove, in base ai parametri features e target, vado a splittare i dati di train (X e y) e i dati di test (X e y) secondo la percentuale specificata in input
     - valutazione_holdout: sviluppato il cuore del metodo, dove vado a richiamare prima il metodo di splitting e poi i metodi della classe KNNAlgorithm per allennare il modello e fare la predizione
     - valutazione_random_subsampling: sviluppato il cuore del metodo, dove vado a richiamare prima il metodo di splitting e poi i metodi della classe KNNAlgorithm per allennare il modello e fare la predizione
+    - calcolo_metrice: sviluppato il cuore del metodo, dove vado a calcolare le metriche richieste (Accuracy Rate, Error Rate, Sensitivity, Specificity, Geometric Mean) e le ritorno
 
+Gen 05/01/2023
+- Continuo sviluppo metodi della classe:
+    - salva_metriche: sviluppato il metodo che va a salvare le metriche calcolate nel file Metriche.txt
 '''
 
 class Evaluation:
@@ -57,7 +61,7 @@ class Evaluation:
         knnModel = KNNAlgorithm.__init__(self.k, X_train, y_train) # Alleno il modello fornendogli i dati di training
         prediction = knnModel.predizione_modello(X_test) # Svolgo la predizione con il modello allenato precedentemente
 
-        return self.calcolo_metrice(y_test, prediction) # per ora le ritorno, in futuro verrà implementato che questi indici vengono salvati in un file
+        self.calcolo_metrice(y_test, prediction) # per ora le ritorno, in futuro verrà implementato che questi indici vengono salvati in un file
 
     
     ''' 
@@ -123,3 +127,25 @@ class Evaluation:
         Geometric_mean = np.sqrt((Sensitivity*Specificity))
 
         return Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean
+
+
+    '''
+    In questo metodo verrano salvate le metriche calcolate in un file txt.
+    
+    Le metriche che verranno salvate sono:
+    - Accuracy Rate
+    - Error Rate
+    - Sensitivity
+    - SpeciCicity
+    - Geometric Mean
+
+    Il nome del file sarà: "Metriche.txt"
+    '''
+    def salva_metriche(Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean):
+        with open('Metriche.txt', 'w') as file:
+            file.write('Accuracy Rate: ' + str(Accuracy_rate) + '\n')
+            file.write('Error Rate: ' + str(Error_rate) + '\n')
+            file.write('Sensitivity: ' + str(Sensitivity) + '\n')
+            file.write('Specificity: ' + str(Specificity) + '\n')
+            file.write('Geometric Mean: ' + str(Geometric_mean) + '\n')
+        file.close()
