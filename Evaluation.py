@@ -78,7 +78,8 @@ class Evaluation:
 
         Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean = self.calcolo_metrice(y_test, prediction) # richiamo il metodo che va a calcolare le metriche, passandogli i dati di test e le predizioni
         self.salva_metriche(Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean) # richiamo il metodo che va a salvare nel file Metriche.txt le metriche appena calcolate
-    
+        self.plot_delle_metriche(Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean) # richiamo il metodo che va a plottare le metriche calcolate
+
     ''' 
     Il processo di valutazione random subsampling consiste in:
     1. Specificare in input il numero di esperimenti (K) da effettuare
@@ -121,7 +122,7 @@ class Evaluation:
         Geometric_mean_mean = np.mean(Geometric_mean_scores)
 
         self.salva_metriche(Accuracy_rate_mean, Error_rate_mean, Sensitivity_mean, Specificity_mean, Geometric_mean_mean) # richiamo il metodo che va a salvare le metriche calcolate, nel file Metriche.txt
-
+        self.plot_delle_metriche(Accuracy_rate_mean, Error_rate_mean, Sensitivity_mean, Specificity_mean, Geometric_mean_mean) # richiamo il metodo che va a plottare le metriche calcolate
 
     '''
     In questo metodo vengono calcolate prima i valori della confusion matrix, per poi calcolare le metriche richieste.
