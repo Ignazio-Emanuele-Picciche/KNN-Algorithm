@@ -73,7 +73,7 @@ class Evaluation:
     def valutazione_holdout(self):
         X_train, y_train, X_test, y_test = self.split_dati(self.features, self.target, self.perc_train) # richiamo il metodo che va a splittare i dati in dati di train e dati di test
 
-        knnModel = KNNAlgorithm.__init__(self.k, X_train, y_train) # Alleno il modello fornendogli i dati di training
+        knnModel = KNNAlgorithm(self.k, X_train, y_train) # Alleno il modello fornendogli i dati di training
         prediction = knnModel.predizione_modello(X_test) # Effettuo la predizione con il modello allenato precedentemente
 
         Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean = self.calcolo_metrice(y_test, prediction) # richiamo il metodo che va a calcolare le metriche, passandogli i dati di test e le predizioni
@@ -101,7 +101,7 @@ class Evaluation:
         for _ in range(K):
             X_train, y_train, X_test, Y_test = self.split_dati(self.features, self.target, self.perc_train) # richiamo il metodo che va a splittare i dati in dati di train e dati di test
 
-            knnModel = KNNAlgorithm.__init__(self.k, X_train, y_train) # Alleno il modello fornendogli i dati di training
+            knnModel = KNNAlgorithm(self.k, X_train, y_train) # Alleno il modello fornendogli i dati di training
             prediction = knnModel.predizione_modello(X_test) # Effettuo la predizione con il modello allenato precedentemente
 
             Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean = self.calcolo_metrice(y_test, prediction) # richiamo il metodo che va a calcolare le metriche, passandogli i dati di test e le predizioni
@@ -163,7 +163,7 @@ class Evaluation:
 
     Il nome del file sarà: "Metriche.txt"
     '''
-    def salva_metriche(Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean):
+    def salva_metriche(self, Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean):
         # Con le seguenti operazioni apro il file Metriche.txt e ci scrivo dentro le metriche calcolate
         with open('Metriche.txt', 'w') as file:
             file.write('Accuracy Rate: ' + str(Accuracy_rate) + '\n')
@@ -177,7 +177,7 @@ class Evaluation:
     In questo metodo viene plottato un grafico a barre che va a rappresentare le metriche calcolate.
     La rappresentazione avviene tramite la libreria matplotlib.
     '''
-    def plot_delle_metriche(Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean):
+    def plot_delle_metriche(self, Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean):
         etichette = ['Accuracy Rate', 'Error Rate', 'Sensitivity', 'Specificity', 'Geometric Mean'] # Vettore utilizzato per rappresentare le etichette del grafico
         valori = [Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean] # Vettore utilizzato per rappresentare i valori del grafico corrispondenti alle etichette
         colori = ['blue', 'green', 'red', 'yellow', 'orange'] # Vettore utilizzato per i colori delle barre del grafico
