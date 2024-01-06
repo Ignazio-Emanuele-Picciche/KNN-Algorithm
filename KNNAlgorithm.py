@@ -1,55 +1,58 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+#@author: Alessia Rossi
 from operator import itemgetter
 import numpy as np
-import pandas as pb
-
 
 class KNNAlgorithm:
     def __init__(self, k, x_train, y_train):
+        # Costruttore dell'algoritmo KNN
+        #Inizializza i paramentri k, x_train e y_train
         self.k = k
-        # parametri di allenamento modello
-        self.x_train = x_train  # x_train rappresenta la matice delle features (B a J)
-        self.y_train = y_train  # y_train represent le y (K)
+        # Parametri di allenamento modello
+        self.x_train = x_train  # Features (B a J)
+        self.y_train = y_train  # Labels (K)
 
     def predizione_modello(self, x_test):
-        # x_test rappresenta la matrice delle features che sono test
-        # Classificazione in due gruppi (benigno, maligno)
+        # Metodo per effettuare la predizione del modello sui dati di test
         ''' confrontare ogni x_test con ogni x_train --> due cicli for
         in questo mi clacolo la distanza euclidea quindi richiamo il metodo della
          distanza euclidea
          per ciascun x_test mi conservo anche la y_train associata , oltre che la distanza
         '''
-        distanze = []
-        predictions = []
+        predictions = [] # Lista dove verranno salvate le predizioni
         for punto_test in x_test:
+            distanze = [] # Lista delle distanza tra il punto x_test ed i punti x_train
             for y, punto_train in enumerate(self.x_train):
-                dist = self.calcolo_distanza_euclidea(punto_train, punto_test)  # istanza calcolo distanza euclidea
-                distanze.append(dist,
-                                self.y_train.iloc[y]["Class"])  # mascheramento per la selezione delle y_train associate
+                # Calcolo della distanza euclidea tra il punto x_test ed i punti x_train
+                dist = self.calcolo_distanza_euclidea(punto_train, punto_test)  # Istanza calcolo_distanza_euclidea
+                # Aggiungiamo alla lista distanze la coppia distanza,classe di appartenenza
+                distanze.append(dist,self.y_train.iloc[y]["Class"])
 
-            # ordino in modo crescente le distanze (con associate y_test)
+            # Ordiniamo in modo crescente le distanze
             distanze = sorted(distanze, key=itemgetter(0), reverse=True)
-            # prendo le prime k distanze
+            # Selezioniamo le prime k distanze della lista ordinatata di distanze
             k_distanze = distanze[:self.k]
+            # Estraiamo le classi corrispondenti ai primi k
             k_vicini = np.array(k_distanze)[:, 1]
 
-            # analizzo (conto) le y_test e prendo la y_test più numerosa
+            # Contiamo la numerosità delle classi dei k vicni
             vicini, numerosita = np.unique(k_vicini, return_counts=True)
+            # Selezioniamo quelle con numerosità maggiore
             max_numerosita = max(numerosita)
-
+            # Creo una lista contenente la classe ( o le classi) con numerosità pari a quella massima
             piu_comuni = [vicini[i] for i, elem in enumerate(numerosita) if max_numerosita == elem]
-            # OSS: nel caso sono di numero uguali ne prendo una a le due a caso
+            # Nel caso sia presento sono una classe nella lista la aggiungo a predizioni
+            # Altrimenti scelgo in modo cosuale una delle due
             if len(piu_comuni) == 1:
                 predictions.append(piu_comuni)
             else:
                 predictions.append(np.random.choice(piu_comuni))
-
-        # sarebbe il y_test trovata
+        # Viene resituita la lista delle preizioni, contenente le classi prendette per ciasun x_test
         return predictions
 
     def calcolo_distanza_euclidea(self, x1, x2):
-        # return: distanza euclidea tra vettore x_test e x_train
+        # Metodo per il calcolo della distanza euclidea
         x3 = x1 - x2
         distanza = np.sqrt(np.sum(pow(x3, 2)))
         return distanza
