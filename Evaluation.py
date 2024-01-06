@@ -52,7 +52,7 @@ class Evaluation:
     I dati di train sono i dati che verranno utilizzati per addestrare il modello.
     I dati di test sono i dati che verranno utilizzati per testare il modello.
     '''
-    def split_dati(features, target, perc_train):
+    def split_dati(self, features, target, perc_train):
         X_train = features.sample(frac = perc_train)    # Prendo i dati per il training secondo una percentuale specificata in input
         X_test = features.drop(X_train.index)   # Prendo i dati per il test, che sono tutti i dati che non sono stati presi per il training
 
