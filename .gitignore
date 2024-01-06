@@ -1,3 +1,8 @@
+env/*
+__pycache__/*
+data/*
+results/*
+.idea/*
+.DS_Store
 venv
-.idea/
 Metriche.txt
