@@ -99,7 +99,7 @@ class Evaluation:
 
         # Come previsto dal processo di valutazione random subsampling, il processo viene ripetuto K volte
         for _ in range(K):
-            X_train, y_train, X_test, Y_test = self.split_dati(self.features, self.target, self.perc_train) # richiamo il metodo che va a splittare i dati in dati di train e dati di test
+            X_train, y_train, X_test, y_test = self.split_dati(self.features, self.target, self.perc_train) # richiamo il metodo che va a splittare i dati in dati di train e dati di test
 
             knnModel = KNNAlgorithm(self.k, X_train, y_train) # Alleno il modello fornendogli i dati di training
             prediction = knnModel.predizione_modello(X_test) # Effettuo la predizione con il modello allenato precedentemente
