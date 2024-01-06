@@ -17,16 +17,21 @@ class Input:
 
 
     def scelta_metodo_evaluation(self):#l'utente sceglie se utilizzare l'holdout o il random subsampling
-        scelta_effettuata=0
-        while scelta_effettuata !=1 or scelta_effettuata !=2:
-            scelta_evaluation = int(input("inserire 1 per scegliere l'holdout, 2 per il random subsampling")) #l'utente deve inserire 1 o 2, 1 per l'holdout, 2 per il random subsampling, il programma non va avanti finchè l'utente non sceglie
-            if scelta_evaluation==1:
-                scelta_effettuata=1
-                return scelta_evaluation
-            elif scelta_evaluation==2:
-                scelta_effettuata=1
+        scelta_evaluation=0
+
+        while scelta_evaluation !="1" or scelta_evaluation !="2":
+
+            scelta_evaluation = (input("Inserire 1 per scegliere l'holdout, 2 per il random subsampling: ")) #l'utente deve inserire 1 o 2, 1 per l'holdout, 2 per il random subsampling, il programma non va avanti finchè l'utente non sceglie
+
+            if scelta_evaluation=="1":
+
+                return int(scelta_evaluation)
+
+            elif scelta_evaluation=="2":
+
                 self.K = int(input("Inserire il numero di esperimenti K: ")) #se ha effettuato questa scelta, l'utente deve inserire il numero di esperimenti K per il random subsampling
-                return scelta_evaluation, self.K
+
+                return int(scelta_evaluation), self.K
 
 
 #prova
