@@ -4,7 +4,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import KNNAlgorithm as KNNAlgorithm
+from KNNAlgorithm import KNNAlgorithm
 
 '''
 @author: Piccichè-Ignazio-Emanuele
@@ -53,11 +53,11 @@ class Evaluation:
     I dati di test sono i dati che verranno utilizzati per testare il modello.
     '''
     def split_dati(self, features, target, perc_train):
-        X_train = features.sample(frac = perc_train)    # Prendo i dati per il training secondo una percentuale specificata in input
+        X_train = features.sample(frac = perc_train/100)    # Prendo i dati per il training secondo una percentuale specificata in input
         X_test = features.drop(X_train.index)   # Prendo i dati per il test, che sono tutti i dati che non sono stati presi per il training
 
-        y_train = target[X_train.index == target.index]   # Mi salvo le y di train corrispondenti alle x di train
-        y_test = target[X_test.index == target.index]   # Mi salvo le y di test corrispondenti alle x di test
+        y_train = target.drop(X_test.index) # Mi salvo le y di train corrispondenti alle x di train
+        y_test = target.drop(X_train.index) # Mi salvo le y di test corrispondenti alle x di test
 
         return X_train, y_train, X_test, y_test
 
