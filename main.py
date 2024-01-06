@@ -9,3 +9,12 @@ if __name__ == '__main__':
    input=Input()
    preprocessing=Preprocessing()
    metodo_di_valutazione,K=input.scelta_metodo_evaluation()
+
+   preprocessing.caricamento_dataset()
+   preprocessing.pulizia_dati()
+   features,target=preprocessing.suddivisione_dati()
+
+
+
+
+
