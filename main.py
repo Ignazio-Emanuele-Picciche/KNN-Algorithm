@@ -5,15 +5,15 @@ from Input import Input
 from Evaluation import Evaluation
 
 if __name__ == '__main__':
-    input = Input()
+    input_utente = Input()
     preprocessing = Preprocessing()
-    metodo_di_valutazione, K = input.scelta_metodo_evaluation()
+    metodo_di_valutazione, K = input_utente.scelta_metodo_evaluation()
 
     preprocessing.caricamento_dataset()
     preprocessing.pulizia_dati()
     features, target = preprocessing.suddivisione_dati()
-    perc_train = input.training
-    k = input.k
+    perc_train = input_utente.training
+    k = input_utente.k
 
     evaluation = Evaluation(features, target, perc_train, k)
     if metodo_di_valutazione == 1:
