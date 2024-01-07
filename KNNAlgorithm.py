@@ -37,13 +37,13 @@ class KNNAlgorithm:
         '''
         # Metodo per effettuare la predizione del modello sui dati di test
         predictions = [] # Lista dove verranno salvate le predizioni
-        for punto_test in x_test:
+        for _, punto_test in x_test.iterrows(): #_ paramentro che non uso, indica l'indice
             distanze = [] # Lista delle distanza tra il punto x_test ed i punti x_train
-            for y, punto_train in enumerate(self.x_train):
+            for index, punto_train in self.x_train.iterrows():
                 # Calcolo della distanza euclidea tra il punto x_test ed i punti x_train
                 dist = self.calcolo_distanza_euclidea(punto_train, punto_test)  # metodo calcolo_distanza_euclidea
                 # Aggiungiamo alla lista distanze la coppia distanza,classe di appartenenza
-                distanze.append(dist,self.y_train.iloc[y]["Class"])
+                distanze.append((dist,self.y_train[index])) #loc mi restituisce la riga corrispondente all'indice
 
             # Ordiniamo in modo crescente le distanze
             distanze = sorted(distanze, key=itemgetter(0), reverse=True)
