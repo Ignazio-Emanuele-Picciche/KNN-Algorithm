@@ -54,6 +54,8 @@ class KNNAlgorithm:
 
             # Contiamo la numerosità delle classi dei k vicni
             vicini, numerosita = np.unique(k_vicini, return_counts=True)
+            # Converto vicini in una lista
+            vicini=vicini.flatten().tolist()
             # Selezioniamo quelle con numerosità maggiore
             max_numerosita = max(numerosita)
             # Creo una lista contenente la classe ( o le classi) con numerosità pari a quella massima
