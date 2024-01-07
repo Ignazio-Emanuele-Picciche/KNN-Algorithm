@@ -66,7 +66,7 @@ class KNNAlgorithm:
                 predictions.append(piu_comuni)
             else:
                 predictions.append(np.random.choice(piu_comuni))
-        # Concvolgo le liste di predizioni in un'unica lista.
+        # Converto le liste di predizioni in un'unica lista.
         predizioni = [item for sublist in predictions for item in sublist]
         # Viene resituita la lista delle preizioni, contenente le classi prendette per ciasun x_test
         return predizioni
