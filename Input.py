@@ -31,7 +31,7 @@ class Input:
 
                 self.K = int(input("Inserire il numero di esperimenti K: ")) #se ha effettuato questa scelta, l'utente deve inserire il numero di esperimenti K per il random subsampling
 
-                return int(scelta_evaluation), self.K
+                return int(scelta_evaluation)
 
 
 #prova

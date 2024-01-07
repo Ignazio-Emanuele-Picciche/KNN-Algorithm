@@ -7,8 +7,8 @@ from Evaluation import Evaluation
 if __name__ == '__main__':
     input_utente = Input()
     preprocessing = Preprocessing()
-    metodo_di_valutazione, K = input_utente.scelta_metodo_evaluation()
-
+    metodo_di_valutazione= input_utente.scelta_metodo_evaluation()
+    K= input_utente.K
     preprocessing.caricamento_dataset()
     preprocessing.pulizia_dati()
     features, target = preprocessing.suddivisione_dati()
