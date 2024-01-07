@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #@author: Alessia Rossi
+from itertools import chain
 from operator import itemgetter
 import numpy as np
 '''
@@ -55,7 +56,6 @@ class KNNAlgorithm:
             # Contiamo la numerosità delle classi dei k vicni
             vicini, numerosita = np.unique(k_vicini, return_counts=True)
             # Converto vicini in una lista
-            vicini=vicini.flatten().tolist()
             # Selezioniamo quelle con numerosità maggiore
             max_numerosita = max(numerosita)
             # Creo una lista contenente la classe ( o le classi) con numerosità pari a quella massima
@@ -66,8 +66,10 @@ class KNNAlgorithm:
                 predictions.append(piu_comuni)
             else:
                 predictions.append(np.random.choice(piu_comuni))
+        # Concvolgo le liste di predizioni in un'unica lista.
+        predizioni = [item for sublist in predictions for item in sublist]
         # Viene resituita la lista delle preizioni, contenente le classi prendette per ciasun x_test
-        return predictions
+        return predizioni
 
     def calcolo_distanza_euclidea(self, x1, x2):
         '''
