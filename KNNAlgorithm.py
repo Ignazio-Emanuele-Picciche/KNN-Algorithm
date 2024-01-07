@@ -41,7 +41,7 @@ class KNNAlgorithm:
             distanze = [] # Lista delle distanza tra il punto x_test ed i punti x_train
             for y, punto_train in enumerate(self.x_train):
                 # Calcolo della distanza euclidea tra il punto x_test ed i punti x_train
-                dist = self.calcolo_distanza_euclidea(punto_train, punto_test)  # Istanza calcolo_distanza_euclidea
+                dist = self.calcolo_distanza_euclidea(punto_train, punto_test)  # metodo calcolo_distanza_euclidea
                 # Aggiungiamo alla lista distanze la coppia distanza,classe di appartenenza
                 distanze.append(dist,self.y_train.iloc[y]["Class"])
 
@@ -68,8 +68,14 @@ class KNNAlgorithm:
         return predictions
 
     def calcolo_distanza_euclidea(self, x1, x2):
+        '''
+        -Il metodo calcolo_distanza_euclidea all'interno della classe KNNAlgorithm, calcola la distanza euclidea tra due punti.
+          - Il metodo calcolo_distanza_euclidea riceve in input due punti x1 e x2 e calcola la differenza tra i due punti,
+            la eleva al quadrato e ne fa la somma, per poi calcolare la radice quadrata del risultato.
+          - Restituisce la distanza euclidea tra i due punti.
+        '''
         # Metodo per il calcolo della distanza euclidea
-        x3 = x1 - x2
-        distanza = np.sqrt(np.sum(pow(x3, 2)))
+        x3 = x1 - x2 # Differenza tra i due punti
+        distanza = np.sqrt(np.sum(pow(x3, 2))) # Calcolo della distanza euclidea
         return distanza
 
