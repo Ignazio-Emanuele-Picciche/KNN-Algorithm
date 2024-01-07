@@ -11,6 +11,7 @@ if __name__ == '__main__':
     K= input_utente.K
     preprocessing.caricamento_dataset()
     preprocessing.pulizia_dati()
+    preprocessing.standardizzazione()
     features, target = preprocessing.suddivisione_dati()
     perc_train = input_utente.training
     k = input_utente.k
