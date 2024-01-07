@@ -32,7 +32,11 @@ class Preprocessing(): #creo classe Preprocessing
     def suddivisione_dati(self):  # i dati vengono suddivisi in features (le x) e target label (le y). Entrambi dovranno avere il corrispondente indice
         x = self.dati.iloc[:, :-1]  # features (x)
         y = self.dati["Class"] #target label (y)
+        x = x.astype(int) #trasformo le x in interi
+        y = y.astype(int) #trasformo le y in interi
         return x, y
+
+
 
 
 #prova = Preprocessing()
