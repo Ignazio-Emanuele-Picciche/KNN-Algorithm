@@ -27,7 +27,7 @@ class Preprocessing(): #creo classe Preprocessing
         self.dati = self.dati.dropna() # le righe corrispondenti ai valori mancanti vengono eliminate
         return self.dati
 
-    def standardizzazione(self): # creazione metodo standardizzazione per il feature scaling, da applicare a tutte le colonne l'ultima (target label)
+    def standardizzazione(self): # creazione metodo standardizzazione per il feature scaling, da applicare a tutte le colonne tranne l'ultima (target label)
         for i in range(0, len(self.dati.columns) - 1):
             self.dati.iloc[:, i] = (self.dati.iloc[:, i] - self.dati.iloc[:, i].mean()) / self.dati.iloc[:, i].std()
         return self.dati
@@ -35,7 +35,7 @@ class Preprocessing(): #creo classe Preprocessing
     def suddivisione_dati(self):  # i dati vengono suddivisi in features (le x) e target label (le y). Entrambi dovranno avere il corrispondente indice
         x = self.dati.iloc[:, :-1]  # features (x)
         y = self.dati["Class"] #target label (y)
-        x = x.astype(int) #trasformo le x in interi
+        y = y.astype(int) #trasformo le y in interi
         return x, y
 
 
@@ -44,5 +44,6 @@ class Preprocessing(): #creo classe Preprocessing
 #prova = Preprocessing()
 #prova.caricamento_dataset()
 #prova.pulizia_dati()
+#prova.standardizzazione()
 #prova.suddivisione_dati()
 #print(prova.suddivisione_dati())
