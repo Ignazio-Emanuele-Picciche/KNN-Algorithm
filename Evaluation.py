@@ -40,11 +40,12 @@ Gen 05/01/2023
 # - plot_delle_metriche: metodo che va a plottare le metriche calcolate. La rappresentazione avviene tramite un grafico a barre
 class Evaluation:
     
-    def __init__(self, features, target, perc_train, k):
+    def __init__(self, features, target, perc_train, k, metriche_scelte):
         self.features = features
         self.target = target
         self.perc_train = perc_train
         self.k = k
+        self.metriche_scelte = metriche_scelte
         
     '''
     In questo metodo vengono divisi i dati in dati di train e dati di test.
@@ -135,18 +136,32 @@ class Evaluation:
     - Geometric Mean
     '''
     def calcolo_metrice(self, y_test, prediction):
+
+        Accuracy_rate = 0
+        Error_rate = 0
+        Sensitivity = 0
+        Specificity = 0
+        Geometric_mean = 0
+
+        aiuto=y_test.values
         # Calcolo della confusion matrix
-        True_Negative = sum(1 for y, pred in zip(y_test, prediction) if (y == pred and pred == 2)) # Calcolo il valore True Negative della confusion matrix
-        True_Positive = sum(1 for y, pred in zip(y_test, prediction) if (y == pred and pred == 4)) # Calcolo il valore True Positive della confusion matrix
-        False_Positive = sum(1 for y, pred in zip(y_test, prediction) if (y != pred and pred == 2)) # Calcolo il valore False Positive della confusion matrix
-        False_Negative = sum(1 for y, pred in zip(y_test, prediction) if (y != pred and pred == 4)) # Calcolo il valore False Negative della confusion matrix
+        True_Negative = sum(1 for y, pred in zip(y_test.values, prediction) if (y == pred and pred == 2.0)) # Calcolo il valore True Negative della confusion matrix
+        True_Positive = sum(1 for y, pred in zip(y_test.values, prediction) if (y == pred and pred == 4.0)) # Calcolo il valore True Positive della confusion matrix
+        False_Positive = sum(1 for y, pred in zip(y_test.values, prediction) if (y != pred and pred == 4.0)) # Calcolo il valore False Positive della confusion matrix
+        False_Negative = sum(1 for y, pred in zip(y_test.values, prediction) if (y != pred and pred == 2.0)) # Calcolo il valore False Negative della confusion matrix
         
+
         # Calcolo effettivo delle metriche richieste mediante i valori della confusion matrix, precedentemente calcolati
-        Accuracy_rate = (True_Negative + True_Positive) / y_test.size # Percentuale di predizioni corrette rispetto al totale delle predizioni
-        Error_rate = (False_Positive + False_Negative) / y_test.size # Percentuale di predizioni errate rispetto al totale delle predizioni
-        Sensitivity = (True_Positive) / (True_Positive + False_Negative) # Capacità del modello di predire correttamente i valori positivi
-        Specificity = (True_Negative) / (True_Negative + False_Positive) # Capacità del modello di predire correttamente i valori negativi
-        Geometric_mean = np.sqrt((Sensitivity*Specificity)) # Media che bilancia valori positivi e negativi
+        if 1 in self.metriche_scelte:
+            Accuracy_rate = (True_Negative + True_Positive) / y_test.size # Percentuale di predizioni corrette rispetto al totale delle predizioni
+        if 2 in self.metriche_scelte:
+            Error_rate = (False_Positive + False_Negative) / y_test.size # Percentuale di predizioni errate rispetto al totale delle predizioni
+        if 3 in self.metriche_scelte and (True_Positive + False_Negative) != 0:
+            Sensitivity = (True_Positive) / (True_Positive + False_Negative) # Capacità del modello di predire correttamente i valori positivi
+        if 4 in self.metriche_scelte and (True_Negative + False_Positive) != 0:
+            Specificity = (True_Negative) / (True_Negative + False_Positive) # Capacità del modello di predire correttamente i valori negativi
+        if 5 in self.metriche_scelte:
+            Geometric_mean = np.sqrt((Sensitivity*Specificity)) # Media che bilancia valori positivi e negativi
 
         return Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean
 
@@ -184,6 +199,7 @@ class Evaluation:
 
         plt.figure(figsize=(10, 5)) # Imposto la dimensione del grafico
         plt.bar(etichette, valori, color=colori) # Creo il grafico a barre. In x metto le etichette, in y metto i valori
+        #plt.boxplot(valori) # Creo il boxplot
         plt.xlabel("Metriche") # Imposto l'etichetta dell'asse x
         plt.ylabel("Valori") # Imposto l'etichetta dell'asse y
         plt.title("Grafico delle metriche") # Imposto il titolo del grafico
