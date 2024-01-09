@@ -44,7 +44,7 @@ class KNNAlgorithm:
                 # Calcolo della distanza euclidea tra il punto x_test ed i punti x_train
                 dist = self.calcolo_distanza_euclidea(punto_train, punto_test)  # metodo calcolo_distanza_euclidea
                 # Aggiungiamo alla lista distanze la coppia distanza,classe di appartenenza
-                distanze.append((dist,self.y_train[index])) #loc mi restituisce la riga corrispondente all'indice
+                distanze.append((int(dist),self.y_train[index])) #loc mi restituisce la riga corrispondente all'indice
 
             # Ordiniamo in modo crescente le distanze
             distanze = sorted(distanze, key=itemgetter(0), reverse=True)
@@ -67,7 +67,9 @@ class KNNAlgorithm:
             else:
                 predictions.append(np.random.choice(piu_comuni))
         # Converto le liste di predizioni in un'unica lista.
-        predizioni = [item for sublist in predictions for item in sublist]
+        predizioni = []
+        for lista in predictions:
+            predizioni += lista
         # Viene resituita la lista delle preizioni, contenente le classi prendette per ciasun x_test
         return predizioni
 
