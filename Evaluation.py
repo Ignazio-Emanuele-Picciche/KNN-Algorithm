@@ -79,7 +79,7 @@ class Evaluation:
 
         Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean = self.calcolo_metrice(y_test, prediction) # richiamo il metodo che va a calcolare le metriche, passandogli i dati di test e le predizioni
         self.salva_metriche(Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean) # richiamo il metodo che va a salvare nel file Metriche.txt le metriche appena calcolate
-        self.plot_delle_metriche(Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean) # richiamo il metodo che va a plottare le metriche calcolate
+        #self.plot_delle_metriche(Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean) # richiamo il metodo che va a plottare le metriche calcolate
 
     ''' 
     Il processo di valutazione random subsampling consiste in:
@@ -123,7 +123,7 @@ class Evaluation:
         Geometric_mean_mean = np.mean(Geometric_mean_scores)
 
         self.salva_metriche(Accuracy_rate_mean, Error_rate_mean, Sensitivity_mean, Specificity_mean, Geometric_mean_mean) # richiamo il metodo che va a salvare le metriche calcolate, nel file Metriche.txt
-        self.plot_delle_metriche(Accuracy_rate_mean, Error_rate_mean, Sensitivity_mean, Specificity_mean, Geometric_mean_mean) # richiamo il metodo che va a plottare le metriche calcolate
+        self.plot_delle_metriche(Accuracy_rate_scores, Error_rate_scores, Sensitivity_scores, Specificity_scores, Geometric_mean_scores) # richiamo il metodo che va a plottare le metriche calcolate
 
     '''
     In questo metodo vengono calcolate prima i valori della confusion matrix, per poi calcolare le metriche richieste.
@@ -198,9 +198,35 @@ class Evaluation:
         colori = ['blue', 'green', 'red', 'yellow', 'orange'] # Vettore utilizzato per i colori delle barre del grafico
 
         plt.figure(figsize=(10, 5)) # Imposto la dimensione del grafico
-        plt.bar(etichette, valori, color=colori) # Creo il grafico a barre. In x metto le etichette, in y metto i valori
-        #plt.boxplot(valori) # Creo il boxplot
+        #plt.bar(etichette, valori, color=colori) # Creo il grafico a barre. In x metto le etichette, in y metto i valori
+
+        if 1 in self.metriche_scelte:
+            plt.plot(Accuracy_rate, marker='o', linestyle='solid', linewidth=2, markersize=5, color='blue', label='Accuracy Rate')
+        if 2 in self.metriche_scelte:
+            plt.plot(Error_rate, marker='o', linestyle='solid', linewidth=2, markersize=5, color='green', label='Error Rate')
+        if 3 in self.metriche_scelte:
+            plt.plot(Sensitivity, marker='o', linestyle='solid', linewidth=2, markersize=5, color='red', label='Sensitivity')
+        if 4 in self.metriche_scelte:
+            plt.plot(Specificity, marker='o', linestyle='solid', linewidth=2, markersize=5, color='yellow', label='Specificity')
+        if 5 in self.metriche_scelte:
+            plt.plot(Geometric_mean, marker='o', linestyle='solid', linewidth=2, markersize=5, color='orange', label='Geometric Mean')
+
+        plt.legend(loc='upper right') # Imposto la legenda del grafico
         plt.xlabel("Metriche") # Imposto l'etichetta dell'asse x
         plt.ylabel("Valori") # Imposto l'etichetta dell'asse y
         plt.title("Grafico delle metriche") # Imposto il titolo del grafico
+        plt.tight_layout()
+        #plt.show() # Mostro il grafico
+
+
+        plt.figure(figsize=(10, 5))
+
+        plt.boxplot(valori)
+        
+        
+        plt.xlabel("Metriche") # Imposto l'etichetta dell'asse x
+        plt.ylabel("Valori") # Imposto l'etichetta dell'asse y
+        plt.title("Grafico delle metriche") # Imposto il titolo del grafico
+        plt.xticks(range(1, len(etichette) + 1) ,etichette, rotation=45)
+        plt.tight_layout()
         plt.show() # Mostro il grafico
