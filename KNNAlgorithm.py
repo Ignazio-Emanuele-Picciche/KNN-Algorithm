@@ -63,15 +63,13 @@ class KNNAlgorithm:
             # Nel caso sia presento sono una classe nella lista la aggiungo a predizioni
             # Altrimenti scelgo in modo cosuale una delle due
             if len(piu_comuni) == 1:
-                predictions.append(piu_comuni)
+                predictions.append(piu_comuni[0])  # Se c'è un solo elemento, aggiungi direttamente l'elemento
             else:
-                predictions.append(np.random.choice(piu_comuni))
-        # Converto le liste di predizioni in un'unica lista.
-        predizioni = []
-        for lista in predictions:
-            predizioni += lista
+                random_choice = np.random.choice(piu_comuni)  # Se ci sono più elementi, fai una scelta casuale
+                predictions.append(random_choice)
+
         # Viene resituita la lista delle preizioni, contenente le classi prendette per ciasun x_test
-        return predizioni
+        return predictions
 
     def calcolo_distanza_euclidea(self, x1, x2):
         '''
