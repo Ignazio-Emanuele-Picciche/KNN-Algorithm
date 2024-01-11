@@ -47,7 +47,7 @@ class KNNAlgorithm:
                 distanze.append((int(dist),self.y_train[index])) #loc mi restituisce la riga corrispondente all'indice
 
             # Ordiniamo in modo crescente le distanze
-            distanze = sorted(distanze, key=itemgetter(0), reverse=True)
+            distanze = sorted(distanze, key=itemgetter(0), reverse=False)
             # Selezioniamo le prime k distanze della lista ordinatata di distanze
             k_distanze = distanze[:self.k]
             # Estraiamo le classi corrispondenti ai primi k
