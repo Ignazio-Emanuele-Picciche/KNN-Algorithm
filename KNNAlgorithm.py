@@ -44,14 +44,14 @@ class KNNAlgorithm:
                 # Calcolo della distanza euclidea tra il punto x_test ed i punti x_train
                 dist = self.calcolo_distanza_euclidea(punto_train, punto_test)  # metodo calcolo_distanza_euclidea
                 # Aggiungiamo alla lista distanze la coppia distanza,classe di appartenenza
-                distanze.append((int(dist),self.y_train[index])) #loc mi restituisce la riga corrispondente all'indice
+                distanze.append(((dist),self.y_train[index])) #loc mi restituisce la riga corrispondente all'indice
 
             # Ordiniamo in modo crescente le distanze
             distanze = sorted(distanze, key=itemgetter(0), reverse=True)
             # Selezioniamo le prime k distanze della lista ordinatata di distanze
             k_distanze = distanze[:self.k]
             # Estraiamo le classi corrispondenti ai primi k
-            k_vicini = np.array(k_distanze)[:, 1]
+            k_vicini = np.array(k_distanze)[:, 1].astype(int)
 
             # Contiamo la numerosità delle classi dei k vicni
             vicini, numerosita = np.unique(k_vicini, return_counts=True)
