@@ -1,8 +1,10 @@
 # KNN Algorithm - Progetto di Programmazione e metodi sperimentali per l'Intelligenza Artificiale (AA 23/24)
 
 ## Descrizione del progetto
+TODO...
 
 ### Descrizione delle classi implementate
+TODO...
 
 ## Come eseguire il codice e cosa viene richiesto in input
 Prima di eseguire il codice ci sono delle accortezze da fare a priori.
@@ -32,6 +34,7 @@ Gli input richiesti dall'applicativo sono i seguenti:
 - Nel caso in cui venga scelto il metodo di evaluation Random Subsampling verrà richiesto di inserire il numero di esperimenti K
 - Inserire 1 per scegliere tutte le metriche, 0 per scegliere manualmente le metriche
 	- Nel caso in cui venga scelto 0, verrà richiesto per ogni singola metrica se si desidera calcolarla o meno. Considerare che se viene scelta la metrica Geometric Mean vengono calcolati automaticamente anche le metriche Sensitivity e Specificity dato che fanno parte del calcolo per la metrica scelta Geometric Mean).
+   	- Le metriche possibili sono: Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean
 
 
 ## Come visualizzare ed interpretare i risultati ottenuti
@@ -43,7 +46,11 @@ Nel caso in cui venga scelto il metodo di evaluation Random Subsampling, nel fil
 Inoltre verranno visualizzati due grafici, uno rappresentate l'andamento delle metriche calcolate per ogni esperimento e l'altro rappresentate i boxplot per ogni metrica calcolata.
 
 _Esempio di plot delle metriche visualizzate._
-![Andamento delle metriche](https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/8aa23edb-1bf7-4da1-bd61-9381214961d2) 
-![Boxplot delle metriche](https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/b0086e20-e781-4a0a-922c-5fbe3bfcdedb)
+<p float="left">
+  <img src="https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/e7c766c2-1239-4f0c-94de-36322a8146ae" width="500" />
+  <img src="https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/e9cdad10-6c63-4794-9ddf-d577ff557070" width="500" />
+</p>
+
+
 
 
