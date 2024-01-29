@@ -212,9 +212,9 @@ class Evaluation:
             plt.plot(Geometric_mean, marker='o', linestyle='solid', linewidth=2, markersize=5, color='orange', label='Geometric Mean')
 
         plt.legend(loc='upper right') # Imposto la legenda del grafico
-        plt.xlabel("Metriche") # Imposto l'etichetta dell'asse x
+        plt.xlabel("Esperimenti") # Imposto l'etichetta dell'asse x
         plt.ylabel("Valori") # Imposto l'etichetta dell'asse y
-        plt.title("Grafico delle metriche") # Imposto il titolo del grafico
+        plt.title("Andamento delle metriche") # Imposto il titolo del grafico
         plt.tight_layout()
         #plt.show() # Mostro il grafico
 
@@ -226,7 +226,7 @@ class Evaluation:
         
         plt.xlabel("Metriche") # Imposto l'etichetta dell'asse x
         plt.ylabel("Valori") # Imposto l'etichetta dell'asse y
-        plt.title("Grafico delle metriche") # Imposto il titolo del grafico
+        plt.title("Boxplot delle metriche") # Imposto il titolo del grafico
         plt.xticks(range(1, len(etichette) + 1) ,etichette, rotation=45)
         plt.tight_layout()
         plt.show() # Mostro il grafico
