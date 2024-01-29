@@ -44,10 +44,10 @@ class KNNAlgorithm:
                 # Calcolo della distanza euclidea tra il punto x_test ed i punti x_train
                 dist = self.calcolo_distanza_euclidea(punto_train, punto_test)  # metodo calcolo_distanza_euclidea
                 # Aggiungiamo alla lista distanze la coppia distanza,classe di appartenenza
-                distanze.append((dist,self.y_train[index])) #loc mi restituisce la riga corrispondente all'indice
+                distanze.append((int(dist),self.y_train[index])) #loc mi restituisce la riga corrispondente all'indice
 
             # Ordiniamo in modo crescente le distanze
-            distanze = sorted(distanze, key=itemgetter(0), reverse=True)
+            distanze = sorted(distanze, key=itemgetter(0), reverse=False)
             # Selezioniamo le prime k distanze della lista ordinatata di distanze
             k_distanze = distanze[:self.k]
             # Estraiamo le classi corrispondenti ai primi k
@@ -63,13 +63,13 @@ class KNNAlgorithm:
             # Nel caso sia presento sono una classe nella lista la aggiungo a predizioni
             # Altrimenti scelgo in modo cosuale una delle due
             if len(piu_comuni) == 1:
-                predictions.append(piu_comuni)
+                predictions.append(piu_comuni[0])  # Se c'è un solo elemento, aggiungi direttamente l'elemento
             else:
-                predictions.append(np.random.choice(piu_comuni))
-        # Converto le liste di predizioni in un'unica lista.
-        predizioni = [item for sublist in predictions for item in sublist]
+                random_choice = np.random.choice(piu_comuni)  # Se ci sono più elementi, fai una scelta casuale
+                predictions.append(random_choice)
+
         # Viene resituita la lista delle preizioni, contenente le classi prendette per ciasun x_test
-        return predizioni
+        return predictions
 
     def calcolo_distanza_euclidea(self, x1, x2):
         '''
