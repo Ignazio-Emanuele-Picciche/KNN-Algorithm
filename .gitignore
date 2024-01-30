@@ -1,5 +1,5 @@
 env/*
-__pycache__/*
+__pycache__
 data/*
 results/*
 .idea/*
@@ -7,3 +7,4 @@ results/*
 venv
 Metriche.txt
 breast_cancer.csv
+readme_temporaneo.txt
