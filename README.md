@@ -3,8 +3,52 @@
 ## Descrizione del progetto
 TODO...
 
-### Descrizione delle classi implementate
-TODO...
+###  Algoritmo K-Nearest Neighbors 
+*L'algoritmo K-nearest neighbor (KNN)* è una tecnica di classificazione che opera valutando le caratteristiche degli oggetti vicini a quello in esame. In pratica, KNN classifica un oggetto basandosi sulla sua somiglianza con altri oggetti noti nel dataset. Questo avviene calcolando la distanza tra le caratteristiche dell'oggetto da classificare e quelle degli oggetti già presenti nel sistema. Utilizzando i "k" oggetti più vicini, l'algoritmo determina la classe dell'oggetto in esame.
+
+Per individuare i vicini più prossimi di un punto di query, KNN calcola la distanza tra il punto di interrogazione e gli altri punti dati nel dataset. Tra le varie misure di distanza disponibili, la distanza euclidea (p=2) è spesso la scelta più comune, in quanto calcola una linea retta tra il punto di query e gli altri punti.
+
+*Il parametro "k"* nell'algoritmo KNN specifica il numero di vicini da considerare per la classificazione di un dato punto. Se, ad esempio, k=1, l'oggetto verrà assegnato alla stessa classe del suo vicino più vicino. Tuttavia, la scelta di "k" è cruciale e può influenzare le prestazioni del modello. Valori bassi di "k" possono portare a un'elevata variabilità ma una bassa distorsione, mentre valori elevati possono causare una distorsione elevata e una variabilità inferiore. La scelta di "k" dipende dal tipo di dati e dal livello di rumore nel dataset.
+
+## Descrizione delle classi implementate
+### **Classe: KNNAlgorithm**  Classe che implementa l'algoritmo KNN. 
+
+Contiene i metodi per il calcolo della distanza euclidea, per la predizione della classe di un punto.
+
+- __Costruttore__
+
+- La classe KNNAlgorithm è inizializzata con tre parametri: k, x_train e y_train.
+   - k è il numero di vicini più vicini da considerare per la classificazione.
+   - x_train è il dataset di addestramento, contenente i vettori delle caratteristiche.
+   - y_train è il dataset target, contenente le etichette di classe per il dataset di addestramento.
+
+
+- __Metodo: predizione_modello__
+- Il metodo predizione_modello prende in input un dataset di test x_test e restituisce una lista di etichette di classe previste per il dataset di test.
+  - Questo metodo effettua la predizione del modello KNN sui dati di test forniti. 
+  - Per ciascun punto nel dataset di test, calcola la distanza euclidea da tutti i punti nel dataset di addestramento.
+  - Ordina queste distanze in ordine crescente e seleziona le k distanze più piccole.
+  - Poi guarda le etichette di classe di questi k vicini più vicini.
+  - L'etichetta di classe prevista per il punto di test è l'etichetta di classe più comune tra questi k vicini più vicini.
+  - In caso di parità, seleziona casualmente una delle etichette di classe più comuni.
+  - Ripete questo processo per tutti i punti nel dataset di test e restituisce una lista di etichette di classe previste.
+
+
+- __Metodo: calcolo_distanza_euclidea__
+- Il metodo calcolo_distanza_euclidea calcola la distanza euclidea tra due punti.
+
+
+- __Utilizzo della classe KNNAlgorithm__
+  - Per utilizzare la classe KNNAlgorithm, è necessario disporre di un dataset di addestramento e un dataset di test.
+  - Creare un'istanza della classe e passare i parametri k, x_train e y_train al costruttore.
+   ```python
+    knn = KNNAlgorithm(k, x_train, y_train)
+    ```
+  -  Successivamente, è possibile chiamare il metodo predizione_modello con il dataset di test per ottenere le etichette di classe previste.
+   ```python
+    y_pred = knn.predizione_modello(x_test)
+    ```
+
 
 ## Come eseguire il codice e cosa viene richiesto in input
 Prima di eseguire il codice ci sono delle accortezze da fare a priori.
