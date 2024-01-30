@@ -13,7 +13,7 @@ Per individuare i vicini più prossimi di un punto di query, KNN calcola la dist
 ## Descrizione delle classi implementate
 ### **Classe: KNNAlgorithm**  Classe che implementa l'algoritmo KNN. 
 
-Contiene i metodi per il calcolo della distanza euclidea, per la predizione della classe di un punto.
+Contiene i metodi per il calcolo della distanza euclidea e per la predizione della classe di un punto.
 
 - __Costruttore__
 
@@ -48,6 +48,25 @@ Contiene i metodi per il calcolo della distanza euclidea, per la predizione dell
    ```python
     y_pred = knn.predizione_modello(x_test)
     ```
+  
+
+### **Main** 
+Nel main vengono implementate e valutate le prestazioni di un modello di classificazione utilizzando l'algoritmo K-Nearest Neighbors (KNN) con il metodo di valutazione holdout o random subsampling.
+
+- __Funzione: main__
+  - Lo script inizia creando istanze delle classi Input e Preprocessing, fondamentali per gestire l'interazione con l'utente e per preparare i dati.
+  - L'utente viene coinvolto nella scelta del metodo di valutazione e delle metriche da utilizzare per valutare il modello, nonché nel fornire i parametri come il numero di vicini da considerare nell'algoritmo KNN.
+  - Successivamente si procede con il caricamento, la pulizia e la standardizzazione del dataset attraverso la classe Preprocessing.
+  - Una volta preparati i dati, vengono suddivisi in variabili di input (features) e variabili target.
+  - L'utente dovrà specificare i parametri, come la percentuale di dati da utilizzare per l'addestramento e il numero di vicini da considerare nell'algoritmo KNN.  
+  - Infine, lo script crea un'istanza della classe Evaluation per valutare le prestazioni del modello.
+  - A seconda del metodo di valutazione scelto dall'utente, viene chiamato il metodo appropriato della classe Evaluation per valutare il modello e restituire i risultati.
+
+- __Vengono richeste le seguenti classi:__
+  - Preprocessing
+  - Input
+  - Evaluation
+
 
 
 ## Come eseguire il codice e cosa viene richiesto in input
