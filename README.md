@@ -1,7 +1,35 @@
 # KNN Algorithm - Progetto di Programmazione e metodi sperimentali per l'Intelligenza Artificiale (AA 23/24)
 
-## Descrizione del progetto
-TODO...
+
+## General description of the project
+
+This project, made by Alessia Rossi, Ignazio Emanuele Piccichè and Riccardo Polacchi, 
+has the purpose to develop a program which takes a dataset with information and characteristics of some tumoral cells
+and, after the processing of the data and the training of the model, predicts the type of the tumoral cell (if benign or malignant).
+The final objective of the program is to test the performance of the machine learning model and to give and evaluation 
+of the results, with plots and metrics.
+The model uses the KNN algorithm, and for the evaluation it uses the holdout or the random subsampling method (the choice
+is made by the user). 
+It is structured with a pipeline of different classes, which are Input class, Preprocessing class, KNN class and Evaluation class,
+all of them utilized in the main of the program.
+The user can decide the value of the inputs and the type of evaluation and metrics (for further information read the section 
+with the instructions for the user).
+The dataset utilized is taken from http://archive.ics.uci.edu/dataset/15/breast+cancer+wisconsin+original,
+it is a .csv file wich contains the following data for every single cell:
+
+- A sample code number 
+
+- 9 types of features, wich one with a value from 1 to 10, which are "clump thickness", "uniformity of cell size",
+ "uniformity of cell shape", "marginal adhesion", "single epithelial cel size", "bare nuclei", "bland chromatin",
+ "normal nucleoli", "mitoses".
+
+- The class label, wich value is 2 if there is a benign tumor, and 4 it there is a malignant tumor
+
+In the following parts there are the descriptions of the classes and then instructions for the user 
+to correctly use the program.
+
+
+
 
 ### Descrizione delle classi implementate
 TODO...
