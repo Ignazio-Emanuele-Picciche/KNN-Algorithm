@@ -1,68 +1,68 @@
-# KNN Algorithm - Progetto di Programmazione e metodi sperimentali per l'Intelligenza Artificiale (AA 23/24)
+# KNN Algorithm - Programming and Experimental Methods for Artificial Intelligence (AA 23/24)
 
-## Descrizione del progetto
+## Project Description
 TODO...
 
-###  Algoritmo K-Nearest Neighbors 
-*L'algoritmo K-nearest neighbor (KNN)* è una tecnica di classificazione che opera valutando le caratteristiche degli oggetti vicini a quello in esame. In pratica, KNN classifica un oggetto basandosi sulla sua somiglianza con altri oggetti noti nel dataset. Questo avviene calcolando la distanza tra le caratteristiche dell'oggetto da classificare e quelle degli oggetti già presenti nel sistema. Utilizzando i "k" oggetti più vicini, l'algoritmo determina la classe dell'oggetto in esame.
+###  K-Nearest Neighbors Algorithm
+*The K-nearest neighbor (KNN) algorithm* is a classification technique that operates by evaluating the characteristics of objects close to the one under examination. In practice, KNN classifies an object based on its similarity to other known objects in the dataset. This is done by calculating the distance between the features of the object to be classified and those of the objects already present in the system. By using the "k" nearest objects, the algorithm determines the class of the object under examination.
 
-Per individuare i vicini più prossimi di un punto di query, KNN calcola la distanza tra il punto di interrogazione e gli altri punti dati nel dataset. Tra le varie misure di distanza disponibili, la distanza euclidea (p=2) è spesso la scelta più comune, in quanto calcola una linea retta tra il punto di query e gli altri punti.
+To identify the nearest neighbors of a query point, KNN calculates the distance between the query point and the other data points in the dataset. Among the various distance measures available, the Euclidean distance (p=2) is often the most common choice, as it calculates a straight line between the query point and the other points.
 
-*Il parametro "k"* nell'algoritmo KNN specifica il numero di vicini da considerare per la classificazione di un dato punto. Se, ad esempio, k=1, l'oggetto verrà assegnato alla stessa classe del suo vicino più vicino. Tuttavia, la scelta di "k" è cruciale e può influenzare le prestazioni del modello. Valori bassi di "k" possono portare a un'elevata variabilità ma una bassa distorsione, mentre valori elevati possono causare una distorsione elevata e una variabilità inferiore. La scelta di "k" dipende dal tipo di dati e dal livello di rumore nel dataset.
+*The parameter "k"*  in the KNN algorithm specifies the number of neighbors to consider for classifying a given point. For example, if k=1, the object will be assigned to the same class as its nearest neighbor. However, the choice of "k" is crucial and can affect the model's performance. Low values of "k" can lead to high variability but low bias, while high values can cause high bias and lower variability. The choice of "k" depends on the type of data and the level of noise in the dataset.
 
-## Descrizione delle classi implementate
-### **Classe: KNNAlgorithm**  Classe che implementa l'algoritmo KNN. 
+## Description of Implemented Classes
+### **Class: KNNAlgorithm**  A class implementing the KNN algorithm.
 
-Contiene i metodi per il calcolo della distanza euclidea e per la predizione della classe di un punto.
+It contains methods for calculating Euclidean distance and predicting the class of a point.
 
-- __Costruttore__
+- __Constructor__
 
-- La classe KNNAlgorithm è inizializzata con tre parametri: k, x_train e y_train.
-   - k è il numero di vicini più vicini da considerare per la classificazione.
-   - x_train è il dataset di addestramento, contenente i vettori delle caratteristiche.
-   - y_train è il dataset target, contenente le etichette di classe per il dataset di addestramento.
-
-
-- __Metodo: predizione_modello__
-- Il metodo predizione_modello prende in input un dataset di test x_test e restituisce una lista di etichette di classe previste per il dataset di test.
-  - Questo metodo effettua la predizione del modello KNN sui dati di test forniti. 
-  - Per ciascun punto nel dataset di test, calcola la distanza euclidea da tutti i punti nel dataset di addestramento.
-  - Ordina queste distanze in ordine crescente e seleziona le k distanze più piccole.
-  - Poi guarda le etichette di classe di questi k vicini più vicini.
-  - L'etichetta di classe prevista per il punto di test è l'etichetta di classe più comune tra questi k vicini più vicini.
-  - In caso di parità, seleziona casualmente una delle etichette di classe più comuni.
-  - Ripete questo processo per tutti i punti nel dataset di test e restituisce una lista di etichette di classe previste.
+-The KNNAlgorithm class is initialized with three parameters: k, x_train, and y_train.
+   - k is the number of nearest neighbors to consider for classifying a given point.
+   - x_train is the training dataset, containing feature vectors for the training dataset.
+   - y_train is the training dataset, containing class labels for the training dataset.
 
 
-- __Metodo: calcolo_distanza_euclidea__
-- Il metodo calcolo_distanza_euclidea calcola la distanza euclidea tra due punti.
+- __Method: predizione_modello__
+- The predizione_modello method takes a test dataset x_test as input and returns a list of predicted class labels for the test dataset.
+  - This method predicts the KNN model on the provided test data. 
+  - For each point in the test dataset, it calculates the Euclidean distance from all points in the training dataset.
+  - It sorts these distances in ascending order and selects the smallest k distances. 
+  - Then it looks at the class labels of these k nearest neighbors.
+  - The predicted class label for the test point is the most common class label among these k nearest neighbors.
+  - In case of a tie, it randomly selects one of the most common class labels.
+  - This process is repeated for all points in the test dataset, and a list of predicted class labels is returned.
+  
+
+- __Method: calcolo_distanza_euclidea__
+- The calcolo_distanza_euclidea method calculates the Euclidean distance between two points.
 
 
-- __Utilizzo della classe KNNAlgorithm__
-  - Per utilizzare la classe KNNAlgorithm, è necessario disporre di un dataset di addestramento e un dataset di test.
-  - Creare un'istanza della classe e passare i parametri k, x_train e y_train al costruttore.
+- __Using the KNNAlgorithm Class__
+  - To use the KNNAlgorithm class, you need a training dataset and a test dataset.
+  - Create an instance of the class and pass the parameters k, x_train, and y_train to the constructor.
    ```python
     knn = KNNAlgorithm(k, x_train, y_train)
     ```
-  -  Successivamente, è possibile chiamare il metodo predizione_modello con il dataset di test per ottenere le etichette di classe previste.
+  -  Then, you can call the model_prediction method with the test dataset to get the predicted class labels.
    ```python
     y_pred = knn.predizione_modello(x_test)
     ```
   
 
 ### **Main** 
-Nel main vengono implementate e valutate le prestazioni di un modello di classificazione utilizzando l'algoritmo K-Nearest Neighbors (KNN) con il metodo di valutazione holdout o random subsampling.
+The main function implements and evaluates the performance of a classification model using the K-Nearest Neighbors (KNN) algorithm with the holdout or random subsampling evaluation method.
 
-- __Funzione: main__
-  - Lo script inizia creando istanze delle classi Input e Preprocessing, fondamentali per gestire l'interazione con l'utente e per preparare i dati.
-  - L'utente viene coinvolto nella scelta del metodo di valutazione e delle metriche da utilizzare per valutare il modello, nonché nel fornire i parametri come il numero di vicini da considerare nell'algoritmo KNN.
-  - Successivamente si procede con il caricamento, la pulizia e la standardizzazione del dataset attraverso la classe Preprocessing.
-  - Una volta preparati i dati, vengono suddivisi in variabili di input (features) e variabili target.
-  - L'utente dovrà specificare i parametri, come la percentuale di dati da utilizzare per l'addestramento e il numero di vicini da considerare nell'algoritmo KNN.  
-  - Infine, lo script crea un'istanza della classe Evaluation per valutare le prestazioni del modello.
-  - A seconda del metodo di valutazione scelto dall'utente, viene chiamato il metodo appropriato della classe Evaluation per valutare il modello e restituire i risultati.
+- __Function: main__
+  - The script begins by creating instances of the Input and Preprocessing classes, essential for handling user interaction and preparing data.
+  - The user is involved in choosing the evaluation method and metrics to use for evaluating the model, as well as providing parameters like the number of neighbors to consider in the KNN algorithm.
+  - Next, it proceeds with loading, cleaning, and standardizing the dataset through the Preprocessing class.
+  - Then, it splits the dataset into training and test sets using the Input class.
+  - The user needs to specify parameters such as the percentage of data to use for training and the number of neighbors to consider in the KNN algorithm.
+  - Finally, the script creates an instance of the Evaluation class to evaluate the model's performance.
+  - Depending on the evaluation method chosen by the user, the appropriate method of the Evaluation class is called to evaluate the model and return the results.
 
-- __Vengono richeste le seguenti classi:__
+- __Required Classes:__
   - Preprocessing
   - Input
   - Evaluation
