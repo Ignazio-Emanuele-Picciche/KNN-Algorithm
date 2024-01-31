@@ -10,22 +10,19 @@ of the results, with plots and metrics.
 The model uses the KNN algorithm, and for the evaluation it uses the holdout or the random subsampling method (the choice
 is made by the user). 
 It is structured with a pipeline of different classes, which are Input class, Preprocessing class, KNN class and Evaluation class,
-all of them utilized in the main of the program.
+all of them utilized in the Main of the program.
 The user can decide the value of the inputs and the type of evaluation and metrics (for further information read the section 
 with the instructions for the user).
 The dataset utilized is taken from http://archive.ics.uci.edu/dataset/15/breast+cancer+wisconsin+original,
 it is a .csv file wich contains the following data for every single cell:
 
-- A sample code number 
+- A sample code number. 
 
 - 9 types of features, wich one with a value from 1 to 10, which are "clump thickness", "uniformity of cell size",
  "uniformity of cell shape", "marginal adhesion", "single epithelial cel size", "bare nuclei", "bland chromatin",
  "normal nucleoli", "mitoses".
 
-- The class label, wich value is 2 if there is a benign tumor, and 4 it there is a malignant tumor
-
-In the following parts there are the descriptions of the classes and then the instructions for the user 
-to correctly use the program.
+- The class label, wich value is 2 if there is a benign tumor, and 4 it there is a malignant tumor.
 
 ###  K-Nearest Neighbors Algorithm
 *The K-nearest neighbor (KNN) algorithm* is a classification technique that operates by evaluating the characteristics of objects close to the one under examination. In practice, KNN classifies an object based on its similarity to other known objects in the dataset. This is done by calculating the distance between the features of the object to be classified and those of the objects already present in the system. By using the "k" nearest objects, the algorithm determines the class of the object under examination.
