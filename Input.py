@@ -28,8 +28,12 @@ class Input:
                 return int(scelta_evaluation)
 
             elif scelta_evaluation=="2":
-
-                self.K = int(input("Inserire il numero di esperimenti K: ")) #se ha effettuato questa scelta, l'utente deve inserire il numero di esperimenti K per il random subsampling
+                while True: #se è stata fatta la scelta 2, l'utente deve inserire il numero di esperimenti K
+                    #il programma non va avanti finchè l'utente non inserisce un numero intero maggiore di 0
+                    K = input("Inserire il numero di esperimenti K: ")
+                    if K.isdigit() and int(K) > 0:
+                        self.K = int(K)
+                        break
 
                 return int(scelta_evaluation)
 
@@ -93,4 +97,3 @@ class Input:
 #prova
 #input1=Input()
 #print(input1.k,input1.training,input1.test,input1.scelta_metodo_evaluation(),input1.scelta_metriche())
-
