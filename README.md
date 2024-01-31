@@ -90,6 +90,47 @@ The main function implements and evaluates the performance of a classification m
   - Preprocessing
   - Input
   - Evaluation
+ 
+ ### **Input**
+
+This class has the purpose to give to the user the choice of the input values.
+These input values are: 
+
+- k (with lower case), the number of neighbors to use in the KNN alghorithm.
+- The percentage of dataset values to use for the training of the program (typical values are 70-80).
+- The evaluation method (1 for holdout, 2 for the random subsampling).
+
+If, and only if, in the evaluation method the choice was 2 (random subsampling) there will be another input for the user:
+
+- K (with upper case), the number of experiments for the random subsampling.
+
+Then the user can decide wich metrics use for valuating the performance of the program.
+The metrics available are "Accuracy Rate", "Error Rate", "Sensitivity", "Specificity", "Geometric Mean".
+
+-the user can decide if he want to use all the metrics (1) or if he want to use only some metrics (0).
+ If, and only if, in the previous passage the user decide to use only some metrics (0), then
+for every metric ther will be a question asking him if he wants to use that metric (1) or not (0).
+
+The purpose of the class is also to verify if the user has insert for input a proper value.
+If not, the program will ask again the user to insert the input, until it is an acceptable value.
+
+### **Preprocessing**
+
+The purpose of this class is to preprocess the data given from the dataset. What the class do is:
+
+-Importing the dataset: the class will import the csv file of the dataset for the preprocessing
+
+-Data clealing: if there is a line with missing values, that line is eliminated.
+
+-Feature scaling (standardization): for the feature scaling, the choice was between the normalization and
+the standardization. After some researches, the choice taken was for the standardization, also because
+it is a type of feature scaling with an important characteristhic: if eventually there will be an outlayer (a value much bigger than the others, completely out of scale)
+it will not falses the results of the algorithm.
+
+-Data partitioning:  The class divides the data into two groups, features and target label. This is necessary for the data processing in the algorithm.
+
+This class uses the Pandas library.
+
 
 
 
