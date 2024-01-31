@@ -25,7 +25,7 @@ it is a .csv file wich contains the following data for every single cell:
 
 - The class label, wich value is 2 if there is a benign tumor, and 4 it there is a malignant tumor
 
-In the following parts there are the descriptions of the classes and then instructions for the user 
+In the following parts there are the descriptions of the classes and then the instructions for the user 
 to correctly use the program.
 
 
