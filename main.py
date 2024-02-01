@@ -14,6 +14,8 @@ if __name__ == '__main__':
     input_utente = Input()
     preprocessing = Preprocessing()
 
+
+
     # Ask the user for the evaluation method and metrics to use
     metodo_di_valutazione= input_utente.scelta_metodo_evaluation()
     metriche_scelte = input_utente.scelta_metriche()
@@ -28,8 +30,8 @@ if __name__ == '__main__':
     features, target = preprocessing.suddivisione_dati()
 
     # Ask the user for the percentage of data to use for training and the number of neighbors to consider
-    perc_train = input_utente.training
-    k = input_utente.k
+    perc_train = input_utente.scelta_training()
+    k = input_utente.scelta_k()
 
     #  Create an instance of the Evaluation class to evaluate the model's performance
     evaluation = Evaluation(features, target, perc_train, k, metriche_scelte)
