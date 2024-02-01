@@ -111,5 +111,5 @@ class Input:
                 return metriche_scelte
 
 #prova
-input1=Input()
-print(input1.scelta_k(),input1.scelta_training(),input1.scelta_metodo_evaluation(),input1.scelta_metriche())
+#input1=Input()
+#print(input1.scelta_k(),input1.scelta_training(),input1.scelta_metodo_evaluation(),input1.scelta_metriche())
