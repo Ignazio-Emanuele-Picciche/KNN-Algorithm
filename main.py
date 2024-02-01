@@ -37,6 +37,6 @@ if __name__ == '__main__ ':
     evaluation = Evaluation(features, target, perc_train, k, metriche_scelte)
 
     if metodo_di_valutazione == 1:
-        evaluation.valutazione_holdout()
+        evaluation.holdout_validation()
     else:
-        evaluation.valutazione_random_subsampling(K)
+        evaluation.random_subsampling_validation(K)

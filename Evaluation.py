@@ -11,19 +11,19 @@ from KNNAlgorithm import KNNAlgorithm
 @Author: Ignazio Emanuele Piccichè
 
 - Definizione dei metodi della classe Evaluation:
-    - costruttore
-    - split_dati -> Metodo che va a dividere i dati in dati di train e dati di test
-    - valutazione_holdout -> Metodo che va a valutare il modello mediante la metodologia "Holdout"
-    - valutazione_random_subsampling -> Metodo che va a valutare il modello mediante la metodologia "Random Subsampling"
-    - calcolo_metrice -> Metodo che va a calcolare le metriche di valutazione richieste (Accuracy Rate, Error Rate, Sensitivity, Specificity, Geometric Mean)
-    - salva_metriche -> Metodo che va a salvare le metriche calcolate nel file Metriche.txt
-    - plot_delle_metriche -> Metodo che va a plottare le metriche calcolate. Plot delle metriche in funzione al numero di esperimenti e boxplot delle metriche.
+    - constructor
+    - data_splitting -> Metodo che va a dividere i dati in dati di train e dati di test
+    - holdout_validation -> Metodo che va a valutare il modello mediante la metodologia "Holdout"
+    - random_subsampling_validation -> Metodo che va a valutare il modello mediante la metodologia "Random Subsampling"
+    - metrics_calculation -> Metodo che va a calcolare le metriche di valutazione richieste (Accuracy Rate, Error Rate, Sensitivity, Specificity, Geometric Mean)
+    - save_metrics -> Metodo che va a salvare le metriche calcolate nel file Metriche.txt
+    - metrics_plot -> Metodo che va a plottare le metriche calcolate. Plot delle metriche in funzione al numero di esperimenti e boxplot delle metriche.
 '''
 class Evaluation:
     
 
     '''
-    costruttore
+    constructor
 
     Parameters
     ----------
@@ -31,23 +31,23 @@ class Evaluation:
         dati che verranno utilizzati per addestrare e testare il modello
     target : pandas.Series
         dati che verranno utilizzati per addestrare e testare il modello
-    perc_train : int
+    training_perc : int
         percentuale di dati che verranno utilizzati per addestrare il modello
     k : int
         numero di vicini da considerare
-    metriche_scelte : list
+    chosen_metrics : list
         lista che contiene le metriche scelte dall'utente
 
     Returns
     -------
     None
     '''
-    def __init__(self, features:pd.DataFrame, target:pd.Series, perc_train:int, k:int, metriche_scelte:list):
+    def __init__(self, features:pd.DataFrame, target:pd.Series, training_perc:int, k:int, chosen_metrics:list):
         self.features = features
         self.target = target
-        self.perc_train = perc_train
+        self.training_perc = training_perc
         self.k = k
-        self.metriche_scelte = metriche_scelte
+        self.chosen_metrics = chosen_metrics
         
     '''
     In questo metodo vengono divisi i dati in dati di train e dati di test.
@@ -61,7 +61,7 @@ class Evaluation:
         dati che verranno utilizzati per addestrare e testare il modello
     target : pandas.Series
         dati che verranno utilizzati per addestrare e testare il modello
-    perc_train : int
+    training_perc : int
         percentuale di dati che verranno utilizzati per addestrare il modello
 
     Returns
@@ -75,8 +75,8 @@ class Evaluation:
     y_test : pandas.Series
         dati che verranno utilizzati per testare il modello
     '''
-    def split_dati(self, features:pd.DataFrame, target:pd.Series, perc_train:int):
-        X_train = features.sample(frac = perc_train/100) # Prendo i dati per il training secondo una percentuale specificata in input
+    def data_splitting(self, features:pd.DataFrame, target:pd.Series, training_perc:int):
+        X_train = features.sample(frac = training_perc/100) # Prendo i dati per il training secondo una percentuale specificata in input
         X_test = features.drop(X_train.index) # Prendo i dati per il test. Sono tutti i dati che non sono stati presi per il training
 
         y_train = target.drop(X_test.index) # Mi salvo le y di train corrispondenti alle x di train
@@ -101,14 +101,14 @@ class Evaluation:
     -------
     None
     '''
-    def valutazione_holdout(self):
-        X_train, y_train, X_test, y_test = self.split_dati(self.features, self.target, self.perc_train) # richiamo il metodo che va a splittare i dati in dati di train e dati di test
+    def holdout_validation(self):
+        X_train, y_train, X_test, y_test = self.data_splitting(self.features, self.target, self.training_perc) # richiamo il metodo che va a splittare i dati in dati di train e dati di test
 
         knnModel = KNNAlgorithm(self.k, X_train, y_train) # Alleno il modello fornendogli i dati di training
-        prediction = knnModel.predizione_modello(X_test) # Effettuo la predizione con il modello allenato precedentemente
+        prediction = knnModel.model_prediction(X_test) # Effettuo la predizione con il modello allenato precedentemente
 
-        Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean = self.calcolo_metrice(y_test, prediction) # richiamo il metodo che va a calcolare le metriche, passandogli i dati di test e le predizioni
-        self.salva_metriche(Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean) # richiamo il metodo che va a salvare nel file Metriche.txt le metriche appena calcolate
+        Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean = self.metrics_calculation(y_test, prediction) # richiamo il metodo che va a calcolare le metriche, passandogli i dati di test e le predizioni
+        self.save_metrics(Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean) # richiamo il metodo che va a salvare nel file Metriche.txt le metriche appena calcolate
 
     ''' 
     Il processo di valutazione random subsampling consiste in:
@@ -128,7 +128,7 @@ class Evaluation:
     -------
     None
     '''
-    def valutazione_random_subsampling(self, K:int):
+    def random_subsampling_validation(self, K:int):
         # Inizializzo le liste che conteranno i valori delle metriche calcolate per ogni iterazione
         Accuracy_rate_scores = []
         Error_rate_scores = []
@@ -138,12 +138,12 @@ class Evaluation:
 
         # Come previsto dal processo di valutazione random subsampling, questo viene ripetuto K volte
         for _ in range(K):
-            X_train, y_train, X_test, y_test = self.split_dati(self.features, self.target, self.perc_train) # richiamo il metodo che va a splittare i dati in dati di train e dati di test
+            X_train, y_train, X_test, y_test = self.data_splitting(self.features, self.target, self.training_perc) # richiamo il metodo che va a splittare i dati in dati di train e dati di test
 
             knnModel = KNNAlgorithm(self.k, X_train, y_train) # Alleno il modello fornendogli i dati di training
-            prediction = knnModel.predizione_modello(X_test) # Effettuo la predizione con il modello allenato precedentemente
+            prediction = knnModel.model_prediction(X_test) # Effettuo la predizione con il modello allenato precedentemente
 
-            Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean = self.calcolo_metrice(y_test, prediction) # richiamo il metodo che va a calcolare le metriche, passandogli i dati di test e le predizioni
+            Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean = self.metrics_calculation(y_test, prediction) # richiamo il metodo che va a calcolare le metriche, passandogli i dati di test e le predizioni
             
             # Aggiungo i valori delle metriche calcolate, per questo esperimento, nelle liste
             Accuracy_rate_scores.append(Accuracy_rate)
@@ -159,8 +159,8 @@ class Evaluation:
         Specificity_mean = np.mean(Specificity_scores)
         Geometric_mean_mean = np.mean(Geometric_mean_scores)
 
-        self.salva_metriche(Accuracy_rate_mean, Error_rate_mean, Sensitivity_mean, Specificity_mean, Geometric_mean_mean) # richiamo il metodo che va a salvare le metriche calcolate, nel file Metriche.txt
-        self.plot_delle_metriche(Accuracy_rate_scores, Error_rate_scores, Sensitivity_scores, Specificity_scores, Geometric_mean_scores) # richiamo il metodo che va a plottare le metriche calcolate
+        self.save_metrics(Accuracy_rate_mean, Error_rate_mean, Sensitivity_mean, Specificity_mean, Geometric_mean_mean) # richiamo il metodo che va a salvare le metriche calcolate, nel file Metriche.txt
+        self.metrics_plot(Accuracy_rate_scores, Error_rate_scores, Sensitivity_scores, Specificity_scores, Geometric_mean_scores) # richiamo il metodo che va a plottare le metriche calcolate
 
 
     '''
@@ -186,7 +186,7 @@ class Evaluation:
     Geometric_mean : float
         media che bilancia valori positivi e negativi
     '''
-    def calcolo_metrice(self, y_test:pd.Series, prediction:list):
+    def metrics_calculation(self, y_test:pd.Series, prediction:list):
 
         # Inizializzo le variabili che conterranno i valori delle metriche calcolate
         Accuracy_rate = 0
@@ -203,15 +203,15 @@ class Evaluation:
         
 
         # Calcolo effettivo delle metriche richieste mediante i valori della confusion matrix, precedentemente calcolati
-        if 1 in self.metriche_scelte:
+        if 1 in self.chosen_metrics:
             Accuracy_rate = (True_Negative + True_Positive) / y_test.size # Percentuale di predizioni corrette rispetto al totale delle predizioni
-        if 2 in self.metriche_scelte:
+        if 2 in self.chosen_metrics:
             Error_rate = (False_Positive + False_Negative) / y_test.size # Percentuale di predizioni errate rispetto al totale delle predizioni
-        if 3 in self.metriche_scelte and (True_Positive + False_Negative) != 0:
+        if 3 in self.chosen_metrics and (True_Positive + False_Negative) != 0:
             Sensitivity = (True_Positive) / (True_Positive + False_Negative) # Capacità del modello di predirre correttamente i valori positivi
-        if 4 in self.metriche_scelte and (True_Negative + False_Positive) != 0:
+        if 4 in self.chosen_metrics and (True_Negative + False_Positive) != 0:
             Specificity = (True_Negative) / (True_Negative + False_Positive) # Capacità del modello di predirre correttamente i valori negativi
-        if 5 in self.metriche_scelte:
+        if 5 in self.chosen_metrics:
             Geometric_mean = np.sqrt((Sensitivity*Specificity)) # Media che bilancia valori positivi e negativi
 
         return Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean
@@ -238,7 +238,7 @@ class Evaluation:
     -------
     None
     '''
-    def salva_metriche(self, Accuracy_rate:float, Error_rate:float, Sensitivity:float, Specificity:float, Geometric_mean:float):
+    def save_metrics(self, Accuracy_rate:float, Error_rate:float, Sensitivity:float, Specificity:float, Geometric_mean:float):
         # Con le seguenti operazioni apro il file Metriche.txt e ci scrivo dentro le metriche calcolate
         with open('Metriche.txt', 'w') as file:
             file.write('Accuracy Rate: ' + str(Accuracy_rate) + '\n')
@@ -270,22 +270,22 @@ class Evaluation:
     -------
     None
     '''
-    def plot_delle_metriche(self, Accuracy_rate:list, Error_rate:list, Sensitivity:list, Specificity:list, Geometric_mean:list):
+    def metrics_plot(self, Accuracy_rate:list, Error_rate:list, Sensitivity:list, Specificity:list, Geometric_mean:list):
         etichette = ['Accuracy Rate', 'Error Rate', 'Sensitivity', 'Specificity', 'Geometric Mean'] # Vettore utilizzato per rappresentare le etichette del grafico
         valori = [Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean] # Vettore utilizzato per rappresentare i valori del grafico corrispondenti alle etichette
 
         plt.figure(figsize=(10, 5)) # Imposto la dimensione del grafico
 
         # Con le seguenti operazioni plotto le metriche richieste
-        if 1 in self.metriche_scelte:
+        if 1 in self.chosen_metrics:
             plt.plot(Accuracy_rate, marker='o', linestyle='solid', linewidth=2, markersize=5, color='blue', label='Accuracy Rate')
-        if 2 in self.metriche_scelte:
+        if 2 in self.chosen_metrics:
             plt.plot(Error_rate, marker='o', linestyle='solid', linewidth=2, markersize=5, color='green', label='Error Rate')
-        if 3 in self.metriche_scelte:
+        if 3 in self.chosen_metrics:
             plt.plot(Sensitivity, marker='o', linestyle='solid', linewidth=2, markersize=5, color='red', label='Sensitivity')
-        if 4 in self.metriche_scelte:
+        if 4 in self.chosen_metrics:
             plt.plot(Specificity, marker='o', linestyle='solid', linewidth=2, markersize=5, color='yellow', label='Specificity')
-        if 5 in self.metriche_scelte:
+        if 5 in self.chosen_metrics:
             plt.plot(Geometric_mean, marker='o', linestyle='solid', linewidth=2, markersize=5, color='orange', label='Geometric Mean')
 
         
