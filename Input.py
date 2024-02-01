@@ -1,12 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# __import__(class evaluation)
 
-# k = int(input("Inserire il numero di vicini k da utilizzare per il classificatore: ")) #numero di vicini da utilizzare per il classificatore
-    #K = int(input("Inserire il numero di esperimenti K: ")) #numero di esperimenti
-    #training = int(input("Inserire la percentuale di training: ")) #percentuale di training (la percentuale di test sarà ricavata automaticamente dal programma)
-    #test = 100 - training #percentuale di test (ricavata dal programma per sottrazione)
-    #print(f"La percentuale di test è {test}")
+
 
 class Input:
     def __init__(self):
@@ -14,6 +9,9 @@ class Input:
         self.training=1
         self.K=0 #numero di esperimenti K per il random subsampling
 
+    def dataset_path(self): #the user enters the path of the dataset
+        path = input("Enter the path of the dataset: ")
+        return path
     def scelta_k(self): #l'utente sceglie il numero di vicini k da utilizzare per il classificatore
                         #il programma non va avanti finchè l'utente non inserisce un numero intero maggiore di 0
         while True:
@@ -112,4 +110,4 @@ class Input:
 
 #prova
 #input1=Input()
-#print(input1.scelta_k(),input1.scelta_training(),input1.scelta_metodo_evaluation(),input1.scelta_metriche())
+#print(input1.dataset_path(),input1.scelta_k(),input1.scelta_training(),input1.scelta_metodo_evaluation(),input1.scelta_metriche())

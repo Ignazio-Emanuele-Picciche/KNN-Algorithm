@@ -1,40 +1,47 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Le funzioni della classe preprocessing sono:
-# caricare il dataset
-# gestire i valori mancanti
-# normalizzare o standardizzare i dati a seconda della scelta
-# dividere i dati in features (x) e target label (y)
+
+'''
+- Definition of the methods of the Preprocessing class:
+    - constructor
+    - loading_dataset -> Loads the dataset from the csv file
+    - data_cleaning -> Manages missing values
+    - standardization -> Performs feature scaling
+    - data_split -> Splits the dataset into features (x) and target label (y)
+'''
 
 
 import pandas as pd
 
 
-class Preprocessing(): #creo classe Preprocessing
-    dati = pd.DataFrame()
+class Preprocessing():
+    data = pd.DataFrame()
 
-    def __init__(self):
+
+
+    def __init__(self, dataset_path):
+        self.dataset_path = dataset_path
         pass
 
-    def caricamento_dataset(self):  # creazione metodo caricamento dataset
-        self.dati = pd.read_csv('breast_cancer.csv') #importo il file csv
+    def loading_dataset(self):  # creazione metodo caricamento dataset
+        self.data = pd.read_csv(self.dataset_path) #importo il file csv
 
 
 
-    def pulizia_dati(self): # creazione metodo pulizia dati che gestisce i valori mancanti
-        self.dati = self.dati.dropna() # le righe corrispondenti ai valori mancanti vengono eliminate
-        self.dati = self.dati.drop(columns=['Sample code number']) # la colonna Sample code number viene eliminata in quanto non utile per la classificazione
+    def data_cleaning(self): # creazione metodo pulizia dati che gestisce i valori mancanti
+        self.data = self.data.dropna() # le righe corrispondenti ai valori mancanti vengono eliminate
+        self.data = self.data.drop(columns=['Sample code number']) # la colonna Sample code number viene eliminata in quanto non utile per la classificazione
 
 
-    def standardizzazione(self): # creazione metodo standardizzazione per il feature scaling, da applicare a tutte le colonne tranne l'ultima (target label)
-        for i in range(0, len(self.dati.columns) - 1):
-            self.dati.iloc[:, i] = (self.dati.iloc[:, i] - self.dati.iloc[:, i].mean()) / self.dati.iloc[:, i].std()
+    def standardization(self): # creazione metodo standardizzazione per il feature scaling, da applicare a tutte le colonne tranne l'ultima (target label)
+        for i in range(0, len(self.data.columns) - 1):
+            self.data.iloc[:, i] = (self.data.iloc[:, i] - self.data.iloc[:, i].mean()) / self.data.iloc[:, i].std()
 
 
-    def suddivisione_dati(self):  # i dati vengono suddivisi in features (le x) e target label (le y). Entrambi dovranno avere il corrispondente indice
-        x = self.dati.iloc[:, :-1]  # features (x)
-        y = self.dati["Class"] #target label (y)
+    def data_split(self):  # i dati vengono suddivisi in features (le x) e target label (le y). Entrambi dovranno avere il corrispondente indice
+        x = self.data.iloc[:, :-1]  # features (x)
+        y = self.data["Class"] #target label (y)
         y = y.astype(int) #trasformo le y in interi
         return x, y
 
@@ -42,8 +49,8 @@ class Preprocessing(): #creo classe Preprocessing
 
 
 #prova = Preprocessing()
-#prova.caricamento_dataset()
-#prova.pulizia_dati()
-#prova.standardizzazione()
-#prova.suddivisione_dati()
-#print(prova.suddivisione_dati())
+#prova.loading_dataset()
+#prova.data_cleaning()
+#prova.standardization()
+#prova.data_split()
+#print(prova.data_split())
