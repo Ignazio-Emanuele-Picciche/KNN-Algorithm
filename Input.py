@@ -17,7 +17,7 @@ class Input:
     def scelta_k(self): #l'utente sceglie il numero di vicini k da utilizzare per il classificatore
                         #il programma non va avanti finchè l'utente non inserisce un numero intero maggiore di 0
         while True:
-            k = input("Inserire il numero di vicini k da utilizzare per il classificatore: ")
+            k = input("Enter the number of neighbors k to use for the classifier: ")
             if k.isdigit() and int(k) > 0:
                 self.k = int(k)
                 break
@@ -27,7 +27,7 @@ class Input:
     def scelta_training(self): #l'utente sceglie la percentuale di training, il valore inserito deve essere un numero compreso tra 0 e 100, se non è così il programma non va avanti
 
         while True:
-            training = input("Inserire la percentuale di training: ")
+            training = input("Enter the percentage for the training: ")
             if training.isdigit() and 0 < int(training) < 100:
                 self.training = int(training)
                 break
@@ -37,7 +37,7 @@ class Input:
 
         while scelta_evaluation !="1" or scelta_evaluation !="2":
 
-            scelta_evaluation = (input("Inserire 1 per scegliere l'holdout, 2 per il random subsampling: ")) #l'utente deve inserire 1 o 2, 1 per l'holdout, 2 per il random subsampling, il programma non va avanti finchè l'utente non sceglie
+            scelta_evaluation = (input("Enter 1 to choose holdout, 2 to choose random subsampling: ")) #l'utente deve inserire 1 o 2, 1 per l'holdout, 2 per il random subsampling, il programma non va avanti finchè l'utente non sceglie
 
             if scelta_evaluation=="1":
 
@@ -46,7 +46,7 @@ class Input:
             elif scelta_evaluation=="2":
                 while True: #se è stata fatta la scelta 2, l'utente deve inserire il numero di esperimenti K
                     #il programma non va avanti finchè l'utente non inserisce un numero intero maggiore di 0
-                    K = input("Inserire il numero di esperimenti K: ")
+                    K = input("Enter the number of experiments K for the random subsampling: ")
                     if K.isdigit() and int(K) > 0:
                         self.K = int(K)
                         break
@@ -63,14 +63,14 @@ class Input:
         metriche_scelte = []
         scelta_metriche = 0
         while scelta_metriche != "1" or scelta_metriche != "0":
-            scelta_metriche = (input("Inserire 1 per scegliere tutte le metriche, 0 per scegliere manualmente le metriche: "))
+            scelta_metriche = (input("Enter 1 to select all metrics, 0 to manually select metrics: "))
             if scelta_metriche == "1":
                 metriche_scelte = [1, 2, 3, 4, 5]
                 return metriche_scelte
             elif scelta_metriche == "0":
                 scelta_metriche_accuracy_rate = 0
                 while scelta_metriche_accuracy_rate != "1" or scelta_metriche_accuracy_rate != "0":
-                    scelta_metriche_accuracy_rate = (input("Inserire 1 per scegliere la metrica Accuracy Rate, 0 per non sceglierla: "))
+                    scelta_metriche_accuracy_rate = (input("Enter 1 to choose the Accuracy Rate metric, 0 to not choose it: "))
                     if scelta_metriche_accuracy_rate == "1":
                         metriche_scelte.append(1)
                         break
@@ -78,7 +78,7 @@ class Input:
                         break
                 scelta_metriche_error_rate = 0
                 while scelta_metriche_error_rate != "1" or scelta_metriche_error_rate != "0":
-                    scelta_metriche_error_rate = (input("Inserire 1 per scegliere la metrica Error Rate, 0 per non sceglierla: "))
+                    scelta_metriche_error_rate = (input("Enter 1 to choose the Error Rate metric, 0 to not choose it: "))
                     if scelta_metriche_error_rate == "1":
                         metriche_scelte.append(2)
                         break
@@ -86,7 +86,7 @@ class Input:
                         break
                 scelta_metriche_sensitivity = 0
                 while scelta_metriche_sensitivity != "1" or scelta_metriche_sensitivity != "0":
-                    scelta_metriche_sensitivity = (input("Inserire 1 per scegliere la metrica Sensitivity, 0 per non sceglierla: "))
+                    scelta_metriche_sensitivity = (input("Enter 1 to choose the Sensitivity metric, 0 to not choose it: "))
                     if scelta_metriche_sensitivity == "1":
                         metriche_scelte.append(3)
                         break
@@ -94,7 +94,7 @@ class Input:
                         break
                 scelta_metriche_specificity = 0
                 while scelta_metriche_specificity != "1" or scelta_metriche_specificity != "0":
-                    scelta_metriche_specificity = (input("Inserire 1 per scegliere la metrica Specificity, 0 per non sceglierla: "))
+                    scelta_metriche_specificity = (input("Enter 1 to choose the Specificity metric, 0 to not choose it: "))
                     if scelta_metriche_specificity == "1":
                         metriche_scelte.append(4)
                         break
@@ -102,7 +102,7 @@ class Input:
                         break
                 scelta_metriche_geometric_mean = 0
                 while scelta_metriche_geometric_mean != "1" or scelta_metriche_geometric_mean != "0":
-                    scelta_metriche_geometric_mean = (input("Inserire 1 per scegliere la metrica Geometric Mean, 0 per non sceglierla: "))
+                    scelta_metriche_geometric_mean = (input("Enter 1 to choose the Geometric Mean metric, 0 to not choose it: "))
                     if scelta_metriche_geometric_mean == "1":
                         metriche_scelte.append(5)
                         break
@@ -111,5 +111,5 @@ class Input:
                 return metriche_scelte
 
 #prova
-#input1=Input()
-#print(input1.scelta_k(),input1.scelta_training(),input1.scelta_metodo_evaluation(),input1.scelta_metriche())
+input1=Input()
+print(input1.scelta_k(),input1.scelta_training(),input1.scelta_metodo_evaluation(),input1.scelta_metriche())
