@@ -23,8 +23,8 @@ It contains methods for calculating Euclidean distance and predicting the class 
    - y_train is the training dataset, containing class labels for the training dataset.
 
 
-- __Method: predizione_modello__
-- The predizione_modello method takes a test dataset x_test as input and returns a list of predicted class labels for the test dataset.
+- __Method:model_prediction__
+- The model_prediction method takes a test dataset x_test as input and returns a list of predicted class labels for the test dataset.
   - This method predicts the KNN model on the provided test data. 
   - For each point in the test dataset, it calculates the Euclidean distance from all points in the training dataset.
   - It sorts these distances in ascending order and selects the smallest k distances. 
@@ -34,8 +34,8 @@ It contains methods for calculating Euclidean distance and predicting the class 
   - This process is repeated for all points in the test dataset, and a list of predicted class labels is returned.
   
 
-- __Method: calcolo_distanza_euclidea__
-- The calcolo_distanza_euclidea method calculates the Euclidean distance between two points.
+- __Method: calculate_euclidean_distance__
+- The calculate_euclidean_distance method calculates the Euclidean distance between two points.
 
 
 - __Using the KNNAlgorithm Class__
@@ -46,7 +46,7 @@ It contains methods for calculating Euclidean distance and predicting the class 
     ```
   -  Then, you can call the model_prediction method with the test dataset to get the predicted class labels.
    ```python
-    y_pred = knn.predizione_modello(x_test)
+    y_pred = knn.model_prediction(x_test)
     ```
   
 

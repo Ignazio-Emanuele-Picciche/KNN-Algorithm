@@ -7,8 +7,8 @@ import numpy as np
 '''
 - Definition of the methods of the KNNAlgorithm class:
     - constructor
-    - predizione_modello -> Performs the prediction of the K-Nearest Neighbors (KNN) model on the provided test data
-    - clacolo_distanza_euclidea -> Calculates the Euclidean distance between two points using the standard Euclidean distance formula
+    - model_prediction -> Performs the prediction of the K-Nearest Neighbors (KNN) model on the provided test data
+    - calculate_euclidean_distance -> Calculates the Euclidean distance between two points using the standard Euclidean distance formula
 '''
 class KNNAlgorithm:
     def __init__(self, k, x_train, y_train):
