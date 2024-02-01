@@ -9,7 +9,7 @@ from Preprocessing import Preprocessing
 from Input import Input
 from Evaluation import Evaluation
 
-if __name__ == '__main__ ':
+if __name__ == '__main__':
     # Create instances of the Input and Preprocessing classes
     input_utente = Input()
     preprocessing = Preprocessing()
