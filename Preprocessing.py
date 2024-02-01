@@ -17,7 +17,21 @@ import pandas as pd
 
 class Preprocessing():
     data = pd.DataFrame()
-
+    '''
+    The Preprocessing class is necessary to load and prepare the data for the program. It uses the pandas library.
+    This class is structured as follows:
+    - At first, in the loading_dataset method, the dataset is loaded from the csv file.
+    - Then, in the data_cleaning method, if there are missing values, the rows corresponding to the missing values are deleted.
+      The first column (with "sample code number") is also deleted because it is not useful for classification.
+    - Then, in the standardization method, the data are standardized.
+      This process does not involve the last column, corresponding to the type of tumor of the cells. 
+      This type of feature scaling is necessary because the data may have outlayers and different scales, 
+      which would make the classification inaccurate.
+    - Finally, in the data_split method, the data are divided into features (x) and target label (y).
+      The features (called "x") are all the columns except the last one. These are the caractheristics of the cell,
+      and the algorithm uses these to predict the type of tumor, which is the target label (called "y") is the last column.
+      The features and target label have the corresponding index.
+    '''
 
 
     def __init__(self, dataset_path):
