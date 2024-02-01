@@ -5,24 +5,33 @@
 # k = int(input("Inserire il numero di vicini k da utilizzare per il classificatore: ")) #numero di vicini da utilizzare per il classificatore
     #K = int(input("Inserire il numero di esperimenti K: ")) #numero di esperimenti
     #training = int(input("Inserire la percentuale di training: ")) #percentuale di training (la percentuale di test sarà ricavata automaticamente dal programma)
-    #test = 100 - training #percentuale di test (ricavata dal programma per sottrazione
+    #test = 100 - training #percentuale di test (ricavata dal programma per sottrazione)
     #print(f"La percentuale di test è {test}")
 
 class Input:
     def __init__(self):
         self.k=0 #numero di vicini da utilizzare per il classificatore
-        self.training=int(input("Inserire la percentuale di training: ")) #percentuale di training (la percentuale di test sarà ricavata automaticamente dal programma)
-        self.test=100-self.training #percentuale di test (ricavata dal programma per sottrazione)
+        self.training=1
         self.K=0 #numero di esperimenti K per il random subsampling
 
     def scelta_k(self): #l'utente sceglie il numero di vicini k da utilizzare per il classificatore
-        while True:  #il programma non va avanti finchè l'utente non inserisce un numero intero maggiore di 0
+                        #il programma non va avanti finchè l'utente non inserisce un numero intero maggiore di 0
+        while True:
             k = input("Inserire il numero di vicini k da utilizzare per il classificatore: ")
             if k.isdigit() and int(k) > 0:
                 self.k = int(k)
                 break
+        return self.k
 
 
+    def scelta_training(self): #l'utente sceglie la percentuale di training, il valore inserito deve essere un numero compreso tra 0 e 100, se non è così il programma non va avanti
+
+        while True:
+            training = input("Inserire la percentuale di training: ")
+            if training.isdigit() and 0 < int(training) < 100:
+                self.training = int(training)
+                break
+        return self.training
     def scelta_metodo_evaluation(self):#l'utente sceglie se utilizzare l'holdout o il random subsampling
         scelta_evaluation=0
 
@@ -103,4 +112,4 @@ class Input:
 
 #prova
 #input1=Input()
-#print(input1.scelta_k(),input1.training,input1.test,input1.scelta_metodo_evaluation(),input1.scelta_metriche())
+#print(input1.scelta_k(),input1.scelta_training(),input1.scelta_metodo_evaluation(),input1.scelta_metriche())
