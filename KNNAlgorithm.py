@@ -19,7 +19,7 @@ class KNNAlgorithm:
         self.x_train = x_train  # Features (B a J)
         self.y_train = y_train  # Labels (K)
 
-    def predizione_modello(self, x_test):
+    def model_prediction(self, x_test):
         '''
            - The model_prediction method has two nested for loops, the first to scroll through the test points and the second to scroll through the training points.
              - For each test_point, the Euclidean distance between that point and all the points in the x_train training dataset is calculated.
@@ -71,7 +71,7 @@ class KNNAlgorithm:
         # Return the list of predictions, containing the predicted classes for each x_test
         return predictions
 
-    def calcolo_distanza_euclidea(self, x1, x2):
+    def calculate_euclidean_distance(self, x1, x2):
         '''
         - The calculate_euclidean_distance method within the KNNAlgorithm class calculates the Euclidean distance between two points.
             - The method takes two points as input, x1 and x2, calculates the difference between the two points,
