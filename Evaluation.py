@@ -120,8 +120,8 @@ class Evaluation:
 
     ''' 
     The random subsampling evaluation process consists of:
-        1. Specifying the number of experiments (K) to be performed as input
-        2. Specifying the percentage for the training and testing data as input
+        1. Specify in input the number of experiments (K) to be performed
+        2. Specify in input the percentage for the training and testing data
         3. Training the model: the model is then trained using X_train and y_train
         4. Evaluating performance: the newly trained model is then evaluated using the test data (y_test). The model's performance is calculated using various metrics
         5. Multiple iterations: the process is repeated multiple times (K times), with new random splits of the dataset, to obtain a more robust estimate of the model's performance. Finally, the multiple evaluations are aggregated to obtain a common measure of the model's performance.
