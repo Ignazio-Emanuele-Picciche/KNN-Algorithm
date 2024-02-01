@@ -10,10 +10,17 @@
 
 class Input:
     def __init__(self):
-        self.k=int(input("Inserire il numero di vicini k da utilizzare per il classificatore: ")) #numero di vicini k da utilizzare per il classificatore
+        self.k=0 #numero di vicini da utilizzare per il classificatore
         self.training=int(input("Inserire la percentuale di training: ")) #percentuale di training (la percentuale di test sarà ricavata automaticamente dal programma)
         self.test=100-self.training #percentuale di test (ricavata dal programma per sottrazione)
         self.K=0 #numero di esperimenti K per il random subsampling
+
+    def scelta_k(self): #l'utente sceglie il numero di vicini k da utilizzare per il classificatore
+        while True:  #il programma non va avanti finchè l'utente non inserisce un numero intero maggiore di 0
+            k = input("Inserire il numero di vicini k da utilizzare per il classificatore: ")
+            if k.isdigit() and int(k) > 0:
+                self.k = int(k)
+                break
 
 
     def scelta_metodo_evaluation(self):#l'utente sceglie se utilizzare l'holdout o il random subsampling
@@ -96,4 +103,4 @@ class Input:
 
 #prova
 #input1=Input()
-#print(input1.k,input1.training,input1.test,input1.scelta_metodo_evaluation(),input1.scelta_metriche())
+#print(input1.scelta_k(),input1.training,input1.test,input1.scelta_metodo_evaluation(),input1.scelta_metriche())
