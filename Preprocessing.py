@@ -18,12 +18,13 @@ class Preprocessing(): #creo classe Preprocessing
         pass
 
     def caricamento_dataset(self):  # creazione metodo caricamento dataset
-        self.dati = pd.read_csv('breast_cancer.csv', #importo il file csv
-                                index_col="Sample code number")  # viene importato il dataset, e la prima colonna viene utilizzata per gli indici
+        self.dati = pd.read_csv('breast_cancer.csv') #importo il file csv
+
 
 
     def pulizia_dati(self): # creazione metodo pulizia dati che gestisce i valori mancanti
         self.dati = self.dati.dropna() # le righe corrispondenti ai valori mancanti vengono eliminate
+        self.dati = self.dati.drop(columns=['Sample code number']) # la colonna Sample code number viene eliminata in quanto non utile per la classificazione
 
 
     def standardizzazione(self): # creazione metodo standardizzazione per il feature scaling, da applicare a tutte le colonne tranne l'ultima (target label)
