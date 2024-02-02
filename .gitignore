@@ -6,5 +6,4 @@ results/*
 .DS_Store
 venv
 Metrics.txt
-breast_cancer.csv
-readme_temporaneo.txt
+*.csv

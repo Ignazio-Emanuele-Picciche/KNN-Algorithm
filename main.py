@@ -9,34 +9,32 @@ from Preprocessing import Preprocessing
 from Input import Input
 from Evaluation import Evaluation
 
-if __name__ == '__main__ ':
+if __name__ == '__main__':
     # Create instances of the Input and Preprocessing classes
     input_utente = Input()
     preprocessing = Preprocessing()
 
-
-
     # Ask the user for the evaluation method and metrics to use
-    metodo_di_valutazione= input_utente.scelta_metodo_evaluation()
-    metriche_scelte = input_utente.scelta_metriche()
+    metodo_di_valutazione= input_utente.evaluation_method()
+    metriche_scelte = input_utente.metrics_selection()
     K = input_utente.K
 
     # Load, clean, and standardize the dataset
-    preprocessing.caricamento_dataset()
-    preprocessing.pulizia_dati()
-    preprocessing.standardizzazione()
+    preprocessing.loading_dataset()
+    preprocessing.data_cleaning()
+    preprocessing.standardization()
     
     # Split the dataset into features and target label
-    features, target = preprocessing.suddivisione_dati()
+    features, target = preprocessing.data_split()
 
     # Ask the user for the percentage of data to use for training and the number of neighbors to consider
-    perc_train = input_utente.scelta_training()
-    k = input_utente.scelta_k()
+    perc_train = input_utente.training_percentage()
+    k = input_utente.k_neighbors()
 
     #  Create an instance of the Evaluation class to evaluate the model's performance
     evaluation = Evaluation(features, target, perc_train, k, metriche_scelte)
 
     if metodo_di_valutazione == 1:
-        evaluation.valutazione_holdout()
+        evaluation.holdout_validation()
     else:
-        evaluation.valutazione_random_subsampling(K)
+        evaluation.random_subsampling_validation(K)
