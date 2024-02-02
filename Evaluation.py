@@ -212,10 +212,10 @@ class Evaluation:
         Geometric_mean = 0
 
         # Calculation of the confusion matrix
-        True_Negative = sum(1 for y, pred in zip(y_test.values, predictions) if (y == pred and pred == 2.0))
-        True_Positive = sum(1 for y, pred in zip(y_test.values, predictions) if (y == pred and pred == 4.0))
-        False_Positive = sum(1 for y, pred in zip(y_test.values, predictions) if (y != pred and pred == 4.0))
-        False_Negative = sum(1 for y, pred in zip(y_test.values, predictions) if (y != pred and pred == 2.0))
+        True_Negative = sum(1 for y, pred in zip(y_test.values, predictions) if (y == pred and pred == 2))
+        True_Positive = sum(1 for y, pred in zip(y_test.values, predictions) if (y == pred and pred == 4))
+        False_Positive = sum(1 for y, pred in zip(y_test.values, predictions) if (y != pred and pred == 4))
+        False_Negative = sum(1 for y, pred in zip(y_test.values, predictions) if (y != pred and pred == 2))
 
         # Actual calculation of the requested metrics using the values of the confusion matrix, previously calculated
         if 1 in self.chosen_metrics:

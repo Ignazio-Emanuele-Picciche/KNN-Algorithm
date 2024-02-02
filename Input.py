@@ -93,21 +93,24 @@ class Input:
         The user is asked to enter 1 to choose a metric, 0 to not choose it, and then the same thing is asked for each subsequent metric.
         The program does not go on until the user chooses.
         The chosen metrics are saved in a list, which is returned by the method.
+        If the user chooses only the Geometric mean metric, the Sensitivity Metric and Specificity Metric are also added,
+        because they are needed for the Geometric mean metric
         '''
 
-        metrics = []   # the list of metrics to use is initialized
+        metrics = set()   # the list of metrics to use is initialized
         metrics_selection = 0   # the variable that will contain the user's choice is initialized
         while metrics_selection != "1" or metrics_selection != "0":   # the program does not go on until the user enters a valid number
             metrics_selection = (input("Enter 1 to select all metrics, 0 to manually select metrics: "))   # the user is asked to enter 1 or 0
             if metrics_selection == "1":   # if the user enters 1
-                metrics = [1, 2, 3, 4, 5]   # all the metrics are saved
+                metrics = {1, 2, 3, 4, 5}   # all the metrics are saved
                 return metrics
             elif metrics_selection == "0":   # if the user enters 0, he has to choose which metrics to use
                 accuracy_rate = 0
                 while accuracy_rate != "1" or accuracy_rate != "0":
                     accuracy_rate = (input("Enter 1 to choose the Accuracy Rate metric, 0 to not choose it: "))   # the user is asked to enter 1 or 0 for the Accuracy Rate metric
                     if accuracy_rate == "1":
-                        metrics.append(1)   # if the user enters 1, the Accuracy Rate metric is saved
+                        metrics.add(1)
+                        # if the user enters 1, the Accuracy Rate metric is saved
                         break
                     elif accuracy_rate == "0":   # if the user enters 0, the program goes on without saving the Accuracy Rate metric
                         break
@@ -115,7 +118,7 @@ class Input:
                 while error_rate != "1" or error_rate != "0":
                     error_rate = (input("Enter 1 to choose the Error Rate metric, 0 to not choose it: "))   # the user is asked to enter 1 or 0 for the Error Rate metric
                     if error_rate == "1":
-                        metrics.append(2)   # if the user enters 1, the Error Rate metric is saved
+                        metrics.add(2)   # if the user enters 1, the Error Rate metric is saved
                         break
                     elif error_rate == "0":   # if the user enters 0, the program goes on without saving the Error Rate metric
                         break
@@ -123,7 +126,7 @@ class Input:
                 while sensitivity != "1" or sensitivity != "0":
                     sensitivity = (input("Enter 1 to choose the Sensitivity metric, 0 to not choose it: "))   # the user is asked to enter 1 or 0 for the Sensitivity metric
                     if sensitivity == "1":
-                        metrics.append(3)   # if the user enters 1, the Sensitivity metric is saved
+                        metrics.add(3)   # if the user enters 1, the Sensitivity metric is saved
                         break
                     elif sensitivity == "0":   # if the user enters 0, the program goes on without saving the Sensitivity metric
                         break
@@ -131,7 +134,7 @@ class Input:
                 while specificity != "1" or specificity != "0":
                     specificity = (input("Enter 1 to choose the Specificity metric, 0 to not choose it: "))   # the user is asked to enter 1 or 0 for the Specificity metric
                     if specificity == "1":
-                        metrics.append(4)   # if the user enters 1, the Specificity metric is saved
+                        metrics.add(4)   # if the user enters 1, the Specificity metric is saved
                         break
                     elif specificity == "0":   # if the user enters 0, the program goes on without saving the Specificity metric
                         break
@@ -139,7 +142,9 @@ class Input:
                 while geometric_mean != "1" or geometric_mean != "0":
                     geometric_mean = (input("Enter 1 to choose the Geometric Mean metric, 0 to not choose it: "))   # the user is asked to enter 1 or 0 for the Geometric Mean metric
                     if geometric_mean == "1":
-                        metrics.append(5)   # if the user enters 1, the Geometric Mean metric is saved
+                        metrics.add(5)   # if the user enters 1, the Geometric Mean metric is saved
+                        metrics.add(4)   # if the user enters 1, the Specificity metric is saved
+                        metrics.add(3)   # if the user enters 1, the Sensitivity metric is saved
                         break
                     elif geometric_mean == "0":   # if the user enters 0, the program goes on without saving the Geometric Mean metric
                         break

@@ -6,4 +6,3 @@ results/*
 .DS_Store
 venv
 Metrics.txt
-*.csv
