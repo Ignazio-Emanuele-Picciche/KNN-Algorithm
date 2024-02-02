@@ -41,7 +41,7 @@ class Preprocessing():
         self.dataset_path = input("Enter the path of the dataset: ") # the user is asked to enter the path of the dataset
 
 
-    def loading_dataset(self): # creation of the method to load the dataset from the csv file
+    def loading_dataset(self):
         '''
         The loading_dataset method loads the dataset from the csv file.
         If the file is not found, the program says "File not found" and stops.
@@ -58,7 +58,7 @@ class Preprocessing():
 
 
 
-    def data_cleaning(self): # creation of the method to manage missing values
+    def data_cleaning(self):
         '''
         This method manages missing values. If there are missing values,
         the rows corresponding to the missing values are deleted.
@@ -68,7 +68,7 @@ class Preprocessing():
         self.data = self.data.drop(columns=['Sample code number']) # the sample code number column is deleted
 
 
-    def standardization(self): # creation of the method to standardize the dat
+    def standardization(self):
         '''
         This method standardizes the data. The standardization process is necessary because the data
         may have outlayers and different scales. This process does not involve the last column,
@@ -80,7 +80,7 @@ class Preprocessing():
             # for  every value in the column, the mean is subtracted and the result is divided by the standard deviation
 
 
-    def data_split(self):  # creation of the method to split the dataset into features and target label
+    def data_split(self):
         '''
         In this method, the dataset is divided into features (x) and target label (y).
         The features (called "x") are all the columns except the last one. These are the caractheristics of the cell,
