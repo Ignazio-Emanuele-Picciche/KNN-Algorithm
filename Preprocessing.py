@@ -21,7 +21,8 @@ class Preprocessing():
     '''
     The Preprocessing class is necessary to load and prepare the data for the program. It uses the pandas library.
     This class is structured as follows:
-    - At first, in the loading_dataset method, the dataset is loaded from the csv file.
+    - The constructor asks the user to enter the path of the dataset.
+    - In the loading_dataset method, the dataset is loaded from the csv file.
     - Then, in the data_cleaning method, if there are missing values, the rows corresponding to the missing values are deleted.
       The first column (with "sample code number") is also deleted because it is not useful for classification.
     - Then, in the standardization method, the data are standardized.
