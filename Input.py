@@ -21,11 +21,11 @@ class Input:
     - The evaluation_method method asks the user to choose the evaluation method (holdout or random subsampling).
     - The metric_selection method asks the user to choose the metrics to use for the evaluation.
     '''
-    def __init__(self): # Constructor of the Input class
+    def __init__(self):   # Constructor of the Input class
 
-        self.k=0 # number of neighbors k to use for the classifier
-        self.training=1 # percentage for the training
-        self.K=0 # number of experiments K for the random subsampling
+        self.k=0   # number of neighbors k to use for the classifier
+        self.training=1   # percentage for the training
+        self.K=0   # number of experiments K for the random subsampling
 
 
     def k_neighbors(self):
@@ -34,12 +34,12 @@ class Input:
         The user must enter an integer number greater than 0.
         The program does not go on until the user enters a valid number.
         '''
-        while True: # the program does not go on until the user enters a valid number
-            k = input("Enter the number of neighbors k to use for the classifier: ") # the user is asked to enter the number of neighbors k
-            if k.isdigit() and int(k) > 0: # if the user enters a valid number (an integer greater than 0)
-                self.k = int(k) # the number of neighbors k is saved
-                break # the program goes on
-        return self.k # the number of neighbors k is returned
+        while True:   # the program does not go on until the user enters a valid number
+            k = input("Enter the number of neighbors k to use for the classifier: ")   # the user is asked to enter the number of neighbors k
+            if k.isdigit() and int(k) > 0:   # if the user enters a valid number (an integer greater than 0)
+                self.k = int(k)   # the number of neighbors k is saved
+                break   # the program goes on
+        return self.k   # the number of neighbors k is returned
 
 
     def training_percentage(self):
