@@ -36,9 +36,9 @@ class Preprocessing():
     '''
 
 
-    def __init__(self): # Constructor of the Preprocessing class
+    def __init__(self):   # Constructor of the Preprocessing class
 
-        self.dataset_path = input("Enter the path of the dataset: ") # the user is asked to enter the path of the dataset
+        self.dataset_path = input("Enter the path of the dataset: ")   # the user is asked to enter the path of the dataset
 
 
     def loading_dataset(self):
@@ -51,10 +51,10 @@ class Preprocessing():
         self.dataset is preprocessed in this class.
         '''
         try:
-            self.data = pd.read_csv(self.dataset_path) # the dataset is loaded from the csv file
-        except FileNotFoundError: # if the file is not found
-            print("File not found") # the program says "File not found"
-            sys.exit(1) # and stops
+            self.data = pd.read_csv(self.dataset_path)   # the dataset is loaded from the csv file
+        except FileNotFoundError:   # if the file is not found
+            print("File not found")   # the program says "File not found"
+            sys.exit(1)   # and stops
 
 
 
@@ -64,8 +64,8 @@ class Preprocessing():
         the rows corresponding to the missing values are deleted.
         The first column (with "sample code number") is also deleted because it is not useful for classification.
         '''
-        self.data = self.data.dropna() # rows with missing values are deleted
-        self.data = self.data.drop(columns=['Sample code number']) # the sample code number column is deleted
+        self.data = self.data.dropna()   # rows with missing values are deleted
+        self.data = self.data.drop(columns=['Sample code number'])   # the sample code number column is deleted
 
 
     def standardization(self):
@@ -75,8 +75,8 @@ class Preprocessing():
         because it is the target label, and it is not useful to standardize it.
         The standardization process is done by subtracting the mean and dividing by the standard deviation.
         '''
-        for i in range(0, len(self.data.columns) - 1): # for every column except the last one
-            self.data.iloc[:, i] = (self.data.iloc[:, i] - self.data.iloc[:, i].mean()) / self.data.iloc[:, i].std() # the data are standardized,
+        for i in range(0, len(self.data.columns) - 1):   # for every column except the last one
+            self.data.iloc[:, i] = (self.data.iloc[:, i] - self.data.iloc[:, i].mean()) / self.data.iloc[:, i].std()   # the data are standardized,
             # for  every value in the column, the mean is subtracted and the result is divided by the standard deviation
 
 
@@ -86,10 +86,10 @@ class Preprocessing():
         The features (called "x") are all the columns except the last one. These are the caractheristics of the cell,
         and the algorithm uses these to predict the type of tumor, which is the target label (called "y") is the last column.
         '''
-        x = self.data.iloc[:, :-1]  # all the columns except the last one are the features (x)
-        y = self.data["Class"] # the last column (class) is the target label (y)
-        y = y.astype(int) # the target label is converted to int
-        return x, y # the features and the target label are returned
+        x = self.data.iloc[:, :-1]   # all the columns except the last one are the features (x)
+        y = self.data["Class"]   # the last column (class) is the target label (y)
+        y = y.astype(int)   # the target label is converted to int
+        return x, y   # the features and the target label are returned
 
 
 
