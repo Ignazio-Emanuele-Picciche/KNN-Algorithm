@@ -1,6 +1,14 @@
-# KNN Algorithm - Programming and Experimental Methods for Artificial Intelligence (AA 23/24)
+# **_KNN Algorithm - Programming and Experimental Methods for Artificial Intelligence (23/24)_**
 
-## General description of the project
+## Index
+1. [Project Description](#1-general-description-of-the-project)
+2. [Classes](#2-description-of-implemented-classes)
+3. [Configure the environment](#3-configure-the-environment)
+4. [Inputs Requires](#4-inputs-required-by-the-program)
+5. [Program Outputs](#5-program-outputs)
+
+
+## 1. General description of the project
 
 This project, made by Alessia Rossi, Ignazio Emanuele Piccichè and Riccardo Polacchi, 
 has the purpose to develop a program which takes a dataset with informations and characteristics of some tumoral cells
@@ -11,9 +19,9 @@ The model uses the KNN algorithm, and for the evaluation it uses the holdout or 
 is made by the user). 
 It is structured with a pipeline of different classes, which are Input class, Preprocessing class, KNN class and Evaluation class,
 all of them utilized in the Main of the program.
-The user can decide the value of the inputs and the type of evaluation and metrics (for further information read the section 
+The user can decide the value of the inputs and the type of evaluation and metrics (for further information read the [section](#inputs-required-by-the-program) 
 with the instructions for the user).
-The dataset utilized is taken from http://archive.ics.uci.edu/dataset/15/breast+cancer+wisconsin+original,
+The dataset utilized is taken from [here](http://archive.ics.uci.edu/dataset/15/breast+cancer+wisconsin+original),
 it is a .csv file wich contains the following data for every single cell:
 
 - A sample code number. 
@@ -31,14 +39,24 @@ To identify the nearest neighbors of a query point, KNN calculates the distance 
 
 *The parameter "k"*  in the KNN algorithm specifies the number of neighbors to consider for classifying a given point. For example, if k=1, the object will be assigned to the same class as its nearest neighbor. However, the choice of "k" is crucial and can affect the model's performance. Low values of "k" can lead to high variability but low bias, while high values can cause high bias and lower variability. The choice of "k" depends on the type of data and the level of noise in the dataset.
 
-## Description of Implemented Classes
-### **Class: KNNAlgorithm**  A class implementing the KNN algorithm.
+[Quickly return to the top](#knn-algorithm---programming-and-experimental-methods-for-artificial-intelligence-2324)
+
+## 2. Description of Implemented Classes
+
+- [KNNAlgorithm](#knnalgorithm)
+- [Main](#main)
+- [Input](#input)
+- [Preprocessing](#preprocessing)
+- [Evaluation](#evaluation)
+
+### **KNNAlgorithm**  
+This class implements the KNN algorithm.
 
 It contains methods for calculating Euclidean distance and predicting the class of a point.
 
 - __Constructor__
 
--The KNNAlgorithm class is initialized with three parameters: k, x_train, and y_train.
+- The KNNAlgorithm class is initialized with three parameters: k, x_train, and y_train.
    - k is the number of nearest neighbors to consider for classifying a given point.
    - x_train is the training dataset, containing feature vectors for the training dataset.
    - y_train is the training dataset, containing class labels for the training dataset.
@@ -128,54 +146,80 @@ it will not falses the results of the algorithm.
 
 This class uses the Pandas library.
 
+### Evaluation
+The purpose of this class is to evaluate the KNN model with two methodology _(Holdout or Random Subsamplig Validation)_.
+- **Holdout Validation**:
+  1. Splitting the data: the data is randomly split (the percentage is specified in input) into training data and test data
+  2. Training the model: the model is then trained by feeding it the X_train and y_train data
+  3. Testing the model: the model is then tested with the test data (X_test)
+  4. Evaluating performance: the newly trained model is then evaluated using the test data (y_test). The model's performance is calculated using various metrics.
+  5. Analyzing the results: the metrics found are analyzed to understand how well the model generalizes on unknown data
+  
+- **Random Subsampling Validation**:
+  1. Specify in input the number of experiments (K) to be performed
+  2. Specify in input the percentage for the training and testing data
+  3. Training the model: the model is then trained using X_train and y_train
+  4. Evaluating performance: the newly trained model is then evaluated using the test data (y_test). The model's performance is calculated using various metrics
+  5. Multiple iterations: the process is repeated multiple times (K times), with new random splits of the dataset, to obtain a more robust estimate of the model's performance. Finally, the multiple evaluations are aggregated to obtain a common measure of the model's performance.
+  6. Analyzing the results: the metrics found are analyzed to understand how well the model generalizes on unknown data
 
+In this class the chosen metrics are calculated and these are represented graphically (with plot and boxplot).
 
+At the end of the program the metrics are saved in Metrics.txt file. 
 
-## Come eseguire il codice e cosa viene richiesto in input
-Prima di eseguire il codice ci sono delle accortezze da fare a priori.
-- Creare il proprio virtual environment da terminale, scrivendo il comando:
-  - python -m venv venv
-- Se si desidera lavorare da terminale, bisogna attivare il virtual environment appena creato con il comando:
-	- per Windows -> .\venv\Scripts\activate 
-	- per Unix o MacOS -> source ./venv/Scripts/activate 
-- Per disattivare l’environment usare il comando:
-	- deactivate
-- Per installare l’applicazione in un nuovo contesto, dopo aver effettuato il colone del progetto e aver creato un virtual environment, usare il comando:
-	- pip install -r requirements.txt
-   (Questo comando serve a scaricare tutti i moduli non standard richiesti dall'applicazione)
+[Quickly return to the top](#knn-algorithm---programming-and-experimental-methods-for-artificial-intelligence-2324)
+
+## 3. Configure the environment
+Before running the code, there are some precautions to take.
+1. Create your own virtual environment from the terminal, by typing the command:
+    - `python -m venv venv`
+2. If you want to work from the terminal, you need to activate the just created virtual environment with the command:
+    - for Windows -> `.\venv\Scripts\activate`
+    - for Unix or MacOS -> `source ./venv/Scripts/activate`
+3. To deactivate the environment use the command:
+    - `deactivate`
+4. To install the application in a new context, after cloning the project and creating a virtual environment, use the command:
+    - `pip install -r requirements.txt`
+      (This command is used to download all the non-standard modules required by the application)
 
 > [!WARNING]
-Aggiornare pip nel caso la versione di Python usata per generare il virtual environment non contenga una versione di pip aggiornata.
-Usare il comando: pip install --upgrade pip
+Update pip if the Python version used to generate the virtual environment does not contain an updated version of pip.
+Use the command: `pip install --upgrade pip`
 
 
-Ora che abbiamo sistemato il nostro ambiente virtuale, possiamo eseguire l'applicazione.
-Basterà recarsi nel file main.py ed eseguirlo.
+Now that we have set up our virtual environment, we can run the application.
+Just go to the main.py file and run it.
 
-Gli input richiesti dall'applicativo sono i seguenti:
-- Inserire il numero di vicini k da utilizzare per il classificatore
-- Inserire la percentuale di training
-- Inserire 1 per scegliere l'holdout, 2 per il random subsampling (scelta del metodo di evaluation)
-- Nel caso in cui venga scelto il metodo di evaluation Random Subsampling verrà richiesto di inserire il numero di esperimenti K
-- Inserire 1 per scegliere tutte le metriche, 0 per scegliere manualmente le metriche
-	- Nel caso in cui venga scelto 0, verrà richiesto per ogni singola metrica se si desidera calcolarla o meno. Considerare che se viene scelta la metrica Geometric Mean vengono calcolati automaticamente anche le metriche Sensitivity e Specificity dato che fanno parte del calcolo per la metrica scelta Geometric Mean).
-   	- Le metriche possibili sono: Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean
+[Quickly return to the top](#knn-algorithm---programming-and-experimental-methods-for-artificial-intelligence-2324)
 
+## 4. Inputs required by the program
+The inputs required by the application are as follows:
+1. The path of the dataset file.
+2. The number of k neighbors to use for the classifier.
+3. The percentage of training.
+4. Choice of evaluation method (Holdout or Random Subsampling)
+5. If you choose the Random Subsampling evaluation method, you will be asked to enter the number of K experiments.
+6. Choose if you want all metrics or some specifics metrics:
+    - If you choose the second option, you will be asked for each individual metric whether you want to calculate it or not. Consider that if you choose the Geometric Mean metric, the Sensitivity and Specificity metrics are also automatically calculated as they are part of the calculation for the chosen Geometric Mean metric.
+      - The possible metrics are: Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean
 
-## Come visualizzare ed interpretare i risultati ottenuti
-Una vola inseriti tutti gli input richiesti, ci sono due opzioni di dati visualizzati.
+[Quickly return to the top](#knn-algorithm---programming-and-experimental-methods-for-artificial-intelligence-2324)
 
-Nel caso in cui viene scelto il metodo di evaluation Holdout, nel file Metriche.txt verranno scritte le metriche calcolate per il signolo esperimento
+## 5. Program outputs
+Once all the required inputs have been entered, there are two options for data displayed.
 
-Nel caso in cui venga scelto il metodo di evaluation Random Subsampling, nel file Metriche.txt verranno rappresentate le medie delle metriche calcolate nei K esperimenti (K specificato negli input).
-Inoltre verranno visualizzati due grafici, uno rappresentate l'andamento delle metriche calcolate per ogni esperimento e l'altro rappresentate i boxplot per ogni metrica calcolata.
+If you choose the Holdout validation method, the calculated metrics for the single experiment will be written in the Metrics.txt file
 
-_Esempio di plot delle metriche visualizzate._
+If you choose the Random Subsampling validation method, the averages of the calculated metrics in the K experiments (K specified in the inputs) will be represented in the Metrics.txt file.
+In addition, two graphs will be displayed, one representing the trend of the calculated metrics for each experiment and the other representing the boxplots for each calculated metric.
+
+_Example of a graph of the metrics displayed_
 <p float="left">
   <img src="https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/e7c766c2-1239-4f0c-94de-36322a8146ae" width="500" />
   <img src="https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/e9cdad10-6c63-4794-9ddf-d577ff557070" width="500" />
 </p>
 
+[Quickly return to the top](#knn-algorithm---programming-and-experimental-methods-for-artificial-intelligence-2324)
 
 
 
