@@ -36,12 +36,6 @@ To identify the nearest neighbors of a query point, KNN calculates the distance 
 
 It contains methods for calculating Euclidean distance and predicting the class of a point.
 
-- __Constructor__
-
--The KNNAlgorithm class is initialized with three parameters: k, x_train, and y_train.
-   - k is the number of nearest neighbors to consider for classifying a given point.
-   - x_train is the training dataset, containing feature vectors for the training dataset.
-   - y_train is the training dataset, containing class labels for the training dataset.
 
 
 - __Method:model_prediction__
