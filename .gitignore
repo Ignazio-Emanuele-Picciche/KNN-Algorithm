@@ -5,7 +5,5 @@ results/*
 .idea/*
 .DS_Store
 venv
-Metriche.txt
-breast_cancer.csv
-readme_temporaneo.txt
-requirements.txt
+Metrics.txt
+*.csv
