@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Importo le librerie necessarie
+# Import the necessary libraries
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -10,301 +10,316 @@ from KNNAlgorithm import KNNAlgorithm
 '''
 @Author: Ignazio Emanuele Piccichè
 
-- Definizione dei metodi della classe Evaluation:
-    - costruttore
-    - split_dati -> Metodo che va a dividere i dati in dati di train e dati di test
-    - valutazione_holdout -> Metodo che va a valutare il modello mediante la metodologia "Holdout"
-    - valutazione_random_subsampling -> Metodo che va a valutare il modello mediante la metodologia "Random Subsampling"
-    - calcolo_metrice -> Metodo che va a calcolare le metriche di valutazione richieste (Accuracy Rate, Error Rate, Sensitivity, Specificity, Geometric Mean)
-    - salva_metriche -> Metodo che va a salvare le metriche calcolate nel file Metriche.txt
-    - plot_delle_metriche -> Metodo che va a plottare le metriche calcolate. Plot delle metriche in funzione al numero di esperimenti e boxplot delle metriche.
+In this class, the evaluation of the model is performed.
+The evaluation is performed using two different methodologies:
+    - Holdout
+    - Random Subsampling
+
+- Definition of the methods of the Evaluation class:
+    - constructor
+    - data_splitting -> Method that divides the data into training and testing data
+    - holdout_validation -> Method that evaluates the model using the "Holdout" methodology
+    - random_subsampling_validation -> Method that evaluates the model using the "Random Subsampling" methodology
+    - metrics_calculation -> Method that calculates the requested evaluation metrics (Accuracy Rate, Error Rate, Sensitivity, Specificity, Geometric Mean)
+    - save_metrics -> Method that saves the calculated metrics in the Metrics.txt file
+    - metrics_plot -> Method that plots the calculated metrics. Plot of the metrics as a function of the number of experiments and boxplot of the metrics.
 '''
 class Evaluation:
     
 
     '''
-    costruttore
+    constructor
 
-    Parameters
-    ----------
-    features : pandas.DataFrame
-        dati che verranno utilizzati per addestrare e testare il modello
-    target : pandas.Series
-        dati che verranno utilizzati per addestrare e testare il modello
-    perc_train : int
-        percentuale di dati che verranno utilizzati per addestrare il modello
-    k : int
-        numero di vicini da considerare
-    metriche_scelte : list
-        lista che contiene le metriche scelte dall'utente
+        Parameters
+        ----------
+        features : pandas.DataFrame
+            data that will be used to train and test the model
+        target : pandas.Series
+            data that will be used to train and test the model
+        training_perc : int
+            percentage of data that will be used to train the model
+        k : int
+            number of neighbors to consider
+        chosen_metrics : list
+            list of the metrics chosen by the user
 
-    Returns
-    -------
-    None
+        Returns
+        -------
+        None
     '''
-    def __init__(self, features:pd.DataFrame, target:pd.Series, perc_train:int, k:int, metriche_scelte:list):
+    def __init__(self, features:pd.DataFrame, target:pd.Series, training_perc:int, k:int, chosen_metrics:list):
         self.features = features
         self.target = target
-        self.perc_train = perc_train
+        self.training_perc = training_perc
         self.k = k
-        self.metriche_scelte = metriche_scelte
+        self.chosen_metrics = chosen_metrics
         
     '''
-    In questo metodo vengono divisi i dati in dati di train e dati di test.
+    In this method the data are divided into training and testing data.
 
-    I dati di train sono i dati che verranno utilizzati per addestrare il modello.
-    I dati di test sono i dati che verranno utilizzati per testare il modello.
+        The training data will be used to train the model, while the testing data will be used to test the model.
 
-    Parameters
-    ----------
-    features : pandas.DataFrame
-        dati che verranno utilizzati per addestrare e testare il modello
-    target : pandas.Series
-        dati che verranno utilizzati per addestrare e testare il modello
-    perc_train : int
-        percentuale di dati che verranno utilizzati per addestrare il modello
+        Parameters
+        ----------
+        features : pandas.DataFrame
+            data that will be used to train and test the model
+        target : pandas.Series
+            data that will be used to train and test the model
+        training_perc : int
+            percentage of data that will be used to train the model
 
-    Returns
-    -------
-    X_train : pandas.DataFrame
-        dati che verranno utilizzati per addestrare il modello
-    y_train : pandas.Series
-        dati che verranno utilizzati per addestrare il modello
-    X_test : pandas.DataFrame
-        dati che verranno utilizzati per testare il modello
-    y_test : pandas.Series
-        dati che verranno utilizzati per testare il modello
+        Returns
+        -------
+        X_train : pandas.DataFrame
+            data that will be used to train the model
+        y_train : pandas.Series
+            target data that will be used to train the model
+        X_test : pandas.DataFrame
+            data that will be used to test the model
+        y_test : pandas.Series
+            target data that will be used to compare the predictions of the model
     '''
-    def split_dati(self, features:pd.DataFrame, target:pd.Series, perc_train:int):
-        X_train = features.sample(frac = perc_train/100) # Prendo i dati per il training secondo una percentuale specificata in input
-        X_test = features.drop(X_train.index) # Prendo i dati per il test. Sono tutti i dati che non sono stati presi per il training
+    def data_splitting(self, features:pd.DataFrame, target:pd.Series, training_perc:int):
+        X_train = features.sample(frac = training_perc/100) # Get the training data according to a percentage specified in input
+        X_test = features.drop(X_train.index) # Get the test data. These are all the data that were not taken for training
 
-        y_train = target.drop(X_test.index) # Mi salvo le y di train corrispondenti alle x di train
-        y_test = target.drop(X_train.index) # Mi salvo le y di test corrispondenti alle x di test
+        y_train = target.drop(X_test.index) # Save the y train corresponding to the x train
+        y_test = target.drop(X_train.index) # Save the y test corresponding to the x test
 
         return X_train, y_train, X_test, y_test
 
 
     '''   
-    Il processo di valutazione holdout consiste in:
-    1. Dividire i dati: i dati vengono divisi casualmente (viene specificata la percentuale in input) in dati di training e dati di test
-    2. Addestramento del modello: il modello quindi si addestra fornendo "in pasto" i dati X_train e y_train
-    3. Test del modello: il modello viene quindi testato con i dati di test (X_test)
-    4. Valutazione delle performance: il modello appena addestrato viene quindi valutato utilizzando i dati di test (y_test). Le prestazione del modello vengono calcolate tramite diverse metriche.
-    5. Analisi dei risultati: si analizzano le metriche trovate per capire quanto il mio modello generalizza sui dati sconosciuti
+    The holdout evaluation process consists of:
+        1. Splitting the data: the data is randomly split (the percentage is specified in input) into training data and test data
+        2. Training the model: the model is then trained by feeding it the X_train and y_train data
+        3. Testing the model: the model is then tested with the test data (X_test)
+        4. Evaluating performance: the newly trained model is then evaluated using the test data (y_test). The model's performance is calculated using various metrics.
+        5. Analyzing the results: the metrics found are analyzed to understand how well the model generalizes on unknown data
 
-    Parameters
-    ----------
-    None
+        Parameters
+        ----------
+        None
 
-    Returns
-    -------
-    None
+        Returns
+        -------
+        None
     '''
-    def valutazione_holdout(self):
-        X_train, y_train, X_test, y_test = self.split_dati(self.features, self.target, self.perc_train) # richiamo il metodo che va a splittare i dati in dati di train e dati di test
+    def holdout_validation(self):
+        X_train, y_train, X_test, y_test = self.data_splitting(self.features, self.target, self.training_perc) # call the method that splits the data into training and testing data
 
-        knnModel = KNNAlgorithm(self.k, X_train, y_train) # Alleno il modello fornendogli i dati di training
-        prediction = knnModel.predizione_modello(X_test) # Effettuo la predizione con il modello allenato precedentemente
+        knnModel = KNNAlgorithm(self.k, X_train, y_train) # Train the model by providing it with the training data
+        predictions = knnModel.model_prediction(X_test) # Make a prediction with the model trained previously
 
-        Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean = self.calcolo_metrice(y_test, prediction) # richiamo il metodo che va a calcolare le metriche, passandogli i dati di test e le predizioni
-        self.salva_metriche(Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean) # richiamo il metodo che va a salvare nel file Metriche.txt le metriche appena calcolate
+        # Call the method that calculates the metrics, passing it the test data and predictions
+        Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean = self.metrics_calculation(y_test, predictions) 
+
+        # Call the method that saves the newly calculated metrics in the Metrics.txt file
+        self.save_metrics(Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean) 
+
 
     ''' 
-    Il processo di valutazione random subsampling consiste in:
-    1. Specificare in input il numero di esperimenti (K) da effettuare
-    2. Specificare in input la percentuale per i dati di train e test
-    3. Addestramento del modello: il modello viene addestrato quindi utilizzando X_train e y_train
-    4. Valutazione delle performance: il modello appena addestrato viene quindi valutato utilizzando i dati di test (y_test). Le prestazione del modello vengono calcolate tramite diverse metriche
-    5. Iterazioni multiple: il processo viene ripetuto piu volte (K volte), con nuove suddivisioni casuali del dataset, per ottenere una stima più robusta della performance del modello. Infine le valutazioni multiple vengono aggregate per ottenere una misura comune delle prestazioni del modello.
-    6. Analisi dei risultati: si analizzano le metriche trovate per capire quanto il mio modello generalizza sui dati sconosciuti
+    The random subsampling evaluation process consists of:
+        1. Specify in input the number of experiments (K) to be performed
+        2. Specify in input the percentage for the training and testing data
+        3. Training the model: the model is then trained using X_train and y_train
+        4. Evaluating performance: the newly trained model is then evaluated using the test data (y_test). The model's performance is calculated using various metrics
+        5. Multiple iterations: the process is repeated multiple times (K times), with new random splits of the dataset, to obtain a more robust estimate of the model's performance. Finally, the multiple evaluations are aggregated to obtain a common measure of the model's performance.
+        6. Analyzing the results: the metrics found are analyzed to understand how well the model generalizes on unknown data
 
-    Parameters
-    ----------
-    K : int
-        numero di esperimenti da effettuare
+        Parameters
+        ----------
+        K : int
+            number of experiments 
 
-    Returns
-    -------
-    None
+        Returns
+        -------
+        None
     '''
-    def valutazione_random_subsampling(self, K:int):
-        # Inizializzo le liste che conteranno i valori delle metriche calcolate per ogni iterazione
+    def random_subsampling_validation(self, K:int):
+        # Initialize the lists that will contain the values of the metrics calculated for each iteration
         Accuracy_rate_scores = []
         Error_rate_scores = []
         Sensitivity_scores = []
         Specificity_scores = []
         Geometric_mean_scores = []
 
-        # Come previsto dal processo di valutazione random subsampling, questo viene ripetuto K volte
+        # As provided by the random subsampling evaluation process, this is repeated K times
         for _ in range(K):
-            X_train, y_train, X_test, y_test = self.split_dati(self.features, self.target, self.perc_train) # richiamo il metodo che va a splittare i dati in dati di train e dati di test
+            # Call the method that splits the data into training data and testing data
+            X_train, y_train, X_test, y_test = self.data_splitting(self.features, self.target, self.training_perc) 
 
-            knnModel = KNNAlgorithm(self.k, X_train, y_train) # Alleno il modello fornendogli i dati di training
-            prediction = knnModel.predizione_modello(X_test) # Effettuo la predizione con il modello allenato precedentemente
+            # Train the model by providing it with the training data
+            knnModel = KNNAlgorithm(self.k, X_train, y_train) 
 
-            Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean = self.calcolo_metrice(y_test, prediction) # richiamo il metodo che va a calcolare le metriche, passandogli i dati di test e le predizioni
-            
-            # Aggiungo i valori delle metriche calcolate, per questo esperimento, nelle liste
+            # Make a prediction with the model trained previously
+            predictions = knnModel.model_prediction(X_test) 
+
+            # Call the method that calculates the metrics, passing it the test data and predictions
+            Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean = self.metrics_calculation(y_test, predictions) 
+                    
+            # Add the values of the calculated metrics, for this experiment, to the lists
             Accuracy_rate_scores.append(Accuracy_rate)
             Error_rate_scores.append(Error_rate)
             Sensitivity_scores.append(Sensitivity)
             Specificity_scores.append(Specificity)
             Geometric_mean_scores.append(Geometric_mean)
 
-        # Calcolo i valori medi per ogni metrica calcolata nei K esperimetni
+        # Calculate the average values for each metric calculated in the K experiments
         Accuracy_rate_mean = np.mean(Accuracy_rate_scores)
         Error_rate_mean = np.mean(Error_rate_scores)
         Sensitivity_mean = np.mean(Sensitivity_scores)
         Specificity_mean = np.mean(Specificity_scores)
         Geometric_mean_mean = np.mean(Geometric_mean_scores)
 
-        self.salva_metriche(Accuracy_rate_mean, Error_rate_mean, Sensitivity_mean, Specificity_mean, Geometric_mean_mean) # richiamo il metodo che va a salvare le metriche calcolate, nel file Metriche.txt
-        self.plot_delle_metriche(Accuracy_rate_scores, Error_rate_scores, Sensitivity_scores, Specificity_scores, Geometric_mean_scores) # richiamo il metodo che va a plottare le metriche calcolate
+        # Call the method that saves the calculated metrics in the Metriche.txt file
+        self.save_metrics(Accuracy_rate_mean, Error_rate_mean, Sensitivity_mean, Specificity_mean, Geometric_mean_mean) 
+
+        # Call the method that plots the calculated metrics
+        self.metrics_plot(Accuracy_rate_scores, Error_rate_scores, Sensitivity_scores, Specificity_scores, Geometric_mean_scores) 
 
 
     '''
-    In questo metodo vengono calcolate prima i valori della confusion matrix, per poi calcolare le metriche richieste.
+    In this method, the confusion matrix values are first calculated, and then the requested metrics are calculated.
 
-    Parameters
-    ----------
-    y_test : pandas.Series
-        dati che verranno utilizzati per testare il modello
-    prediction : list
-        predizioni effettuate dal modello
+        Parameters
+        ----------
+        y_test : pandas.Series
+            data that will be used to compare the predictions of the model
+        prediction : list
+            predictions made by the model
 
-    Returns
-    -------
-    Accuracy_rate : float
-        percentuale di predizioni corrette rispetto al totale delle predizioni
-    Error_rate : float
-        percentuale di predizioni errate rispetto al totale delle predizioni
-    Sensitivity : float
-        capacità del modello di predirre correttamente i valori positivi
-    Specificity : float
-        capacità del modello di predirre correttamente i valori negativi
-    Geometric_mean : float
-        media che bilancia valori positivi e negativi
+        Returns
+        -------
+        Accuracy_rate : float
+            percentage of correct predictions out of the total predictions
+        Error_rate : float
+            percentage of incorrect predictions out of the total predictions
+        Sensitivity : float
+            ability of the model to correctly predict positive values
+        Specificity : float
+            ability of the model to correctly predict negative values
+        Geometric_mean : float
+            mean that balances positive and negative values
     '''
-    def calcolo_metrice(self, y_test:pd.Series, prediction:list):
+    def metrics_calculation(self, y_test:pd.Series, predictions:list):
 
-        # Inizializzo le variabili che conterranno i valori delle metriche calcolate
+        # Initialize the variables that will contain the values of the calculated metrics
         Accuracy_rate = 0
         Error_rate = 0
         Sensitivity = 0
         Specificity = 0
         Geometric_mean = 0
 
-        # Calcolo della confusion matrix
-        True_Negative = sum(1 for y, pred in zip(y_test.values, prediction) if (y == pred and pred == 2.0))
-        True_Positive = sum(1 for y, pred in zip(y_test.values, prediction) if (y == pred and pred == 4.0))
-        False_Positive = sum(1 for y, pred in zip(y_test.values, prediction) if (y != pred and pred == 4.0))
-        False_Negative = sum(1 for y, pred in zip(y_test.values, prediction) if (y != pred and pred == 2.0))
-        
+        # Calculation of the confusion matrix
+        True_Negative = sum(1 for y, pred in zip(y_test.values, predictions) if (y == pred and pred == 2))
+        True_Positive = sum(1 for y, pred in zip(y_test.values, predictions) if (y == pred and pred == 4))
+        False_Positive = sum(1 for y, pred in zip(y_test.values, predictions) if (y != pred and pred == 4))
+        False_Negative = sum(1 for y, pred in zip(y_test.values, predictions) if (y != pred and pred == 2))
 
-        # Calcolo effettivo delle metriche richieste mediante i valori della confusion matrix, precedentemente calcolati
-        if 1 in self.metriche_scelte:
-            Accuracy_rate = (True_Negative + True_Positive) / y_test.size # Percentuale di predizioni corrette rispetto al totale delle predizioni
-        if 2 in self.metriche_scelte:
-            Error_rate = (False_Positive + False_Negative) / y_test.size # Percentuale di predizioni errate rispetto al totale delle predizioni
-        if 3 in self.metriche_scelte and (True_Positive + False_Negative) != 0:
-            Sensitivity = (True_Positive) / (True_Positive + False_Negative) # Capacità del modello di predirre correttamente i valori positivi
-        if 4 in self.metriche_scelte and (True_Negative + False_Positive) != 0:
-            Specificity = (True_Negative) / (True_Negative + False_Positive) # Capacità del modello di predirre correttamente i valori negativi
-        if 5 in self.metriche_scelte:
-            Geometric_mean = np.sqrt((Sensitivity*Specificity)) # Media che bilancia valori positivi e negativi
+        # Actual calculation of the requested metrics using the values of the confusion matrix, previously calculated
+        if 1 in self.chosen_metrics:
+            Accuracy_rate = (True_Negative + True_Positive) / y_test.size # Percentage of correct predictions out of the total predictions
+        if 2 in self.chosen_metrics:
+            Error_rate = (False_Positive + False_Negative) / y_test.size # Percentage of incorrect predictions out of the total predictions
+        if 3 in self.chosen_metrics and (True_Positive + False_Negative) != 0:
+            Sensitivity = (True_Positive) / (True_Positive + False_Negative) # Ability of the model to correctly predict positive values
+        if 4 in self.chosen_metrics and (True_Negative + False_Positive) != 0:
+            Specificity = (True_Negative) / (True_Negative + False_Positive) # Ability of the model to correctly predict negative values
+        if 5 in self.chosen_metrics:
+            Geometric_mean = np.sqrt((Sensitivity*Specificity)) # Mean that balances positive and negative values
 
         return Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean
 
 
     '''
-    In questo metodo vengono salvate le metriche calcolate in un file txt.
-    Il nome del file sarà: "Metriche.txt"
+    In this method, the calculated metrics are saved in a txt file.
+        The name of the file will be: "Metrics.txt"
 
-    Parameters
-    ----------
-    Accuracy_rate : float
-        percentuale di predizioni corrette rispetto al totale delle predizioni
-    Error_rate : float
-        percentuale di predizioni errate rispetto al totale delle predizioni
-    Sensitivity : float
-        capacità del modello di predirre correttamente i valori positivi
-    Specificity : float
-        capacità del modello di predirre correttamente i valori negativi
-    Geometric_mean : float
-        media che bilancia valori positivi e negativi
+        Parameters
+        ----------
+        Accuracy_rate : float
+            percentage of correct predictions out of the total predictions
+        Error_rate : float
+            percentage of incorrect predictions out of the total predictions
+        Sensitivity : float
+            ability of the model to correctly predict positive values
+        Specificity : float
+            ability of the model to correctly predict negative values
+        Geometric_mean : float
+            mean that balances positive and negative values
 
-    Returns
-    -------
-    None
+        Returns
+        -------
+        None
     '''
-    def salva_metriche(self, Accuracy_rate:float, Error_rate:float, Sensitivity:float, Specificity:float, Geometric_mean:float):
-        # Con le seguenti operazioni apro il file Metriche.txt e ci scrivo dentro le metriche calcolate
-        with open('Metriche.txt', 'w') as file:
+    def save_metrics(self, Accuracy_rate:float, Error_rate:float, Sensitivity:float, Specificity:float, Geometric_mean:float):
+        # With the following operations, open the Metrics.txt file and write the calculated metrics into it
+        with open('Metrics.txt', 'w') as file:
             file.write('Accuracy Rate: ' + str(Accuracy_rate) + '\n')
             file.write('Error Rate: ' + str(Error_rate) + '\n')
             file.write('Sensitivity: ' + str(Sensitivity) + '\n')
             file.write('Specificity: ' + str(Specificity) + '\n')
             file.write('Geometric Mean: ' + str(Geometric_mean) + '\n')
-        file.close() # Chiudo il file Metriche.txt
+        # Close the Metrics.txt file
+        file.close() 
 
 
     '''
-    In questo metodo vengono plottate le metriche per ogni esperimento e vengono rappresentate le metriche con un boxplot.
-    La rappresentazione avviene tramite la libreria matplotlib.
+    In this method, the metrics for each experiment are plotted and the metrics are represented with a boxplot.
+        The representation is done using the matplotlib library.
 
-    Parameters
-    ----------
-    Accuracy_rate : list
-        lista che contiene i valori della metrica Accuracy Rate
-    Error_rate : list
-        lista che contiene i valori della metrica Error Rate
-    Sensitivity : list
-        lista che contiene i valori della metrica Sensitivity
-    Specificity : list
-        lista che contiene i valori della metrica Specificity
-    Geometric_mean : list
-        lista che contiene i valori della metrica Geometric Mean
+        Parameters
+        ----------
+        Accuracy_rate : list
+            list containing the values of the Accuracy Rate metric
+        Error_rate : list
+            list containing the values of the Error Rate metric
+        Sensitivity : list
+            list containing the values of the Sensitivity metric
+        Specificity : list
+            list containing the values of the Specificity metric
+        Geometric_mean : list
+            list containing the values of the Geometric Mean metric
 
-    Returns
-    -------
-    None
+        Returns
+        -------
+        None
     '''
-    def plot_delle_metriche(self, Accuracy_rate:list, Error_rate:list, Sensitivity:list, Specificity:list, Geometric_mean:list):
-        etichette = ['Accuracy Rate', 'Error Rate', 'Sensitivity', 'Specificity', 'Geometric Mean'] # Vettore utilizzato per rappresentare le etichette del grafico
-        valori = [Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean] # Vettore utilizzato per rappresentare i valori del grafico corrispondenti alle etichette
+    def metrics_plot(self, Accuracy_rate:list, Error_rate:list, Sensitivity:list, Specificity:list, Geometric_mean:list):
+        labels = ['Accuracy Rate', 'Error Rate', 'Sensitivity', 'Specificity', 'Geometric Mean'] # Vector used to represent the labels of the graph
+        values = [Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean] # Vector used to represent the values of the graph corresponding to the labels
 
-        plt.figure(figsize=(10, 5)) # Imposto la dimensione del grafico
+        plt.figure(figsize=(10, 5)) # Set the size of the graph
 
-        # Con le seguenti operazioni plotto le metriche richieste
-        if 1 in self.metriche_scelte:
+        # With the following operations, we plot the requested metrics
+        if 1 in self.chosen_metrics:
             plt.plot(Accuracy_rate, marker='o', linestyle='solid', linewidth=2, markersize=5, color='blue', label='Accuracy Rate')
-        if 2 in self.metriche_scelte:
+        if 2 in self.chosen_metrics:
             plt.plot(Error_rate, marker='o', linestyle='solid', linewidth=2, markersize=5, color='green', label='Error Rate')
-        if 3 in self.metriche_scelte:
+        if 3 in self.chosen_metrics:
             plt.plot(Sensitivity, marker='o', linestyle='solid', linewidth=2, markersize=5, color='red', label='Sensitivity')
-        if 4 in self.metriche_scelte:
+        if 4 in self.chosen_metrics:
             plt.plot(Specificity, marker='o', linestyle='solid', linewidth=2, markersize=5, color='yellow', label='Specificity')
-        if 5 in self.metriche_scelte:
+        if 5 in self.chosen_metrics:
             plt.plot(Geometric_mean, marker='o', linestyle='solid', linewidth=2, markersize=5, color='orange', label='Geometric Mean')
 
-        
-        plt.legend(loc='upper right') # Imposto la posizione legenda nel grafico
-        plt.xlabel("Esperimenti") # Imposto il nome dell'etichetta dell'asse x
-        plt.ylabel("Valori") # Imposto il nome dell'etichetta dell'asse y
-        plt.title("Andamento delle metriche") # Imposto il titolo del grafico
-        plt.tight_layout() # Ottimizza la disposizione dei sottopannelli nel grafico per evitare sovrapposizioni
-        #plt.show() # Mostro il grafico
+        plt.legend(loc='upper right') # Set the legend position in the graph
+        plt.xlabel("Experiments") # Set the name of the x-axis label
+        plt.ylabel("Values") # Set the name of the y-axis label
+        plt.title("Metrics trend") # Set the title of the graph
+        plt.tight_layout() # Optimizes the layout of the subpanels in the graph to avoid overlaps
+        #plt.show() # Show the graph
 
 
-        # Creo una nuova figura per rappresentare il boxplot delle metriche
+        # Create a new figure to represent the boxplot of the metrics
         plt.figure(figsize=(10, 5))
-        plt.boxplot(valori)
-        
-        plt.xlabel("Metriche") # Imposto il nome dell'etichetta dell'asse x
-        plt.ylabel("Valori") # Imposto il nome dell'etichetta dell'asse y
-        plt.title("Boxplot delle metriche") # Imposto il titolo del grafico
-        plt.xticks(range(1, len(etichette) + 1) ,etichette, rotation=45) # Imposto le etichette dell'asse x e la rotazione di queste
-        plt.tight_layout() # Ottimizza la disposizione dei sottopannelli nel grafico per evitare sovrapposizioni
+        plt.boxplot(values)
 
-        plt.show() # Mostro il grafico
+        plt.xlabel("Metrics") # Set the name of the x-axis label
+        plt.ylabel("Values") # Set the name of the y-axis label
+        plt.title("Boxplot of metrics") # Set the title of the graph
+        plt.xticks(range(1, len(labels) + 1) ,labels, rotation=45) # Set the labels of the x-axis and their rotation
+        plt.tight_layout() # Optimizes the layout of the subpanels in the graph to avoid overlaps
+
+        plt.show() # Show the graph

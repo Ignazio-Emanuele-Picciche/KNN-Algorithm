@@ -1,96 +1,153 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# __import__(class evaluation)
 
-# k = int(input("Inserire il numero di vicini k da utilizzare per il classificatore: ")) #numero di vicini da utilizzare per il classificatore
-    #K = int(input("Inserire il numero di esperimenti K: ")) #numero di esperimenti
-    #training = int(input("Inserire la percentuale di training: ")) #percentuale di training (la percentuale di test sarà ricavata automaticamente dal programma)
-    #test = 100 - training #percentuale di test (ricavata dal programma per sottrazione
-    #print(f"La percentuale di test è {test}")
+'''
+- Definition of the methods of the Input class:
+    - constructor
+    - k_neighbors -> Asks the user to enter the number of neighbors k to use for the classifier
+    - training_percentage -> Asks the user to enter the percentage for the training
+    - evaluation_method -> Asks the user to choose the evaluation method (holdout or random subsampling)
+    - metric_selection -> Asks the user to choose the metrics to use for the evaluation
+'''
+
 
 class Input:
-    def __init__(self):
-        self.k=int(input("Inserire il numero di vicini k da utilizzare per il classificatore: ")) #numero di vicini k da utilizzare per il classificatore
-        self.training=int(input("Inserire la percentuale di training: ")) #percentuale di training (la percentuale di test sarà ricavata automaticamente dal programma)
-        self.test=100-self.training #percentuale di test (ricavata dal programma per sottrazione)
-        self.K=0 #numero di esperimenti K per il random subsampling
+    '''
+    The Input class is necessary to manage the user input for the program.
+    This class is structured as follows:
+    - The constructor initializes the parameters k, training, and K.
+    - The k_neighbors method asks the user to enter the number of neighbors k to use for the classifier.
+    - The training_percentage method asks the user to enter the percentage for the training.
+    - The evaluation_method method asks the user to choose the evaluation method (holdout or random subsampling).
+    - The metric_selection method asks the user to choose the metrics to use for the evaluation.
+    '''
+    def __init__(self):   # Constructor of the Input class
+
+        self.k=0   # number of neighbors k to use for the classifier
+        self.training=1   # percentage for the training
+        self.K=0   # number of experiments K for the random subsampling
 
 
-    def scelta_metodo_evaluation(self):#l'utente sceglie se utilizzare l'holdout o il random subsampling
-        scelta_evaluation=0
-
-        while scelta_evaluation !="1" or scelta_evaluation !="2":
-
-            scelta_evaluation = (input("Inserire 1 per scegliere l'holdout, 2 per il random subsampling: ")) #l'utente deve inserire 1 o 2, 1 per l'holdout, 2 per il random subsampling, il programma non va avanti finchè l'utente non sceglie
-
-            if scelta_evaluation=="1":
-
-                return int(scelta_evaluation)
-
-            elif scelta_evaluation=="2":
-
-                self.K = int(input("Inserire il numero di esperimenti K: ")) #se ha effettuato questa scelta, l'utente deve inserire il numero di esperimenti K per il random subsampling
-
-                return int(scelta_evaluation)
+    def k_neighbors(self):
+        '''
+        The k_neighbors method asks the user to enter the number of neighbors k to use for the classifier.
+        The user must enter an integer number greater than 0.
+        The program does not go on until the user enters a valid number.
+        '''
+        while True:   # the program does not go on until the user enters a valid number
+            k = input("Enter the number of neighbors k to use for the classifier: ")   # the user is asked to enter the number of neighbors k
+            if k.isdigit() and int(k) > 0:   # if the user enters a valid number (an integer greater than 0)
+                self.k = int(k)   # the number of neighbors k is saved
+                break   # the program goes on
+        return self.k   # the number of neighbors k is returned
 
 
-    def scelta_metriche(self): #l'utente sceglie le metriche da utilizzare per la valutazione,
-        # le metriche sono: Accuracy Rate, Error Rate, Sensitivity, Specificity, Geometric Mean.
-        # All'inizio all'utente viene chiesto se vuole utilizzare tutte le metriche (inserendo 1), se risponde di no (inserendo 0), può scegliere quali metriche utilizzare
-        # viene chiesto all'utente di inserire 1 per scegliere una metrica, 0 per non sceglierla, e successivamente viene chiesta la stessa cosa per ogni metrica successiva
-        # il programma non va avanti finchè l'utente non sceglie
-        # le metriche scelte vengono salvate in una lista, che viene restituita dal metodo
-        metriche_scelte = []
-        scelta_metriche = 0
-        while scelta_metriche != "1" or scelta_metriche != "0":
-            scelta_metriche = (input("Inserire 1 per scegliere tutte le metriche, 0 per scegliere manualmente le metriche: "))
-            if scelta_metriche == "1":
-                metriche_scelte = [1, 2, 3, 4, 5]
-                return metriche_scelte
-            elif scelta_metriche == "0":
-                scelta_metriche_accuracy_rate = 0
-                while scelta_metriche_accuracy_rate != "1" or scelta_metriche_accuracy_rate != "0":
-                    scelta_metriche_accuracy_rate = (input("Inserire 1 per scegliere la metrica Accuracy Rate, 0 per non sceglierla: "))
-                    if scelta_metriche_accuracy_rate == "1":
-                        metriche_scelte.append(1)
+    def training_percentage(self):
+        '''
+        The training_percentage method asks the user to enter the percentage for the training.
+        The user must enter an integer number between 0 and 100 (but not 0 or 100).
+        The program does not go on until the user enters a valid number.
+        '''
+        while True:
+            training = input("Enter the percentage for the training: ")   # the user is asked to enter the percentage for the training
+
+            if training.isdigit() and 0 < int(training) < 100:   # if the user enters a valid number (an integer between 0 and 100 but not 0 or 100)
+                self.training = int(training)   # the percentage for the training is saved
+                break   # the program goes on
+
+        return self.training
+    def evaluation_method(self):
+        '''
+        The evaluation_method method asks the user to choose the evaluation method (holdout or random subsampling).
+        The user must enter 1 or 2, 1 for the holdout, 2 for the random subsampling.
+        The program does not go on until the user enters a valid number.
+        If the user chooses the random subsampling, the user is asked to enter the number of experiments K.
+        The program does not go on until the user enters a valid number for K
+        '''
+        evaluation=0
+
+        while evaluation !="1" or evaluation !="2":   # the program does not go on until the user enters a valid number
+
+            evaluation = (input("Enter 1 to choose holdout, 2 to choose random subsampling: "))   # the user is asked to enter 1 or 2
+
+            if evaluation=="1":
+
+                return int(evaluation)   # if the user enters 1, the method returns 1
+
+            elif evaluation=="2":   # if the user enters 2
+                while True:   #
+                    K = input("Enter the number of experiments K for the random subsampling: ")   # the user is asked to enter the number of experiments K
+                    if K.isdigit() and int(K) > 0:   # if the user enters a valid number (an integer greater than 0)
+                        self.K = int(K)   # the number of experiments K is saved
                         break
-                    elif scelta_metriche_accuracy_rate == "0":
-                        break
-                scelta_metriche_error_rate = 0
-                while scelta_metriche_error_rate != "1" or scelta_metriche_error_rate != "0":
-                    scelta_metriche_error_rate = (input("Inserire 1 per scegliere la metrica Error Rate, 0 per non sceglierla: "))
-                    if scelta_metriche_error_rate == "1":
-                        metriche_scelte.append(2)
-                        break
-                    elif scelta_metriche_error_rate == "0":
-                        break
-                scelta_metriche_sensitivity = 0
-                while scelta_metriche_sensitivity != "1" or scelta_metriche_sensitivity != "0":
-                    scelta_metriche_sensitivity = (input("Inserire 1 per scegliere la metrica Sensitivity, 0 per non sceglierla: "))
-                    if scelta_metriche_sensitivity == "1":
-                        metriche_scelte.append(3)
-                        break
-                    elif scelta_metriche_sensitivity == "0":
-                        break
-                scelta_metriche_specificity = 0
-                while scelta_metriche_specificity != "1" or scelta_metriche_specificity != "0":
-                    scelta_metriche_specificity = (input("Inserire 1 per scegliere la metrica Specificity, 0 per non sceglierla: "))
-                    if scelta_metriche_specificity == "1":
-                        metriche_scelte.append(4)
-                        break
-                    elif scelta_metriche_specificity == "0":
-                        break
-                scelta_metriche_geometric_mean = 0
-                while scelta_metriche_geometric_mean != "1" or scelta_metriche_geometric_mean != "0":
-                    scelta_metriche_geometric_mean = (input("Inserire 1 per scegliere la metrica Geometric Mean, 0 per non sceglierla: "))
-                    if scelta_metriche_geometric_mean == "1":
-                        metriche_scelte.append(5)
-                        break
-                    elif scelta_metriche_geometric_mean == "0":
-                        break
-                return metriche_scelte
+                return int(evaluation)   # the method returns 2
 
-#prova
-#input1=Input()
-#print(input1.k,input1.training,input1.test,input1.scelta_metodo_evaluation(),input1.scelta_metriche())
+
+    def metrics_selection(self):
+        '''
+        The metrics_selection method asks the user to choose the metrics to use for the evaluation.
+        The available metrics are: Accuracy Rate, Error Rate, Sensitivity, Specificity, Geometric Mean.
+        At the beginning, the user is asked if he wants to use all the metrics (entering 1), if he answers no (entering 0), he can choose which metrics to use.
+        If the user chooses 1, all the metrics are used.
+        If the user chooses 0, he can choose which metrics to use.
+        The user is asked to enter 1 to choose a metric, 0 to not choose it, and then the same thing is asked for each subsequent metric.
+        The program does not go on until the user chooses.
+        The chosen metrics are saved in a list, which is returned by the method.
+        If the user chooses only the Geometric mean metric, the Sensitivity Metric and Specificity Metric are also added,
+        because they are needed for the Geometric mean metric
+        '''
+
+        metrics = set()   # the list of metrics to use is initialized
+        metrics_selection = 0   # the variable that will contain the user's choice is initialized
+        while metrics_selection != "1" or metrics_selection != "0":   # the program does not go on until the user enters a valid number
+            metrics_selection = (input("Enter 1 to select all metrics, 0 to manually select metrics: "))   # the user is asked to enter 1 or 0
+            if metrics_selection == "1":   # if the user enters 1
+                metrics = {1, 2, 3, 4, 5}   # all the metrics are saved
+                return metrics
+            elif metrics_selection == "0":   # if the user enters 0, he has to choose which metrics to use
+                accuracy_rate = 0
+                while accuracy_rate != "1" or accuracy_rate != "0":
+                    accuracy_rate = (input("Enter 1 to choose the Accuracy Rate metric, 0 to not choose it: "))   # the user is asked to enter 1 or 0 for the Accuracy Rate metric
+                    if accuracy_rate == "1":
+                        metrics.add(1)
+                        # if the user enters 1, the Accuracy Rate metric is saved
+                        break
+                    elif accuracy_rate == "0":   # if the user enters 0, the program goes on without saving the Accuracy Rate metric
+                        break
+                error_rate = 0
+                while error_rate != "1" or error_rate != "0":
+                    error_rate = (input("Enter 1 to choose the Error Rate metric, 0 to not choose it: "))   # the user is asked to enter 1 or 0 for the Error Rate metric
+                    if error_rate == "1":
+                        metrics.add(2)   # if the user enters 1, the Error Rate metric is saved
+                        break
+                    elif error_rate == "0":   # if the user enters 0, the program goes on without saving the Error Rate metric
+                        break
+                sensitivity = 0
+                while sensitivity != "1" or sensitivity != "0":
+                    sensitivity = (input("Enter 1 to choose the Sensitivity metric, 0 to not choose it: "))   # the user is asked to enter 1 or 0 for the Sensitivity metric
+                    if sensitivity == "1":
+                        metrics.add(3)   # if the user enters 1, the Sensitivity metric is saved
+                        break
+                    elif sensitivity == "0":   # if the user enters 0, the program goes on without saving the Sensitivity metric
+                        break
+                specificity = 0
+                while specificity != "1" or specificity != "0":
+                    specificity = (input("Enter 1 to choose the Specificity metric, 0 to not choose it: "))   # the user is asked to enter 1 or 0 for the Specificity metric
+                    if specificity == "1":
+                        metrics.add(4)   # if the user enters 1, the Specificity metric is saved
+                        break
+                    elif specificity == "0":   # if the user enters 0, the program goes on without saving the Specificity metric
+                        break
+                geometric_mean = 0
+                while geometric_mean != "1" or geometric_mean != "0":
+                    geometric_mean = (input("Enter 1 to choose the Geometric Mean metric, 0 to not choose it: "))   # the user is asked to enter 1 or 0 for the Geometric Mean metric
+                    if geometric_mean == "1":
+                        metrics.add(5)   # if the user enters 1, the Geometric Mean metric is saved
+                        metrics.add(4)   # if the user enters 1, the Specificity metric is saved
+                        metrics.add(3)   # if the user enters 1, the Sensitivity metric is saved
+                        break
+                    elif geometric_mean == "0":   # if the user enters 0, the program goes on without saving the Geometric Mean metric
+                        break
+                return metrics   # the list of metrics to use is returned
+
 

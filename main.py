@@ -1,37 +1,40 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Importazione delle classi necessarie
+# Import the necessary classes
+# Preprocessing for data cleaning and standardization
+# Input for user input handling
+# Evaluation for model performance evaluation
 from Preprocessing import Preprocessing
 from Input import Input
 from Evaluation import Evaluation
 
 if __name__ == '__main__':
-    # Creazione delle istanze delle classi Input e Preprocessing
+    # Create instances of the Input and Preprocessing classes
     input_utente = Input()
     preprocessing = Preprocessing()
 
-    # Richiesta all'utente del metodo di valutazione e delle metriche da utilizzare
-    metodo_di_valutazione= input_utente.scelta_metodo_evaluation()
-    metriche_scelte = input_utente.scelta_metriche()
+    # Ask the user for the evaluation method and metrics to use
+    metodo_di_valutazione= input_utente.evaluation_method()
+    metriche_scelte = input_utente.metrics_selection()
     K = input_utente.K
 
-    # Caricamento, pulizia e standardizzazione del dataset
-    preprocessing.caricamento_dataset()
-    preprocessing.pulizia_dati()
-    preprocessing.standardizzazione()
+    # Load, clean, and standardize the dataset
+    preprocessing.loading_dataset()
+    preprocessing.data_cleaning()
+    preprocessing.standardization()
     
-    # Suddivisione del dataset in features e target
-    features, target = preprocessing.suddivisione_dati()
+    # Split the dataset into features and target label
+    features, target = preprocessing.data_split()
 
-    # Richiesta all'utente della percentuale di dati da utilizzare per l'addestramento e del numero di vicini da considerare
-    perc_train = input_utente.training
-    k = input_utente.k
+    # Ask the user for the percentage of data to use for training and the number of neighbors to consider
+    perc_train = input_utente.training_percentage()
+    k = input_utente.k_neighbors()
 
-    # Creazione dell'istanza della classe Evaluation per valutare le prestazioni del modello
+    #  Create an instance of the Evaluation class to evaluate the model's performance
     evaluation = Evaluation(features, target, perc_train, k, metriche_scelte)
 
     if metodo_di_valutazione == 1:
-        evaluation.valutazione_holdout()
+        evaluation.holdout_validation()
     else:
-        evaluation.valutazione_random_subsampling(K)
+        evaluation.random_subsampling_validation(K)
