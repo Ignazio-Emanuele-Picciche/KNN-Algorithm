@@ -13,10 +13,11 @@
 
 
 import pandas as pd
+import sys
 
 
 class Preprocessing():
-    data = pd.DataFrame()
+
     '''
     The Preprocessing class is necessary to load and prepare the data for the program. It uses the pandas library.
     This class is structured as follows:
@@ -34,12 +35,16 @@ class Preprocessing():
     '''
 
 
-    def __init__(self, dataset_path):
-        self.dataset_path = dataset_path
-        pass
+    def __init__(self):
+        self.dataset_path = input("Enter the path of the dataset: ")
+
 
     def loading_dataset(self):  # creazione metodo caricamento dataset
-        self.data = pd.read_csv(self.dataset_path) #importo il file csv
+        try:
+            self.data = pd.read_csv(self.dataset_path) #importo il file csv
+        except FileNotFoundError:
+            print("File not found")
+            sys.exit(1)
 
 
 
@@ -62,9 +67,9 @@ class Preprocessing():
 
 
 
-#prova = Preprocessing()
-#prova.loading_dataset()
-#prova.data_cleaning()
-#prova.standardization()
-#prova.data_split()
-#print(prova.data_split())
+prova = Preprocessing()
+prova.loading_dataset()
+prova.data_cleaning()
+prova.standardization()
+prova.data_split()
+print(prova.data_split())
