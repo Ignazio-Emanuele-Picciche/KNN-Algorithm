@@ -22,7 +22,7 @@ all of them utilized in the Main of the program.
 The user can decide the value of the inputs and the type of evaluation and metrics (for further information read the [section](#inputs-required-by-the-program) 
 with the instructions for the user).
 The dataset utilized is taken from [here](http://archive.ics.uci.edu/dataset/15/breast+cancer+wisconsin+original),
-it is a .csv file wich contains the following data for every single cell:
+it is a .csv file which contains the following data for every single cell:
 
 - A sample code number. 
 
@@ -127,9 +127,9 @@ If not, the program will ask again the user to insert the input, until it is an 
 
 The purpose of this class is to preprocess the data given from the dataset. What the class do is:
 
-- Importing the dataset: the class will import the csv file of the dataset for the preprocessing
+- Importing the dataset: the class will import the csv file of the dataset for the preprocessing. The program asks the user to enter the path of the file.
 
-- Data clealing: if there is a line with missing values, that line is eliminated.
+- Data cleaning: if there is a line with missing values, that line is eliminated.
 
 - Feature scaling (standardization): for the feature scaling, the choice was between the normalization and
 the standardization. After some researches, the choice taken was for the standardization, also because
