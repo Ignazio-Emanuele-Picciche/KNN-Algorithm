@@ -19,6 +19,10 @@ if __name__ == '__main__':
     metriche_scelte = input_utente.metrics_selection()
     K = input_utente.K
 
+    # Ask the user for the percentage of data to use for training and the number of neighbors to consider
+    perc_train = input_utente.training_percentage()
+    k = input_utente.k_neighbors()
+
     # Load, clean, and standardize the dataset
     preprocessing.loading_dataset()
     preprocessing.data_cleaning()
@@ -27,9 +31,7 @@ if __name__ == '__main__':
     # Split the dataset into features and target label
     features, target = preprocessing.data_split()
 
-    # Ask the user for the percentage of data to use for training and the number of neighbors to consider
-    perc_train = input_utente.training_percentage()
-    k = input_utente.k_neighbors()
+    
 
     #  Create an instance of the Evaluation class to evaluate the model's performance
     evaluation = Evaluation(features, target, perc_train, k, metriche_scelte)
