@@ -2,7 +2,7 @@
 In this section, we will discuss the project structure of the application. The project structure refers to the organization of files and folders within the application. It plays a crucial role in maintaining the application, adding new features, and facilitating collaboration. A well-defined project structure enhances code readability and navigation.
 
 ## Index
-1. [Flow Diagram](#1-flow-chart)
+1. [Flow Chart](#1-flow-chart)
 2. [Class Structure](#2-class-structure)
 3. [Branching Strategy](#3-branching-strategy)
 
@@ -12,6 +12,8 @@ In this section, we will discuss the project structure of the application. The p
 ## 1. Flow Chart
 The following diagram illustrates the flow of the application.
 It provides a high-level overview of the application's architecture and the interaction between different components.
+
+![FlowChart](https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/47758c87-f9fb-4aae-a243-b3374429067d)
 
 [Quickly return to the top](#project-structure)
 
