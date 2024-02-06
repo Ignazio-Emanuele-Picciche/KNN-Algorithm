@@ -14,17 +14,23 @@ It provides a high-level overview of the application's architecture and the inte
 ## 2. Class Structure
 The application is organized into several classes, each of which is responsible for a specific task. The following is the class structure of the application:
 
->Input:
-><br>![InputClass](https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/5af95837-6f12-4bb3-8e12-599d4bc351ce)
-
->Preprocessing:
-><br>![PreprocessingClass](https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/513880e3-03b4-4e41-83d7-c3ec73cdfd56)
+> Input and preoprocessing classes
+><p>
+><img src='https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/5af95837-6f12-4bb3-8e12-599d4bc351ce', width="200" >
+><img src='https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/513880e3-03b4-4e41-83d7-c3ec73cdfd56', width="250" >
+></p>
 
 >Evaluation:
-><br>![EvaluationClass](https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/4f203c54-767d-4817-bd49-8fce374c60ed)
+><p>
+><img src='https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/4f203c54-767d-4817-bd49-8fce374c60ed', width="700">
+></p>
 
->KNNAlgorithm:
-><br>![KNNClass](https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/5d093415-108a-4b97-ab54-743831ddb603)
+
+> KNNAlgorithm:
+><p>
+><img src='https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/5d093415-108a-4b97-ab54-743831ddb603', width="500">
+></p>
+
 
 
 
