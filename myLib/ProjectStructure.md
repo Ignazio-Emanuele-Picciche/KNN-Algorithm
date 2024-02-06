@@ -22,16 +22,13 @@ The application is organized into several classes, each of which is responsible 
 
 >Evaluation:
 ><p>
-><img src='https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/4f203c54-767d-4817-bd49-8fce374c60ed', width="700">
+><img src='https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/8e450ad0-3f5d-45b9-b905-a561916df7fb', width="700">
 ></p>
-
 
 > KNNAlgorithm:
 ><p>
 ><img src='https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/5d093415-108a-4b97-ab54-743831ddb603', width="500">
 ></p>
-
-
 
 
 ## 3. Branching Strategy
