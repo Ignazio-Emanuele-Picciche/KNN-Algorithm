@@ -42,7 +42,7 @@ class KNNAlgorithm:
             distances = [] # List of distances between the x_test point and the x_train points
             for index, train_point in self.x_train.iterrows():
                 # Calculation of the Euclidean distance between the x_test point and the x_train points
-                dist = self.calculate_euclidean_distance(train_point, test_point)  # Euclidean_distance_calculation method
+                dist = self.__calculate_euclidean_distance(train_point, test_point)  # Euclidean_distance_calculation method
                 # We add to the distances list the pair distance, class of belonging
                 distances.append(((dist),self.y_train[index]))
 
@@ -71,7 +71,7 @@ class KNNAlgorithm:
         # Return the list of predictions, containing the predicted classes for each x_test
         return predictions
 
-    def calculate_euclidean_distance(self, x1, x2):
+    def __calculate_euclidean_distance(self, x1, x2):
         '''
         - The calculate_euclidean_distance method within the KNNAlgorithm class calculates the Euclidean distance between two points.
             - The method takes two points as input, x1 and x2, calculates the difference between the two points,
