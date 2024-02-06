@@ -2,11 +2,9 @@
 
 ## Index
 1. [Project Description](#1-general-description-of-the-project)
-    - [Project Structure](./myLib/ProjectStructure.md)
+    - [Project Structure](./myLib/Project_Structure.md)
 2. [Classes](#2-description-of-implemented-classes)
 3. [Configure the environment](#3-configure-the-environment)
-4. [Inputs Requires](#4-inputs-required-by-the-program)
-5. [Program Outputs](#5-program-outputs)
 
 
 ## 1. General description of the project
@@ -186,35 +184,3 @@ Now that we have set up our virtual environment, we can run the application.
 Just go to the main.py file and run it.
 
 [Quickly return to the top](#knn-algorithm---programming-and-experimental-methods-for-artificial-intelligence-2324)
-
-## 4. Inputs required by the program
-The inputs required by the application are as follows:
-1. The path of the dataset file.
-2. The number of k neighbors to use for the classifier.
-3. The percentage of training.
-4. Choice of evaluation method (Holdout or Random Subsampling)
-5. If you choose the Random Subsampling evaluation method, you will be asked to enter the number of K experiments.
-6. Choose if you want all metrics or some specifics metrics:
-    - If you choose the second option, you will be asked for each individual metric whether you want to calculate it or not. Consider that if you choose the Geometric Mean metric, the Sensitivity and Specificity metrics are also automatically calculated as they are part of the calculation for the chosen Geometric Mean metric.
-      - The possible metrics are: Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean
-
-[Quickly return to the top](#knn-algorithm---programming-and-experimental-methods-for-artificial-intelligence-2324)
-
-## 5. Program outputs
-Once all the required inputs have been entered, there are two options for data displayed.
-
-If you choose the Holdout validation method, the calculated metrics for the single experiment will be written in the Metrics.txt file
-
-If you choose the Random Subsampling validation method, the averages of the calculated metrics in the K experiments (K specified in the inputs) will be represented in the Metrics.txt file.
-In addition, two graphs will be displayed, one representing the trend of the calculated metrics for each experiment and the other representing the boxplots for each calculated metric.
-
-_Example of a graph of the metrics displayed_
-<p float="left">
-  <img src="https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/95869d8d-832f-4577-8ebb-75de6df093b0" width="500" />
-  <img src="https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/9c97b52e-a8e9-4ea7-9f65-80896b6fbf26" width="500" />
-</p>
-
-[Quickly return to the top](#knn-algorithm---programming-and-experimental-methods-for-artificial-intelligence-2324)
-
-
-
