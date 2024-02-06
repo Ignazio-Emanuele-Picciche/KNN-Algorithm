@@ -14,6 +14,17 @@ It provides a high-level overview of the application's architecture and the inte
 ## 2. Class Structure
 The application is organized into several classes, each of which is responsible for a specific task. The following is the class structure of the application:
 
+>Input:
+><br>![InputClass](https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/5af95837-6f12-4bb3-8e12-599d4bc351ce)
+
+>Preprocessing:
+><br>![PreprocessingClass](https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/513880e3-03b4-4e41-83d7-c3ec73cdfd56)
+
+>Evaluation:
+><br>![EvaluationClass](https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/4f203c54-767d-4817-bd49-8fce374c60ed)
+
+>KNNAlgorithm:
+><br>![KNNClass](https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/5d093415-108a-4b97-ab54-743831ddb603)
 
 
 
