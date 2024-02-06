@@ -31,8 +31,6 @@ if __name__ == '__main__':
     # Split the dataset into features and target label
     features, target = preprocessing.data_split()
 
-    
-
     #  Create an instance of the Evaluation class to evaluate the model's performance
     evaluation = Evaluation(features, target, training_perc, k, chosen_metrics)
 
