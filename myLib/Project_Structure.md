@@ -43,9 +43,9 @@ In particular, the Gitflow model consists of the following branches:
 - **Main**: The main branch contains the production-ready code. It is the branch from which the application is deployed to the production environment.
 - **Develop**: The develop branch contains the latest code that is ready for release. It is the branch from which the code is deployed to the staging environment for testing.
 - **Feature**: The feature branches are used to develop new features. They are created from the develop branch and merged back into the develop branch once the feature is complete.
-    - Feature branches are named using the following convention: `feature/<feature-name>`.
+    - Feature branches are named using the following convention: `features/<feature-name>`.
     - Feature branches should be created for each new feature and are deleted once the feature is merged into the develop branch.
-    - For example, we created some feature branches such as `feature/classePreprocessing`, `feature/classeEvaluation`, `feature/classeKnn`, etc.
+    - For example, we created some feature branches such as `features/classePreprocessing`, `features/classeEvaluation`, `features/classeKnn`, etc.
 - **Hotfix**: The hotfix branches are used to fix bugs in the production code. They are created from the main branch and merged back into both the main and develop branches once the bug is fixed.
     - Hotfix branches are named using the following convention: `hotfix/<bug-name>`.
     - Hotfix branches should be created for each bug fix and are deleted once the bug is merged into the main and develop branches.

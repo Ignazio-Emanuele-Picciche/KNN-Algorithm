@@ -44,11 +44,11 @@ To identify the nearest neighbors of a query point, KNN calculates the distance 
 
 ## 2. Description of Implemented Classes
 
-- [KNNAlgorithm](./myLib/Classes_Description.md#5-knnalgorithm) 
 - [Main](./myLib/Classes_Description.md#1-main)
 - [Input](./myLib/Classes_Description.md#2-input)
 - [Preprocessing](./myLib/Classes_Description.md#3-preprocessing)
 - [Evaluation](./myLib/Classes_Description.md#4-evaluation)
+- [KNNAlgorithm](./myLib/Classes_Description.md#5-knnalgorithm) 
 
 [Quickly return to the top](#knn-algorithm---programming-and-experimental-methods-for-artificial-intelligence-2324)
 
