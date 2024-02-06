@@ -56,7 +56,7 @@ class Evaluation:
         
     '''
     In this method the data are divided into training and testing data.
-
+        Private method that is called by the holdout_validation and random_subsampling_validation methods.
         The training data will be used to train the model, while the testing data will be used to test the model.
 
         Parameters
@@ -79,7 +79,7 @@ class Evaluation:
         y_test : pandas.Series
             target data that will be used to compare the predictions of the model
     '''
-    def data_splitting(self, features:pd.DataFrame, target:pd.Series, training_perc:int):
+    def __data_splitting(self, features:pd.DataFrame, target:pd.Series, training_perc:int):
         X_train = features.sample(frac = training_perc/100) # Get the training data according to a percentage specified in input
         X_test = features.drop(X_train.index) # Get the test data. These are all the data that were not taken for training
 
@@ -106,16 +106,16 @@ class Evaluation:
         None
     '''
     def holdout_validation(self):
-        X_train, y_train, X_test, y_test = self.data_splitting(self.features, self.target, self.training_perc) # call the method that splits the data into training and testing data
+        X_train, y_train, X_test, y_test = self.__data_splitting(self.features, self.target, self.training_perc) # call the method that splits the data into training and testing data
 
         knnModel = KNNAlgorithm(self.k, X_train, y_train) # Train the model by providing it with the training data
         predictions = knnModel.model_prediction(X_test) # Make a prediction with the model trained previously
 
         # Call the method that calculates the metrics, passing it the test data and predictions
-        Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean = self.metrics_calculation(y_test, predictions) 
+        Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean = self.__metrics_calculation(y_test, predictions) 
 
         # Call the method that saves the newly calculated metrics in the Metrics.txt file
-        self.save_metrics(Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean) 
+        self.__save_metrics(Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean) 
 
 
     ''' 
@@ -147,7 +147,7 @@ class Evaluation:
         # As provided by the random subsampling evaluation process, this is repeated K times
         for _ in range(K):
             # Call the method that splits the data into training data and testing data
-            X_train, y_train, X_test, y_test = self.data_splitting(self.features, self.target, self.training_perc) 
+            X_train, y_train, X_test, y_test = self.__data_splitting(self.features, self.target, self.training_perc) 
 
             # Train the model by providing it with the training data
             knnModel = KNNAlgorithm(self.k, X_train, y_train) 
@@ -156,7 +156,7 @@ class Evaluation:
             predictions = knnModel.model_prediction(X_test) 
 
             # Call the method that calculates the metrics, passing it the test data and predictions
-            Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean = self.metrics_calculation(y_test, predictions) 
+            Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean = self.__metrics_calculation(y_test, predictions) 
                     
             # Add the values of the calculated metrics, for this experiment, to the lists
             Accuracy_rate_scores.append(Accuracy_rate)
@@ -173,14 +173,15 @@ class Evaluation:
         Geometric_mean_mean = np.mean(Geometric_mean_scores)
 
         # Call the method that saves the calculated metrics in the Metriche.txt file
-        self.save_metrics(Accuracy_rate_mean, Error_rate_mean, Sensitivity_mean, Specificity_mean, Geometric_mean_mean) 
+        self.__save_metrics(Accuracy_rate_mean, Error_rate_mean, Sensitivity_mean, Specificity_mean, Geometric_mean_mean) 
 
         # Call the method that plots the calculated metrics
-        self.metrics_plot(Accuracy_rate_scores, Error_rate_scores, Sensitivity_scores, Specificity_scores, Geometric_mean_scores) 
+        self.__metrics_plot(Accuracy_rate_scores, Error_rate_scores, Sensitivity_scores, Specificity_scores, Geometric_mean_scores) 
 
 
     '''
     In this method, the confusion matrix values are first calculated, and then the requested metrics are calculated.
+        Private method that is called by the holdout_validation and random_subsampling_validation methods.
 
         Parameters
         ----------
@@ -202,7 +203,7 @@ class Evaluation:
         Geometric_mean : float
             mean that balances positive and negative values
     '''
-    def metrics_calculation(self, y_test:pd.Series, predictions:list):
+    def __metrics_calculation(self, y_test:pd.Series, predictions:list):
 
         # Initialize the variables that will contain the values of the calculated metrics
         Accuracy_rate = 0
@@ -234,6 +235,7 @@ class Evaluation:
 
     '''
     In this method, the calculated metrics are saved in a txt file.
+        Private method that is called by the holdout_validation and random_subsampling_validation methods.
         The name of the file will be: "Metrics.txt"
 
         Parameters
@@ -253,7 +255,7 @@ class Evaluation:
         -------
         None
     '''
-    def save_metrics(self, Accuracy_rate:float, Error_rate:float, Sensitivity:float, Specificity:float, Geometric_mean:float):
+    def __save_metrics(self, Accuracy_rate:float, Error_rate:float, Sensitivity:float, Specificity:float, Geometric_mean:float):
         # With the following operations, open the Metrics.txt file and write the calculated metrics into it
         with open('Metrics.txt', 'w') as file:
             file.write('Accuracy Rate: ' + str(Accuracy_rate) + '\n')
@@ -267,6 +269,7 @@ class Evaluation:
 
     '''
     In this method, the metrics for each experiment are plotted and the metrics are represented with a boxplot.
+        Private method that is called by the random_subsampling_validation method.
         The representation is done using the matplotlib library.
 
         Parameters
@@ -286,7 +289,7 @@ class Evaluation:
         -------
         None
     '''
-    def metrics_plot(self, Accuracy_rate:list, Error_rate:list, Sensitivity:list, Specificity:list, Geometric_mean:list):
+    def __metrics_plot(self, Accuracy_rate:list, Error_rate:list, Sensitivity:list, Specificity:list, Geometric_mean:list):
         labels = ['Accuracy Rate', 'Error Rate', 'Sensitivity', 'Specificity', 'Geometric Mean'] # Vector used to represent the labels of the graph
         values = [Accuracy_rate, Error_rate, Sensitivity, Specificity, Geometric_mean] # Vector used to represent the values of the graph corresponding to the labels
 
