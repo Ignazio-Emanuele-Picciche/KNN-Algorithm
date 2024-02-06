@@ -9,7 +9,7 @@ In this file, we will explain the inputs required by the program and the outputs
 - [Return to README](../README.md)
 
 
-## 1. Inputs required by the program
+### 1. Inputs required by the program
 The inputs required by the application are as follows:
 1. The path of the dataset file.
 2. Choice of evaluation method (Holdout or Random Subsampling)
@@ -23,7 +23,7 @@ The inputs required by the application are as follows:
 
 [Quickly return to the top](#inputs--outputs-program)
 
-## 2. Program outputs
+### 2. Program outputs
 Once all the required inputs have been entered, there are two options for data displayed.
 
 If you choose the Holdout validation method, the calculated metrics for the single experiment will be written in the Metrics.txt file

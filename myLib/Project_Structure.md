@@ -9,7 +9,7 @@ In this section, we will discuss the project structure of the application. The p
 - [Return to README](../README.md)
 
 
-## 1. Flow Chart
+### 1. Flow Chart
 The following diagram illustrates the flow of the application.
 It provides a high-level overview of the application's architecture and the interaction between different components.
 
@@ -17,28 +17,28 @@ It provides a high-level overview of the application's architecture and the inte
 
 [Quickly return to the top](#project-structure)
 
-## 2. Class Structure
+### 2. Class Structure
 The application is organized into several classes, each of which is responsible for a specific task. The following is the class structure of the application:
 
-> Input and preoprocessing classes
+> Input and preoprocessing classes:
 ><p>
 ><img src='https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/5af95837-6f12-4bb3-8e12-599d4bc351ce', width="200" >
 ><img src='https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/513880e3-03b4-4e41-83d7-c3ec73cdfd56', width="250" >
 ></p>
 
->Evaluation:
+>Evaluation class:
 ><p>
 ><img src='https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/8e450ad0-3f5d-45b9-b905-a561916df7fb', width="700">
 ></p>
 
-> KNNAlgorithm:
+> KNNAlgorithm class:
 ><p>
 ><img src='https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/5d093415-108a-4b97-ab54-743831ddb603', width="500">
 ></p>
 
 [Quickly return to the top](#project-structure)
 
-## 3. Branching Strategy
+### 3. Branching Strategy
 We have adopted the Gitflow branching strategy for managing the source code. It is a robust branching model that provides a clear path for creating new features and fixing bugs. The Gitflow model consists of two main branches: main and develop. The main branch contains the production-ready code, while the develop branch contains the latest code that is ready for release. Additionally, it uses feature, and hotfix branches to manage new features and bug fixes, respectively.
 
 In particular, the Gitflow model consists of the following branches:

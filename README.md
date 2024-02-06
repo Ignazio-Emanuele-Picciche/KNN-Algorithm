@@ -4,12 +4,12 @@
 1. [Project Description](#1-general-description-of-the-project)
     - [Project Structure](./myLib/Project_Structure.md)
 2. [Classes](#2-description-of-implemented-classes)
-    - [Classes_Description](./myLib/Classes_Description.md)
+    - [Classes Description](./myLib/Classes_Description.md)
 3. [Configure the environment](#3-configure-the-environment)
 4. [Inputs & Outputs Program](./myLib/Inputs_%26_Outputs_Program.md)
 
 
-## 1. General description of the project
+### 1. General description of the project
 
 This project, made by Alessia Rossi, Ignazio Emanuele Piccichè and Riccardo Polacchi, 
 has the purpose to develop a program which takes a dataset with informations and characteristics of some tumoral cells
@@ -33,7 +33,7 @@ it is a .csv file which contains the following data for every single cell:
 
 - The class label, wich value is 2 if there is a benign tumor, and 4 it there is a malignant tumor.
 
-###  K-Nearest Neighbors Algorithm
+####  K-Nearest Neighbors Algorithm
 *The K-nearest neighbor (KNN) algorithm* is a classification technique that operates by evaluating the characteristics of objects close to the one under examination. In practice, KNN classifies an object based on its similarity to other known objects in the dataset. This is done by calculating the distance between the features of the object to be classified and those of the objects already present in the system. By using the "k" nearest objects, the algorithm determines the class of the object under examination.
 
 To identify the nearest neighbors of a query point, KNN calculates the distance between the query point and the other data points in the dataset. Among the various distance measures available, the Euclidean distance (p=2) is often the most common choice, as it calculates a straight line between the query point and the other points.
@@ -42,7 +42,7 @@ To identify the nearest neighbors of a query point, KNN calculates the distance 
 
 [Quickly return to the top](#knn-algorithm---programming-and-experimental-methods-for-artificial-intelligence-2324)
 
-## 2. Description of Implemented Classes
+### 2. Description of Implemented Classes
 
 - [Main](./myLib/Classes_Description.md#1-main)
 - [Input](./myLib/Classes_Description.md#2-input)
@@ -52,7 +52,7 @@ To identify the nearest neighbors of a query point, KNN calculates the distance 
 
 [Quickly return to the top](#knn-algorithm---programming-and-experimental-methods-for-artificial-intelligence-2324)
 
-## 3. Configure the environment
+### 3. Configure the environment
 Before running the code, there are some precautions to take.
 1. Create your own virtual environment from the terminal, by typing the command:
     - `python -m venv venv`
