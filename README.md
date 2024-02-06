@@ -209,8 +209,8 @@ In addition, two graphs will be displayed, one representing the trend of the cal
 
 _Example of a graph of the metrics displayed_
 <p float="left">
-  <img src="https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/e7c766c2-1239-4f0c-94de-36322a8146ae" width="500" />
-  <img src="https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/e9cdad10-6c63-4794-9ddf-d577ff557070" width="500" />
+  <img src="https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/95869d8d-832f-4577-8ebb-75de6df093b0" width="500" />
+  <img src="https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/9c97b52e-a8e9-4ea7-9f65-80896b6fbf26" width="500" />
 </p>
 
 [Quickly return to the top](#knn-algorithm---programming-and-experimental-methods-for-artificial-intelligence-2324)
