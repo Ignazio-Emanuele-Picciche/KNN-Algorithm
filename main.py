@@ -20,8 +20,8 @@ if __name__ == '__main__':
     K = user_input.K
 
     # Ask the user for the percentage of data to use for training and the number of neighbors to consider
-    perc_train = input_utente.training_percentage()
-    k = input_utente.k_neighbors()
+    training_perc = user_input.training_percentage()
+    k = user_input.k_neighbors()
 
     # Load, clean, and standardize the dataset
     preprocessing.loading_dataset()
