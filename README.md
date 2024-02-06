@@ -22,7 +22,7 @@ all of them utilized in the Main of the program.
 The user can decide the value of the inputs and the type of evaluation and metrics (for further information read the [section](#inputs-required-by-the-program) 
 with the instructions for the user).
 The dataset utilized is taken from [here](http://archive.ics.uci.edu/dataset/15/breast+cancer+wisconsin+original),
-it is a .csv file wich contains the following data for every single cell:
+it is a .csv file which contains the following data for every single cell:
 
 - A sample code number. 
 
@@ -127,9 +127,9 @@ If not, the program will ask again the user to insert the input, until it is an 
 
 The purpose of this class is to preprocess the data given from the dataset. What the class do is:
 
-- Importing the dataset: the class will import the csv file of the dataset for the preprocessing
+- Importing the dataset: the class will import the csv file of the dataset for the preprocessing. The program asks the user to enter the path of the file.
 
-- Data clealing: if there is a line with missing values, that line is eliminated.
+- Data cleaning: if there is a line with missing values, that line is eliminated.
 
 - Feature scaling (standardization): for the feature scaling, the choice was between the normalization and
 the standardization. After some researches, the choice taken was for the standardization, also because
@@ -209,8 +209,8 @@ In addition, two graphs will be displayed, one representing the trend of the cal
 
 _Example of a graph of the metrics displayed_
 <p float="left">
-  <img src="https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/e7c766c2-1239-4f0c-94de-36322a8146ae" width="500" />
-  <img src="https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/e9cdad10-6c63-4794-9ddf-d577ff557070" width="500" />
+  <img src="https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/95869d8d-832f-4577-8ebb-75de6df093b0" width="500" />
+  <img src="https://github.com/Ignazio-Emanuele-Picciche/ProgettoProgrammazioneAA23-24/assets/82161529/9c97b52e-a8e9-4ea7-9f65-80896b6fbf26" width="500" />
 </p>
 
 [Quickly return to the top](#knn-algorithm---programming-and-experimental-methods-for-artificial-intelligence-2324)
