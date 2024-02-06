@@ -2,6 +2,7 @@
 
 ## Index
 1. [Project Description](#1-general-description-of-the-project)
+    - [Project Structure](./myLib/ProjectStructure.md)
 2. [Classes](#2-description-of-implemented-classes)
 3. [Configure the environment](#3-configure-the-environment)
 4. [Inputs Requires](#4-inputs-required-by-the-program)
