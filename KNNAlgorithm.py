@@ -44,7 +44,7 @@ class KNNAlgorithm:
                 # Calculation of the Euclidean distance between the x_test point and the x_train points
                 dist = self.__calculate_euclidean_distance(train_point, test_point)  # Euclidean_distance_calculation method
                 # We add to the distances list the pair distance, class of belonging
-                distances.append(((dist),self.y_train[index]))
+                distances.append((dist, self.y_train[index]))
 
             # We sort the distances in ascending order
             distances= sorted(distances, key=itemgetter(0), reverse=False)
