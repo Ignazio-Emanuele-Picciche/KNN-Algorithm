@@ -57,8 +57,9 @@ class Preprocessing():
         except FileNotFoundError:   # if the file is not found
             print("File not found")   # the program says "File not found"
             sys.exit(1)   # and stops
-
-
+        except IOError:   # if the file cannot be opened
+            print("File cannot be opened")   # the program says "File cannot be opened"
+            sys.exit(1)   # and stops
 
     def data_cleaning(self):
         '''
