@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 '''
+@Author: Riccardo Polacchi
+
 - Definition of the methods of the Input class:
     - constructor
     - k_neighbors -> Asks the user to enter the number of neighbors k to use for the classifier

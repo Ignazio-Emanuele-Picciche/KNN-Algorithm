@@ -3,6 +3,8 @@
 
 
 '''
+@Author: Riccardo Polacchi
+
 - Definition of the methods of the Preprocessing class:
     - constructor
     - loading_dataset -> Loads the dataset from the csv file
